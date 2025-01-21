@@ -1,0 +1,35 @@
+[tool.ruff]
+line-length = 90
+
+lint.select = [
+  # Builtins
+  "A",
+  # Bugbear
+  "B",
+  # comprehensions
+  "C4",
+  # Pycodestyle
+  "E",
+  # eradicate
+  "ERA",
+  # Pyflakes
+  "F",
+  # isort
+  "I",
+  # pandas-vet
+  "PD",
+  # return
+  "RET",
+  # Bandit
+  "S",
+  # print
+  "T20",
+  "W",
+  # flake8-2020
+  "YTT",
+]
+
+lint.extend-ignore = [
+  "ERA001",  # Found commented-out code.
+  "T201",  # Allow use of `assert`.
+]

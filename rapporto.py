@@ -10,17 +10,17 @@
 #     "requests-cache",
 # ]
 # ///
-import urllib.parse
-from enum import Enum
-
-import click
-from pathlib import Path
-import requests_cache
 import dataclasses
 import typing as t
+import urllib.parse
+from enum import Enum
 from operator import attrgetter
+from pathlib import Path
 from textwrap import dedent
-from dataclasses_json import dataclass_json, Undefined, CatchAll
+
+import click
+import requests_cache
+from dataclasses_json import CatchAll, Undefined, dataclass_json
 
 
 @dataclasses.dataclass
@@ -41,7 +41,6 @@ class QKind(Enum):
 
 
 class GitHubQueryBuilder:
-
     template_api = "https://api.github.com/search/issues?q={query}&per_page=100&sort=created&order=asc"
     template_html = "https://github.com/search?q={query}&per_page=100&s=created&o=asc"
 
@@ -52,7 +51,10 @@ class GitHubQueryBuilder:
 
     @property
     def query(self):
-        return f"org:{self.inquiry.organization} author:{self.inquiry.author} created:{self.inquiry.created}"
+        return (
+            f"org:{self.inquiry.organization} "
+            f"author:{self.inquiry.author} created:{self.inquiry.created}"
+        )
 
     @property
     def query_issues(self):
@@ -90,14 +92,15 @@ class GitHubQueryBuilder:
         elif self.kind == QKind.PULLREQUEST:
             query = self.query_pulls
         else:
-            raise NotImplementedError("Unknown kind: Only ISSUE and PULLREQUEST are supported")
+            raise NotImplementedError(
+                "Unknown kind: Only ISSUE and PULLREQUEST are supported"
+            )
         return template.format(query=urllib.parse.quote(query))
 
 
 @dataclass_json(undefined=Undefined.INCLUDE)
 @dataclasses.dataclass
 class PullRequestMetadata:
-
     # Original fields from GitHub API.
     number: str
     url: str
@@ -117,21 +120,21 @@ class PullRequestMetadata:
 
     # This dictionary includes all the remaining fields.
     more: t.Optional[CatchAll] = None
-    
+
     def __post_init__(self):
         self.code_size = self.additions - self.deletions
         self.comments_total = self.comments + self.review_comments
         self.repo_name = self.more["base"]["repo"]["name"]
-    
+
     def format_item(self):
         # Generic info (for debugging)
-        # return f"files: {self.changed_files}, size: {self.code_size}, comments: {self.comments_total}"
+        # return (f"files: {self.changed_files}, "
+        #        f"size: {self.code_size}, comments: {self.comments_total}")
         # Repo: PR+link
         return f"  - {self.repo_name}: [{self.title}]({self.html_url})"
 
 
 class GitHubReport:
-
     def __init__(self, inquiry: Inquiry):
         self.inquiry = inquiry
         self.session = requests_cache.CachedSession(backend="sqlite")
@@ -158,7 +161,7 @@ class GitHubReport:
         for item in items:
             url = urllib.parse.urlparse(item["repository_url"])
             names.append(Path(url.path).name)
-        return list(sorted(set(names)))
+        return sorted(set(names))
 
     def pull_requests(self):
         items = []
@@ -186,13 +189,17 @@ class GitHubReport:
         items = []
 
         by_size_sort_attributes = ["code_size", "changed_files", "comments_total"]
-        by_size_items = list(sorted(prs, key=attrgetter(*by_size_sort_attributes), reverse=True))
+        by_size_items = sorted(
+            prs, key=attrgetter(*by_size_sort_attributes), reverse=True
+        )
         items += by_size_items[:items_max]
 
         by_comments_sort_attributes = ["comments_total", "changed_files", "code_size"]
-        by_comments_items = list(sorted(prs, key=attrgetter(*by_comments_sort_attributes), reverse=True))
+        by_comments_items = sorted(
+            prs, key=attrgetter(*by_comments_sort_attributes), reverse=True
+        )
         # TODO: Need to deduplicate manually.
-        #items += by_comments_items[:items_max]
+        # items += by_comments_items[:items_max]
         for item in by_comments_items[:items_max]:
             if item not in items:
                 items.append(item)
@@ -203,7 +210,7 @@ class GitHubReport:
     def markdown_overview(self):
         link_issues = f"[Issues]({self.url_issues_html})"
         link_pulls = f"[Pull requests]({self.url_pulls_html})"
-        buffer = dedent(f"""
+        return dedent(f"""
         *Progress:*
           - About: Bugfixes, Documentation, Guidance, Planning, Support
           - Activity: {", ".join(self.repository_names)}
@@ -211,7 +218,6 @@ class GitHubReport:
         *Plans:* Dito.
         *Problems:* n/a
         """).strip()
-        return buffer
 
     @property
     def markdown_significant(self):
@@ -219,7 +225,10 @@ class GitHubReport:
         return "\n".join(items)
 
     def format_pr(item: PullRequestMetadata):
-        return f"comments: {item.comments_total}, files: {item.changed_files}, size: {item.code_size}"
+        return (
+            f"comments: {item.comments_total}, "
+            f"files: {item.changed_files}, size: {item.code_size}"
+        )
 
     def print(self):
         print(f"# PPP report for {self.inquiry.created}")
