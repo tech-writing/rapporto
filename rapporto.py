@@ -84,7 +84,7 @@ class GitHubQueryBuilder:
         if self.type == QType.API:
             template = self.template_api
         elif self.type == QType.HTML:
-            template = self.template_api
+            template = self.template_html
         else:
             raise NotImplementedError("Unknown type: Only API and HTML are supported")
         if self.kind == QKind.ISSUE:
