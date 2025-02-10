@@ -7,10 +7,12 @@
 # dependencies = [
 #     "click",
 #     "dataclasses-json",
+#     "python-dateutil",
 #     "requests-cache",
 # ]
 # ///
 import dataclasses
+import datetime as dt
 import typing as t
 import urllib.parse
 from enum import Enum
@@ -51,10 +53,29 @@ class GitHubQueryBuilder:
 
     @property
     def query(self):
+        timerange = self.inquiry.created
+        if "W" in timerange:
+            p_year, p_week = timerange.split("W")
+            timerange = self.date_range_str(*self.date_range_from_week(p_year, p_week))
         return (
             f"org:{self.inquiry.organization} "
-            f"author:{self.inquiry.author} created:{self.inquiry.created}"
+            f"author:{self.inquiry.author} created:{timerange}"
         )
+
+    @staticmethod
+    def date_range_from_week(p_year, p_week):
+        """
+        http://mvsourcecode.com/python-how-to-get-date-range-from-week-number-mvsourcecode/
+        """
+        firstdayofweek = dt.datetime.strptime(
+            f"{p_year}-W{int(p_week) - 1}-1", "%Y-W%W-%w"
+        ).date()
+        lastdayofweek = firstdayofweek + dt.timedelta(days=6.9)
+        return firstdayofweek, lastdayofweek
+
+    @staticmethod
+    def date_range_str(start: dt.datetime, end: dt.datetime):
+        return f"{start.isoformat()}..{end.isoformat()}"
 
     @property
     def query_issues(self):
@@ -232,7 +253,7 @@ class GitHubReport:
 
     def print(self):
         print(f"# PPP report for {self.inquiry.created}")
-        print("## Overview")
+        # print("## Overview")
         print(self.markdown_overview)
         print()
         print("*Top changes:*")
