@@ -7,6 +7,7 @@
 #     "click",
 #     "dataclasses-json",
 #     "munch",
+#     "pueblo",
 #     "python-dateutil",
 #     "requests-cache",
 #     "tqdm",
@@ -14,6 +15,7 @@
 # ///
 import dataclasses
 import datetime as dt
+import logging
 import os
 import typing as t
 import urllib.parse
@@ -26,7 +28,10 @@ import click
 import requests_cache
 from dataclasses_json import CatchAll, Undefined, dataclass_json
 from munch import munchify
+from pueblo import setup_logging
 from tqdm import tqdm
+
+logger = logging.getLogger(__name__)
 
 
 class HttpClient:
@@ -314,7 +319,7 @@ class GitHubActionsCheck:
             desc=f"Fetching GitHub Actions outcomes for: {filter}",
         ):
             url = f"https://api.github.com/repos/{repository}/actions/runs?{filter.query}"
-            # click.echo(f"Using API URL: {url}", file=sys.stderr)
+            logger.debug(f"Using API URL: {url}")
             response = self.session.get(url)
             if response.status_code == 404:
                 continue
@@ -404,4 +409,5 @@ def main():
 
 
 if __name__ == "__main__":
+    setup_logging()
     main()
