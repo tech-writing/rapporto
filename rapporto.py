@@ -307,19 +307,27 @@ class ActionsOutcome:
 
 
 class GitHubActionsCheck:
+    DELTA_HOURS = 24
+
     def __init__(self, inquiry: ActionsInquiry):
         self.inquiry = inquiry
         self.session = HttpClient.session
 
     @property
     def yesterday(self) -> str:
-        return dt.datetime.strftime(dt.date.today() - dt.timedelta(days=1), "%Y-%m-%dT%H")
+        """
+        Compute the start timestamp in ISO format.
+        Truncate the ISO format after the hour, to permit caching.
+        """
+        return dt.datetime.strftime(
+            dt.datetime.now() - dt.timedelta(hours=self.DELTA_HOURS), "%Y-%m-%dT%H"
+        )
 
     def fetch(self, filter: ActionsFilter) -> t.List[ActionsOutcome]:  # noqa:A002
         outcomes = []
         for repository in tqdm(
             self.inquiry.repositories,
-            desc=f"Fetching GitHub Actions outcomes for: {filter}",
+            desc=f"Fetching failed GitHub Actions outcomes for event={filter.event}",
         ):
             url = f"https://api.github.com/repos/{repository}/actions/runs?{filter.query}"
             logger.debug(f"Using API URL: {url}")
@@ -358,13 +366,18 @@ class GitHubActionsCheck:
             ActionsFilter(event="dynamic", status="failure", created=f">{self.yesterday}")
         )
         return dedent(f"""
-# CrateDB QA
-## Drivers & Integrations » Build Status » Scheduled
-{items_scheduled}
-## Drivers & Integrations » Build Status » Pull requests
-{items_pull_requests}
-## Drivers & Integrations » Build Status » Dynamic
-{items_dynamic}
+# QA report {dt.datetime.today().strftime("%Y-%m-%d")}
+A report about GitHub Actions workflow runs
+that failed recently (now-{self.DELTA_HOURS}h).
+
+## Scheduled
+{items_scheduled or "n/a"}
+
+## Pull requests
+{items_pull_requests or "n/a"}
+
+## Dynamic
+{items_dynamic or "n/a"}
         """)
 
     def print(self):

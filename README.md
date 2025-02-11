@@ -15,13 +15,18 @@ please provide a valid GitHub token. This one is invalid.
 export GITHUB_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
 ```
 
+### PPP reports
+Report about activities of individual authors.
+```shell
 uv run rapporto.py ppp --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
 uv run rapporto.py ppp --organization=python --author=AA-Turner --timerange="2025W04"
 ```
 
+### QA/CI reports
+Report about activities of GitHub Actions workflow runs.
 ```shell
-python rapporto.py qa --repository=acme/acme-examples
-python rapporto.py qa --repositories-file=acme-repositories.txt
+uv run rapporto.py qa --repository=acme/acme-examples
+uv run rapporto.py qa --repositories-file=acme-repositories.txt
 ```
 
 
