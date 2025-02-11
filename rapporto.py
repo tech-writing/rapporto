@@ -36,7 +36,10 @@ logger = logging.getLogger(__name__)
 
 class HttpClient:
     session = requests_cache.CachedSession(backend="sqlite", expire_after=3600)
-    session.headers.update({"Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}"})
+    if "GITHUB_TOKEN" in os.environ:
+        session.headers.update({"Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}"})
+    else:
+        logger.warning("GITHUB_TOKEN not set. This will exhaust the rate limit quickly.")
 
 
 @dataclasses.dataclass
