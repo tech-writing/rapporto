@@ -1,4 +1,3 @@
-#
 # PPP report support program.
 # https://github.com/tech-writing/rapporto
 #
@@ -7,12 +6,15 @@
 # dependencies = [
 #     "click",
 #     "dataclasses-json",
+#     "munch",
 #     "python-dateutil",
 #     "requests-cache",
+#     "tqdm",
 # ]
 # ///
 import dataclasses
 import datetime as dt
+import os
 import typing as t
 import urllib.parse
 from enum import Enum
@@ -23,6 +25,13 @@ from textwrap import dedent
 import click
 import requests_cache
 from dataclasses_json import CatchAll, Undefined, dataclass_json
+from munch import munchify
+from tqdm import tqdm
+
+
+class HttpClient:
+    session = requests_cache.CachedSession(backend="sqlite", expire_after=3600)
+    session.headers.update({"Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}"})
 
 
 @dataclasses.dataclass
@@ -158,7 +167,7 @@ class PullRequestMetadata:
 class GitHubReport:
     def __init__(self, inquiry: Inquiry):
         self.inquiry = inquiry
-        self.session = requests_cache.CachedSession(backend="sqlite")
+        self.session = HttpClient.session
 
         address = GitHubQueryBuilder(inquiry=inquiry)
         self.url_issues_api = address.issue().api().url()
@@ -260,13 +269,133 @@ class GitHubReport:
         print(self.markdown_significant)
 
 
-@click.command()
+@dataclasses.dataclass
+class ActionsInquiry:
+    repositories: t.List[str]
+
+
+@dataclasses.dataclass
+class ActionsFilter:
+    event: str
+    status: str
+    created: str
+
+    @property
+    def query(self) -> str:
+        return f"event={self.event}&status={self.status}&created={self.created}"
+
+
+@dataclasses.dataclass
+class ActionsOutcome:
+    status: str
+    repository: str
+    name: str
+    url: str
+    started: str
+
+    @property
+    def markdown(self):
+        return f"- [{self.repository}: {self.name}]({self.url})"
+
+
+class GitHubActionsCheck:
+    def __init__(self, inquiry: ActionsInquiry):
+        self.inquiry = inquiry
+        self.session = HttpClient.session
+
+    @property
+    def yesterday(self) -> str:
+        return dt.datetime.strftime(dt.date.today() - dt.timedelta(days=1), "%Y-%m-%dT%H")
+
+    def fetch(self, filter: ActionsFilter) -> t.List[ActionsOutcome]:  # noqa:A002
+        outcomes = []
+        for repository in tqdm(
+            self.inquiry.repositories,
+            desc=f"Fetching GitHub Actions outcomes for: {filter}",
+        ):
+            url = f"https://api.github.com/repos/{repository}/actions/runs?{filter.query}"
+            # click.echo(f"Using API URL: {url}", file=sys.stderr)
+            response = self.session.get(url)
+            if response.status_code == 404:
+                continue
+            response.raise_for_status()
+            runs = munchify(response.json()).workflow_runs
+            for run in runs:
+                outcome = ActionsOutcome(
+                    status=run.status,
+                    repository=repository,
+                    name=run.display_title,
+                    url=run.html_url,
+                    started=run.run_started_at,
+                )
+                outcomes.append(outcome)
+        return outcomes
+
+    def to_markdown(self, filter: ActionsFilter) -> str:  # noqa:A002
+        return "\n".join([item.markdown for item in self.fetch(filter=filter)])
+
+    @property
+    def markdown(self):
+        items_scheduled = self.to_markdown(
+            ActionsFilter(
+                event="schedule", status="failure", created=f">{self.yesterday}"
+            )
+        )
+        items_pull_requests = self.to_markdown(
+            ActionsFilter(
+                event="pull_request", status="failure", created=f">{self.yesterday}"
+            )
+        )
+        items_dynamic = self.to_markdown(
+            ActionsFilter(event="dynamic", status="failure", created=f">{self.yesterday}")
+        )
+        return dedent(f"""
+# CrateDB QA
+## Drivers & Integrations » Build Status » Scheduled
+{items_scheduled}
+## Drivers & Integrations » Build Status » Pull requests
+{items_pull_requests}
+## Drivers & Integrations » Build Status » Dynamic
+{items_dynamic}
+        """)
+
+    def print(self):
+        print(self.markdown)
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
 @click.option("--organization", type=str, required=True)
 @click.option("--author", type=str, required=True)
 @click.option("--timerange", type=str, required=True)
-def cli(organization: str, author: str, timerange: str):
+def ppp(organization: str, author: str, timerange: str):
+    """
+    Generate PPP report.
+    """
     inquiry = Inquiry(organization=organization, author=author, created=timerange)
     report = GitHubReport(inquiry=inquiry)
+    report.print()
+
+
+@cli.command()
+@click.option("--repository", type=str, required=False)
+@click.option("--repositories-file", type=Path, required=False)
+def qa(repository: str, repositories_file: Path = None):
+    """
+    Generate QA report.
+    """
+    if repository:
+        inquiry = ActionsInquiry(repositories=[repository])
+    elif repositories_file:
+        inquiry = ActionsInquiry(repositories=repositories_file.read_text().splitlines())
+    else:
+        click.echo("Please specify --repository or --repositories-file.", err=True)
+        raise SystemExit(1)
+    report = GitHubActionsCheck(inquiry=inquiry)
     report.print()
 
 
