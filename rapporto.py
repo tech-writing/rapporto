@@ -34,6 +34,10 @@ from tqdm import tqdm
 logger = logging.getLogger(__name__)
 
 
+def sanitize_title(title: str) -> str:
+    return title.replace("[", "").replace("]", "")
+
+
 class HttpClient:
     session = requests_cache.CachedSession(backend="sqlite", expire_after=3600)
     if "GITHUB_TOKEN" in os.environ:
@@ -169,7 +173,7 @@ class PullRequestMetadata:
         # return (f"files: {self.changed_files}, "
         #        f"size: {self.code_size}, comments: {self.comments_total}")
         # Repo: PR+link
-        return f"  - {self.repo_name}: [{self.title}]({self.html_url})"
+        return f"  - {self.repo_name}: [{sanitize_title(self.title)}]({self.html_url})"
 
 
 class GitHubReport:
@@ -303,7 +307,8 @@ class ActionsOutcome:
 
     @property
     def markdown(self):
-        return f"- [{self.repository}: {self.name}]({self.url})"
+        title = sanitize_title(f"{self.repository}: {self.name}")
+        return f"- [{title}]({self.url})"
 
 
 class GitHubActionsCheck:
