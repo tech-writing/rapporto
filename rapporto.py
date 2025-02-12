@@ -372,8 +372,7 @@ class GitHubActionsCheck:
         )
         return dedent(f"""
 # QA report {dt.datetime.today().strftime("%Y-%m-%d")}
-A report about GitHub Actions workflow runs
-that failed recently (now-{self.DELTA_HOURS}h).
+A report about GitHub Actions workflow runs that failed recently (now-{self.DELTA_HOURS}h).
 
 ## Scheduled
 {items_scheduled or "n/a"}
@@ -383,7 +382,7 @@ that failed recently (now-{self.DELTA_HOURS}h).
 
 ## Dynamic
 {items_dynamic or "n/a"}
-        """)
+        """)  # noqa: E501
 
     def print(self):
         print(self.markdown)
