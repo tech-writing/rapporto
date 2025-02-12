@@ -2,11 +2,12 @@
 
 A program for harvesting information from GitHub.
 
-## Usage
+## Setup
 
-Acquire the program from GitHub.
+Soft-install the program from GitHub.
 ```shell
-wget https://github.com/tech-writing/rapporto/raw/refs/heads/main/rapporto.py
+brew install uv
+rapporto() { uv run https://github.com/tech-writing/rapporto/raw/refs/heads/main/rapporto.py -- "$@"; }
 ```
 
 For not exhausting the API rate limit too quickly,
@@ -15,18 +16,20 @@ please provide a valid GitHub token. This one is invalid.
 export GITHUB_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
 ```
 
+## Usage
+
 ### PPP reports
 Report about activities of individual authors.
 ```shell
-uv run rapporto.py ppp --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
-uv run rapporto.py ppp --organization=python --author=AA-Turner --timerange="2025W04"
+rapporto ppp --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
+rapporto ppp --organization=python --author=AA-Turner --timerange="2025W04"
 ```
 
 ### QA/CI reports
 Report about activities of GitHub Actions workflow runs.
 ```shell
-uv run rapporto.py qa --repository=acme/acme-examples
-uv run rapporto.py qa --repositories-file=acme-repositories.txt
+rapporto qa --repository=acme/acme-examples
+rapporto qa --repositories-file=acme-repositories.txt
 ```
 
 
