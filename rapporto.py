@@ -40,10 +40,10 @@ def sanitize_title(title: str) -> str:
 
 class HttpClient:
     session = requests_cache.CachedSession(backend="sqlite", expire_after=3600)
-    if "GITHUB_TOKEN" in os.environ:
-        session.headers.update({"Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}"})
+    if "GH_TOKEN" in os.environ:
+        session.headers.update({"Authorization": f"Bearer {os.getenv('GH_TOKEN')}"})
     else:
-        logger.warning("GITHUB_TOKEN not set. This will exhaust the rate limit quickly.")
+        logger.warning("GH_TOKEN not defined. This will exhaust the rate limit quickly.")
 
 
 @dataclasses.dataclass

@@ -13,7 +13,7 @@ rapporto() { uv run https://github.com/tech-writing/rapporto/raw/refs/heads/main
 For not exhausting the API rate limit too quickly,
 please provide a valid GitHub token. This one is invalid.
 ```shell
-export GITHUB_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
+export GH_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
 ```
 
 ## Usage

@@ -1,5 +1,11 @@
 # Change log
 
+## In progress
+- Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,
+  see [Authenticate to GitHub in GitHub Actions].
+
+[Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
+
 ## v0.0.2, 2025-02-17
 - Fixed link templating API vs. HTML
 - Feature: Accept year-of-week time range format like `2025W06`
