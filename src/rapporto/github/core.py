@@ -11,7 +11,7 @@ import requests_cache
 from munch import munchify
 from tqdm import tqdm
 
-from rapporto.model import (
+from rapporto.github.model import (
     ActionsFilter,
     ActionsInquiry,
     ActionsOutcome,

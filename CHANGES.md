@@ -5,6 +5,8 @@
   see [Authenticate to GitHub in GitHub Actions].
 - Refactored codebase to become a real Python package
 - CI: Added GHA workflow invoking `poe check`, and Dependabot configuration
+- Refactored current adapter code into `rapporto.github`, to accompany
+  including other adapters
 
 [Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
 
