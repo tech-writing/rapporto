@@ -1,5 +1,130 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+  "setuptools>=42", # At least v42 of setuptools required.
+  "versioningit",
+]
+
+[project]
+name = "rapporto"
+description = "A program for harvesting information from GitHub."
+readme = "README.md"
+keywords = [
+  "activity report",
+  "aggregation",
+  "conversion",
+  "convert",
+  "github",
+  "github actions",
+  "github activity",
+  "github api",
+  "information management",
+  "markdown",
+  "qa",
+  "qa-bot",
+  "quality assurance",
+  "report",
+  "reporting",
+  "summary",
+  "tool",
+  "transform",
+  "utility",
+]
+license = { text = "LGPL 3, EUPL 1.2" }
+authors = [
+  { name = "Andreas Motl", email = "andreas.motl@panodata.org" },
+]
+requires-python = ">=3.8"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Plugins",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Education",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: Manufacturing",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: System Administrators",
+  "Intended Audience :: Telecommunications Industry",
+  "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)",
+  "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+  "Operating System :: OS Independent",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Unix",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Programming Language :: SQL",
+  "Topic :: Adaptive Technologies",
+  "Topic :: Communications",
+  "Topic :: Database",
+  "Topic :: Documentation",
+  "Topic :: Education",
+  "Topic :: Internet",
+  "Topic :: Office/Business",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Topic :: Scientific/Engineering :: Interface Engine/Protocol Translator",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Pre-processors",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Version Control",
+  "Topic :: System :: Archiving",
+  "Topic :: System :: Benchmark",
+  "Topic :: System :: Clustering",
+  "Topic :: System :: Distributed Computing",
+  "Topic :: System :: Logging",
+  "Topic :: System :: Monitoring",
+  "Topic :: System :: Networking",
+  "Topic :: System :: Systems Administration",
+  "Topic :: Text Processing",
+  "Topic :: Utilities",
+]
+dynamic = [
+  "version",
+]
+dependencies = [
+  "click",
+  "dataclasses-json",
+  "importlib-metadata; python_version<'3.8'",
+  "munch",
+  "pueblo",
+  "python-dateutil",
+  "requests-cache",
+  "tqdm",
+]
+optional-dependencies.develop = [
+  "mypy<1.16",
+  "poethepoet<1",
+  "pyproject-fmt<3",
+  "ruff<0.10",
+  "validate-pyproject<1",
+]
+optional-dependencies.release = [
+  "build<2",
+  "twine<6",
+]
+optional-dependencies.test = [
+  "pytest<9",
+  "pytest-cov<7",
+]
+
+urls.Issues = "https://github.com/panodata/tikray/issues"
+urls.Repository = "https://github.com/panodata/tikray"
+
+scripts.rapporto = "rapporto.cli:cli"
+
 [tool.ruff]
-line-length = 90
+line-length = 100
+
+extend-exclude = [
+]
 
 lint.select = [
   # Builtins
@@ -30,6 +155,101 @@ lint.select = [
 ]
 
 lint.extend-ignore = [
-  "ERA001",  # Found commented-out code.
-  "T201",  # Allow use of `assert`.
+  # zip() without an explicit strict= parameter
+  "B905",
+  "ERA001", # Found commented-out code.
+  # df is a bad variable name. Be kinder to your future self.
+  "PD901",
+  # Unnecessary variable assignment before `return` statement
+  "RET504",
+  # Unnecessary `elif` after `return` statement
+  "RET505",
+  # Probable insecure usage of temporary file or directory
+  "S108",
+  "T201", # Allow use of `assert`.
+]
+lint.per-file-ignores."tests/*" = [
+  "S101", # Allow use of `assert`.
+]
+
+[tool.pytest.ini_options]
+addopts = """
+  -rfEXs -p pytester --strict-markers --verbosity=3
+  --cov --cov-report=term-missing --cov-report=xml
+  """
+minversion = "2.0"
+log_level = "DEBUG"
+log_cli_level = "DEBUG"
+log_format = "%(asctime)-15s [%(name)-36s] %(levelname)-8s: %(message)s"
+pythonpath = [
+  "src",
+]
+testpaths = [
+  "tests",
+]
+xfail_strict = true
+markers = [
+]
+
+[tool.coverage.run]
+branch = false
+omit = [
+  "tests/*",
+]
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+
+[tool.mypy]
+mypy_path = "src"
+packages = [
+  "rapporto",
+]
+check_untyped_defs = true
+explicit_package_bases = true
+ignore_missing_imports = true
+implicit_optional = true
+install_types = true
+namespace_packages = true
+non_interactive = true
+
+[tool.versioningit.vcs]
+method = "git-archive"
+default-tag = "0.0.0"
+describe-subst = "$Format:%(describe:match=v*)$"
+
+# ===================
+# Tasks configuration
+# ===================
+
+[tool.poe.tasks]
+
+check = [
+  "lint",
+  "test",
+]
+
+format = [
+  { cmd = "ruff format ." },
+  # Configure Ruff not to auto-fix (remove!):
+  # unused imports (F401), unused variables (F841), `print` statements (T201), and commented-out code (ERA001).
+  { cmd = "ruff check --fix --ignore=ERA --ignore=F401 --ignore=F841 --ignore=T20 --ignore=ERA001 ." },
+  { cmd = "pyproject-fmt --keep-full-version pyproject.toml" },
+]
+
+lint = [
+  { cmd = "ruff format --check ." },
+  { cmd = "ruff check ." },
+  { cmd = "validate-pyproject pyproject.toml" },
+  { cmd = "mypy" },
+]
+
+release = [
+  { cmd = "python -m build" },
+  { cmd = "twine upload --skip-existing dist/*" },
+]
+
+test = [
+  { cmd = "pytest" },
 ]

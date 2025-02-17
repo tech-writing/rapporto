@@ -4,14 +4,17 @@ A program for harvesting information from GitHub.
 
 ## Setup
 
-Soft-install the program from GitHub.
+Install package from PyPI.
 ```shell
-brew install uv
-rapporto() { uv run https://github.com/tech-writing/rapporto/raw/refs/heads/main/rapporto.py -- "$@"; }
+{apt,brew,pip,zypper} install uv
+```
+```shell
+uv tool install --upgrade rapporto
 ```
 
-For not exhausting the API rate limit too quickly,
-please provide a valid GitHub token. This one is invalid.
+For not exhausting the API rate limit too quickly, please provide a valid
+GitHub token that minimally permits access to the scopes `repo:status`,
+`read:org`, and `read:project`. This token is invalid.
 ```shell
 export GH_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
 ```

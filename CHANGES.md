@@ -3,6 +3,7 @@
 ## In progress
 - Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,
   see [Authenticate to GitHub in GitHub Actions].
+- Refactored codebase to become a real Python package
 
 [Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
 
@@ -35,5 +36,5 @@
   "org:python author:AA-Turner created:2025-01-01..2025-01-31 is:pr"
   ```
   ```shell
-  uv run rapporto.py --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
+  rapporto ppp --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
   ```
