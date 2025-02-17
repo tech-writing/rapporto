@@ -35,6 +35,12 @@ rapporto qa --repository=acme/acme-examples
 rapporto qa --repositories-file=acme-repositories.txt
 ```
 
+## Notes
+
+For soft-installing Rapporto from GitHub, use this alias.
+```shell
+alias rapporto="uv run --with 'rapporto @ https://github.com/tech-writing/rapporto/archive/refs/heads/main.zip' rapporto"
+```
 
 ## Prior art
 - https://github.com/saschpe/rapport
