@@ -1,5 +1,15 @@
 # Change log
 
+## v0.0.2, 2025-02-17
+- Fixed link templating API vs. HTML
+- Feature: Accept year-of-week time range format like `2025W06`
+- Added subcommand "qa", for reporting about PR failures
+- Added logging
+- Fixed using GITHUB_TOKEN only if it's defined
+- Improved documentation
+- Markdown: Sanitized link titles that include `[]` brackets
+- Report: Improved layout
+
 ## v0.0.1, 2025-01-21
 - Added command-line interface (CLI).
 - Added "top/significant changes" feature, roughly based on those PR attributes:
