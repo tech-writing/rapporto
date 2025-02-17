@@ -41,15 +41,15 @@ export GH_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
 ### PPP reports
 Report about activities of individual authors.
 ```shell
-rapporto ppp --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
-rapporto ppp --organization=python --author=AA-Turner --timerange="2025W04"
+rapporto gh ppp --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
+rapporto gh ppp --organization=python --author=AA-Turner --timerange="2025W04"
 ```
 
 ### QA/CI reports
 Report about activities of GitHub Actions workflow runs.
 ```shell
-rapporto qa --repository=acme/acme-examples
-rapporto qa --repositories-file=acme-repositories.txt
+rapporto gh qa --repository=acme/acme-examples
+rapporto gh qa --repositories-file=acme-repositories.txt
 ```
 
 ## Notes

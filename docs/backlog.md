@@ -4,6 +4,7 @@
 - Add CI checks
 - Rename subcommand `qa` to `qa-ci`
 - Add TagFinder, used by `qa-bugs`
+- Absorb https://github.com/WalBeh/slack-thread-exporter by @WalBeh
 - Publish package to PyPI
 
 ## Iteration +2
