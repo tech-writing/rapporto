@@ -56,7 +56,7 @@ rapporto gh qa --repositories-file=acme-repositories.txt
 
 For soft-installing Rapporto from GitHub, use this alias.
 ```shell
-alias rapporto="uv run --with 'rapporto @ https://github.com/tech-writing/rapporto/archive/refs/heads/main.zip' rapporto"
+alias rapporto="uvx --with 'rapporto @ https://github.com/tech-writing/rapporto/archive/refs/heads/main.zip' -- rapporto"
 ```
 
 ## Prior art
