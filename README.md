@@ -12,6 +12,7 @@ A program for harvesting information from GitHub.
 
 [![Release Notes][badge-release-notes]][project-release-notes]
 [![CI][badge-ci]][project-ci]
+[![Coverage][badge-coverage]][project-coverage]
 [![Downloads per month][badge-downloads-per-month]][project-downloads]
 
 [![Package version][badge-package-version]][project-pypi]
@@ -77,6 +78,7 @@ alias rapporto="uvx --with 'rapporto @ https://github.com/tech-writing/rapporto/
 [Source code]: https://github.com/tech-writing/rapporto
 
 [badge-ci]: https://github.com/tech-writing/rapporto/actions/workflows/main.yml/badge.svg
+[badge-coverage]: https://codecov.io/gh/tech-writing/rapporto/branch/main/graph/badge.svg
 [badge-downloads-per-month]: https://pepy.tech/badge/rapporto/month
 [badge-license]: https://img.shields.io/github/license/tech-writing/rapporto.svg
 [badge-package-version]: https://img.shields.io/pypi/v/rapporto.svg
@@ -84,6 +86,7 @@ alias rapporto="uvx --with 'rapporto @ https://github.com/tech-writing/rapporto/
 [badge-release-notes]: https://img.shields.io/github/release/tech-writing/rapporto?label=Release+Notes
 [badge-status]: https://img.shields.io/pypi/status/rapporto.svg
 [project-ci]: https://github.com/tech-writing/rapporto/actions/workflows/main.yml
+[project-coverage]: https://app.codecov.io/gh/tech-writing/rapporto
 [project-downloads]: https://pepy.tech/project/rapporto/
 [project-license]: https://github.com/tech-writing/rapporto/blob/main/LICENSE
 [project-pypi]: https://pypi.org/project/rapporto
