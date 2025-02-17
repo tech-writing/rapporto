@@ -4,6 +4,7 @@
 - Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,
   see [Authenticate to GitHub in GitHub Actions].
 - Refactored codebase to become a real Python package
+- CI: Added GHA workflow invoking `poe check`, and Dependabot configuration
 
 [Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
 
