@@ -97,6 +97,7 @@ dependencies = [
   "pueblo",
   "python-dateutil",
   "requests-cache",
+  "slack-sdk<4",
   "tqdm",
 ]
 optional-dependencies.develop = [
