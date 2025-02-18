@@ -7,6 +7,7 @@ Learn how to use Rapporto on GitHub.
 :hidden:
 
 github
+slack
 ```
 
 ::::{grid} 2
@@ -18,10 +19,21 @@ github
 :class-footer: sd-fs-6
 GitHub
 
-{octicon}`mark-github;2.5em`
+{fab}`github;sd-text-warning fa-2xl`
 +++
-Tap into the GitHub API and generate reports about user activity
-and CI failures.
+Tap into the GitHub API and generate reports in Markdown format.
+:::
+
+:::{grid-item-card}
+:link: slack
+:link-type: doc
+:class-body: sd-text-center sd-fs-3 sd-font-weight-bold
+:class-footer: sd-fs-6
+Slack
+
+{fab}`slack;sd-text-success fa-2xl`
++++
+Tap into the Slack API and export threads into Markdown format.
 :::
 
 ::::
