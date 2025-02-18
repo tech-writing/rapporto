@@ -18,6 +18,7 @@ keywords = [
   "github actions",
   "github activity",
   "github api",
+  "github export",
   "information management",
   "markdown",
   "qa",
@@ -92,13 +93,14 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "click",
-  "dataclasses-json",
+  "click<9",
+  "dataclasses-json<1",
   "importlib-metadata; python_version<'3.8'",
-  "munch",
-  "pueblo",
-  "python-dateutil",
-  "requests-cache",
+  "munch<5",
+  "pueblo<1",
+  "python-dateutil<3",
+  "requests<3",
+  "requests-cache<2",
   "slack-sdk<4",
   "tqdm",
 ]
