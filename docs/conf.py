@@ -49,9 +49,14 @@ html_title = "Rapporto"
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/source-buttons.html
 html_theme_options = {
-    "announcement": "Rapporto is still in its infancy, and needs your support, "
-    "for example by submitting bug reports, feature requests, or "
-    "by improving the documentation.",
+    "announcement": """
+    Rapporto is in its infancy, and needs your support. <br>
+    We appreciate any kind of
+    <a href="https://github.com/tech-writing/rapporto/issues">bug report</a> and
+    <a href="https://github.com/tech-writing/rapporto/issues">feature request</a>,
+    or suggestions to improve its
+    <a href="https://github.com/tech-writing/rapporto/tree/main/docs">documentation</a>.
+    """,
     "content_footer_items": ["last-updated"],
     "icon_links": [
         {

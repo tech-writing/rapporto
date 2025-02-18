@@ -1,15 +1,27 @@
 # GitHub Reports
 
+Tap into the GitHub API and generate reports in Markdown format.
+
+## Features
+
+- Report about user activity in [PPP] format.
+- Report about CI failures on [GHA].
+
 ## Setup
 
-For not exhausting the API rate limit too quickly, please provide a valid
-GitHub token that minimally permits access to the scopes `repo:status`,
-`read:org`, and `read:project`. This token is invalid.
+For not exhausting the API rate limit too quickly, please use a GitHub
+token (classic), that permits access to those scopes:
+
+- `repo:status`
+- `read:org`
+- `read:project`
+
+## Usage
+
+Please provide a valid GitHub token. This token is invalid.
 ```shell
 export GH_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
 ```
-
-## Usage
 
 ### PPP reports
 Report about activities of individual authors.
@@ -24,3 +36,7 @@ Report about activities of GitHub Actions workflow runs.
 rapporto gh qa --repository=acme/acme-examples
 rapporto gh qa --repositories-file=acme-repositories.txt
 ```
+
+
+[GHA]: https://github.com/features/actions
+[PPP]: https://weekdone.com/resources/plans-progress-problems

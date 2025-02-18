@@ -1,6 +1,6 @@
 # Rapporto
 
-A program for harvesting information from GitHub and Slack.
+A program for harvesting information from GitHub and Slack, [DWIM].
 
 » [Documentation]
 | [Changelog]
@@ -10,10 +10,10 @@ A program for harvesting information from GitHub and Slack.
 | [License]
 | [Community Forum]
 
-[![Release Notes][badge-release-notes]][project-release-notes]
 [![CI][badge-ci]][project-ci]
 [![Coverage][badge-coverage]][project-coverage]
 [![Downloads per month][badge-downloads-per-month]][project-downloads]
+[![Release Notes][badge-release-notes]][project-release-notes]
 
 [![Package version][badge-package-version]][project-pypi]
 [![License][badge-license]][project-license]
@@ -22,24 +22,7 @@ A program for harvesting information from GitHub and Slack.
 
 ## Installation
 
-We recommend to use the [uv] package manager.
-```shell
-{apt,brew,pip,zypper} install uv
-```
-
-### Persistent
-
-Install package from PyPI as a [tool].
-```shell
-uv tool install --upgrade rapporto
-```
-
-### Ephemeral
-
-Soft-install package from GitHub.
-```shell
-alias rapporto="uvx --with 'rapporto @ https://github.com/tech-writing/rapporto/archive/refs/heads/main.zip' -- rapporto"
-```
+See [Rapporto Installation].
 
 ## Usage
 
@@ -49,14 +32,14 @@ See [Rapporto User Guide].
 [Changelog]: https://github.com/tech-writing/rapporto/blob/main/CHANGES.md
 [Community Forum]: https://community.panodata.org/
 [Documentation]: https://rapporto.readthedocs.io/
+[DWIM]: https://en.wikipedia.org/wiki/DWIM
 [Issues]: https://github.com/tech-writing/rapporto/issues
 [License]: https://github.com/tech-writing/rapporto/blob/main/LICENSE
 [managed on GitHub]: https://github.com/tech-writing/rapporto
 [PyPI]: https://pypi.org/project/rapporto/
+[Rapporto Installation]: https://rapporto.readthedocs.io/install.html
 [Rapporto User Guide]: https://rapporto.readthedocs.io/guide/
 [Source code]: https://github.com/tech-writing/rapporto
-[tool]: https://docs.astral.sh/uv/guides/tools/
-[uv]: https://docs.astral.sh/uv/
 
 [badge-ci]: https://github.com/tech-writing/rapporto/actions/workflows/main.yml/badge.svg
 [badge-coverage]: https://codecov.io/gh/tech-writing/rapporto/branch/main/graph/badge.svg

@@ -1,10 +1,8 @@
 # Backlog
 
 ## Iteration +1
-- Add CI checks
 - Rename subcommand `qa` to `qa-ci`
 - Add TagFinder, used by `qa-bugs`
-- Absorb https://github.com/WalBeh/slack-thread-exporter by @WalBeh
 - Publish package to PyPI
 
 ## Iteration +2
@@ -27,3 +25,5 @@
 - PPP: Add "top changes" feature.
 - QA: Harvest GitHub Actions outcomes.
 - Make it a real Python package
+- Add CI checks
+- Absorb https://github.com/WalBeh/slack-thread-exporter by @WalBeh
