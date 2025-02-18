@@ -1,6 +1,6 @@
 # User Guide
 
-Learn how to use Rapporto on GitHub.
+Learn how to use Rapporto.
 
 ```{toctree}
 :maxdepth: 1

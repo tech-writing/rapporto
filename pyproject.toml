@@ -7,7 +7,7 @@ requires = [
 
 [project]
 name = "rapporto"
-description = "A program for harvesting information from GitHub."
+description = "A program for harvesting information from GitHub and Slack."
 readme = "README.md"
 keywords = [
   "activity report",
@@ -25,6 +25,8 @@ keywords = [
   "quality assurance",
   "report",
   "reporting",
+  "slack api",
+  "slack export",
   "summary",
   "tool",
   "transform",
