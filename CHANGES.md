@@ -10,6 +10,7 @@
 - Added documentation using Sphinx and PyData Sphinx Theme, and RTD.
   See [Rapporto Documentation].
 - Slack: Added thread exporter. Thanks, @WalBeh.
+- Slack: Refactored CLI to use Click
 
 [Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
 [Rapporto Documentation]: https://rapporto.readthedocs.io/
