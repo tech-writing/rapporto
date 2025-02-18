@@ -1,6 +1,7 @@
 # Generic
 coverage.xml
 .coverage*
+dist
 docs/_build
 .idea
 .mypy_cache
