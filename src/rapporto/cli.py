@@ -2,6 +2,7 @@ import click
 from pueblo.util.cli import boot_click
 
 from rapporto.github.cli import cli as github_cli
+from rapporto.slack.cli import cli as slack_cli
 
 
 @click.group()
@@ -14,3 +15,4 @@ def cli(ctx: click.Context, verbose: bool, debug: bool):
 
 
 cli.add_command(github_cli, "gh")
+cli.add_command(slack_cli, "slack")

@@ -9,6 +9,9 @@ from rapporto.github.model import ActionsInquiry, ActivityInquiry
 @click.group()
 @click.pass_context
 def cli(ctx: click.Context):
+    """
+    Harvest information from GitHub.
+    """
     pass
 
 
