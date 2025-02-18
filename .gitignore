@@ -1,5 +1,6 @@
 coverage.xml
 .coverage*
+docs/_build
 .idea
 .mypy_cache
 .ruff_cache

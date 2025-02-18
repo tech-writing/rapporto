@@ -20,52 +20,30 @@ A program for harvesting information from GitHub.
 [![Status][badge-status]][project-pypi]
 [![Supported Python versions][badge-python-versions]][project-pypi]
 
-## Setup
+## Installation
 
-Install package from PyPI.
+We recommend to use the [uv] package manager.
 ```shell
 {apt,brew,pip,zypper} install uv
 ```
+
+### Persistent
+
+Install package from PyPI as a [tool].
 ```shell
 uv tool install --upgrade rapporto
 ```
 
-For not exhausting the API rate limit too quickly, please provide a valid
-GitHub token that minimally permits access to the scopes `repo:status`,
-`read:org`, and `read:project`. This token is invalid.
-```shell
-export GH_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
-```
+### Ephemeral
 
-## Usage
-
-### PPP reports
-Report about activities of individual authors.
-```shell
-rapporto gh ppp --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
-rapporto gh ppp --organization=python --author=AA-Turner --timerange="2025W04"
-```
-
-### QA/CI reports
-Report about activities of GitHub Actions workflow runs.
-```shell
-rapporto gh qa --repository=acme/acme-examples
-rapporto gh qa --repositories-file=acme-repositories.txt
-```
-
-## Notes
-
-For soft-installing Rapporto from GitHub, use this alias.
+Soft-install package from GitHub.
 ```shell
 alias rapporto="uvx --with 'rapporto @ https://github.com/tech-writing/rapporto/archive/refs/heads/main.zip' -- rapporto"
 ```
 
-## Prior art
-- https://github.com/saschpe/rapport
-- https://github.com/nedbat/dinghy
-- https://github.com/kneth/gh-utils
-- https://github.com/slackapi/slack-github-action
-- Many more.
+## Usage
+
+See [Rapporto User Guide].
 
 
 [Changelog]: https://github.com/tech-writing/rapporto/blob/main/CHANGES.md
@@ -75,7 +53,10 @@ alias rapporto="uvx --with 'rapporto @ https://github.com/tech-writing/rapporto/
 [License]: https://github.com/tech-writing/rapporto/blob/main/LICENSE
 [managed on GitHub]: https://github.com/tech-writing/rapporto
 [PyPI]: https://pypi.org/project/rapporto/
+[Rapporto User Guide]: https://rapporto.readthedocs.io/guide/
 [Source code]: https://github.com/tech-writing/rapporto
+[tool]: https://docs.astral.sh/uv/guides/tools/
+[uv]: https://docs.astral.sh/uv/
 
 [badge-ci]: https://github.com/tech-writing/rapporto/actions/workflows/main.yml/badge.svg
 [badge-coverage]: https://codecov.io/gh/tech-writing/rapporto/branch/main/graph/badge.svg
