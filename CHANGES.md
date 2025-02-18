@@ -7,8 +7,11 @@
 - CI: Added GHA workflow invoking `poe check`, and Dependabot configuration
 - Refactored current adapter code into `rapporto.github`, to accompany
   including other adapters
+- Added documentation using Sphinx and PyData Sphinx Theme, and RTD.
+  See [Rapporto Documentation].
 
 [Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
+[Rapporto Documentation]: https://rapporto.readthedocs.io/
 
 ## v0.0.2, 2025-02-17
 - Fixed link templating API vs. HTML

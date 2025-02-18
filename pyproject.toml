@@ -106,6 +106,15 @@ optional-dependencies.develop = [
   "ruff<0.10",
   "validate-pyproject<1",
 ]
+optional-dependencies.docs = [
+  "myst-parser[linkify]>=0.18,<5",
+  "pydata-sphinx-theme<1",
+  "sphinx-autobuild==2024.10.3",
+  "sphinx-copybutton",
+  "sphinx-design-elements<1",
+  "sphinxcontrib-mermaid<1",
+  "sphinxext-opengraph<1",
+]
 optional-dependencies.release = [
   "build<2",
   "twine<7",
@@ -115,8 +124,8 @@ optional-dependencies.test = [
   "pytest-cov<7",
 ]
 
-urls.Issues = "https://github.com/panodata/tikray/issues"
-urls.Repository = "https://github.com/panodata/tikray"
+urls.Issues = "https://github.com/tech-writing/rapporto/issues"
+urls.Repository = "https://github.com/tech-writing/rapporto"
 
 scripts.rapporto = "rapporto.cli:cli"
 
@@ -228,6 +237,16 @@ describe-subst = "$Format:%(describe:tags,match=v*)$"
 check = [
   "lint",
   "test",
+]
+
+docs-autobuild = [
+  { cmd = "sphinx-autobuild --open-browser --watch src docs docs/_build" },
+]
+docs-html = [
+  { cmd = "sphinx-build -W --keep-going docs docs/_build" },
+]
+docs-linkcheck = [
+  { cmd = "sphinx-build -W --keep-going -b linkcheck docs docs/_build" },
 ]
 
 format = [
