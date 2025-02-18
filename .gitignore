@@ -1,3 +1,4 @@
+# Generic
 coverage.xml
 .coverage*
 docs/_build
@@ -7,3 +8,6 @@ docs/_build
 *.egg-info
 *.sqlite
 __pycache__
+
+# Custom
+slack_export

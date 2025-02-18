@@ -3,7 +3,7 @@ from rapporto.cli import cli
 
 def test_cli_ppp(cli_runner):
     """
-    CLI test: Invoke `rapporto ppp`.
+    CLI test: Invoke `rapporto gh ppp`.
     """
     result = cli_runner.invoke(
         cli,
@@ -17,7 +17,7 @@ def test_cli_ppp(cli_runner):
 
 def test_cli_qa(cli_runner):
     """
-    CLI test: Invoke `rapporto qa`.
+    CLI test: Invoke `rapporto gh qa`.
     """
     result = cli_runner.invoke(
         cli,

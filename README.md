@@ -1,6 +1,6 @@
 # Rapporto
 
-A program for harvesting information from GitHub.
+A program for harvesting information from GitHub and Slack.
 
 » [Documentation]
 | [Changelog]
