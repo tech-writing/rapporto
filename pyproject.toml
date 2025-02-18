@@ -109,7 +109,7 @@ optional-dependencies.develop = [
 optional-dependencies.docs = [
   "myst-parser[linkify]>=0.18,<5",
   "pydata-sphinx-theme<1",
-  "sphinx-autobuild==2024.10.3",
+  "sphinx-autobuild",
   "sphinx-copybutton",
   "sphinx-design-elements<1",
   "sphinxcontrib-mermaid<1",
