@@ -13,6 +13,7 @@
 - Slack: Refactored CLI to use Click
 - GitHub: Added `GitHubAttentionReport`, to report about important items
   that deserve your attention, bugs first.
+- Options: Make options optional, to report about the complete corpus
 
 [Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
 [Rapporto Documentation]: https://rapporto.readthedocs.io/

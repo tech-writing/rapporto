@@ -118,7 +118,8 @@ class GitHubActivityReport:
         )
 
     def print(self):
-        print(f"# PPP report for {self.inquiry.created}")
+        timerange = self.inquiry.created and f"for {self.inquiry.created}" or ""
+        print(f"# PPP report {timerange}")
         # print("## Overview")
         print(self.markdown_overview)
         print()
@@ -254,10 +255,10 @@ class GitHubAttentionReport:
             return f"\n## {name}\n{sections[name]}"
 
         return dedent(f"""
-# Importance report {self.inquiry.created}
+# Importance report {self.inquiry.created or ""}
 
 A report about important items that deserve your attention, bugs first.
-:Time range: {self.search.query_builder.timerange}
+Time range: {self.search.query_builder.timerange or "n/a"}
 {render_section("Bugs")}
 {render_section("Important")}
 {render_section("Others")}

@@ -19,10 +19,15 @@ token (classic), that permits access to those scopes:
 
 ## Usage
 
+### Introduction
+
 Please provide a valid GitHub token. This token is invalid.
 ```shell
 export GH_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
 ```
+
+Note that many options are optional. Just omit them in order to expand the
+search scope.
 
 ### PPP reports
 Report about activities of individual authors.
@@ -43,6 +48,8 @@ Report about important items that deserve your attention, bugs first.
 ```shell
 rapporto gh att --organization=python --timerange="2025W07"
 ```
+If you want to explore your personal repositories, please use the
+`--organization` option with your username, e.g. `--organization=AA-Turner`.
 
 
 [GHA]: https://github.com/features/actions
