@@ -16,7 +16,7 @@ project
 :DWIM:
     Harvest, report, summarize, and notify like you always wanted to.
 :Polyglot:
-    Talk to GitHub and Slack, and extend it easily for other services.
+    Talk to GitHub and Slack, and easily extend it for other services.
 :Flexibility:
     Use as a standalone program or as a library in your own programs.
 
@@ -26,22 +26,28 @@ project
 
 :::{tab-item} GitHub: PPP
 ```{code-block} shell
-:caption: Report about user activity in [PPP] format.
+:caption: Report about user activity on [GitHub] in [PPP] format.
 rapporto gh ppp --organization=python --author=AA-Turner --timerange="2025W04"
 ```
-
 :::
 
-:::{tab-item} GitHub: QA/CI
+:::{tab-item} GitHub: CI
 ```{code-block} shell
 :caption: Report about CI failures on [GHA].
-rapporto gh qa --repository=acme/acme-examples
+rapporto gh ci --repository=acme/acme-examples
+```
+:::
+
+:::{tab-item} GitHub: Importance
+```{code-block} shell
+:caption: Report about bugs and similar important items on [GitHub].
+rapporto gh att --organization=python --timerange="2025W07"
 ```
 :::
 
 :::{tab-item} Slack: Export thread
 ```{code-block} shell
-:caption: Export Slack conversation / thread.
+:caption: Export [Slack] conversation / thread.
 rapporto slack export https://acme.slack.com/archives/D018V8WDABA/p1738873838427919
 ```
 :::
@@ -52,4 +58,6 @@ rapporto slack export https://acme.slack.com/archives/D018V8WDABA/p1738873838427
 
 [DWIM]: https://en.wikipedia.org/wiki/DWIM
 [GHA]: https://github.com/features/actions
+[GitHub]: https://en.wikipedia.org/wiki/GitHub
 [PPP]: https://weekdone.com/resources/plans-progress-problems
+[Slack]: https://en.wikipedia.org/wiki/Slack_(software)

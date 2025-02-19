@@ -93,7 +93,9 @@ dynamic = [
   "version",
 ]
 dependencies = [
+  "attrs<26",
   "click<9",
+  "click-aliases<2",
   "dataclasses-json<1",
   "importlib-metadata; python_version<'3.8'",
   "munch<5",

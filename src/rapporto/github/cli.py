@@ -1,12 +1,19 @@
 from pathlib import Path
 
 import click
+from click_aliases import ClickAliasedGroup
 
-from rapporto.github.core import GitHubActionsReport, GitHubActivityReport
-from rapporto.github.model import ActionsInquiry, ActivityInquiry
+from rapporto.github.core import GitHubActionsReport, GitHubActivityReport, GitHubAttentionReport
+from rapporto.github.model import ActivityInquiry, MultiRepositoryInquiry
+
+organization_option = click.option("--organization", "--org", type=str, required=True)
+author_option = click.option("--author", type=str, required=True)
+timerange_option = click.option("--timerange", type=str, required=True)
+repository_option = click.option("--repository", type=str, required=False)
+repositories_file_option = click.option("--repositories-file", type=Path, required=False)
 
 
-@click.group()
+@click.group(cls=ClickAliasedGroup)
 @click.pass_context
 def cli(ctx: click.Context):
     """
@@ -16,12 +23,12 @@ def cli(ctx: click.Context):
 
 
 @cli.command()
-@click.option("--organization", type=str, required=True)
-@click.option("--author", type=str, required=True)
-@click.option("--timerange", type=str, required=True)
+@organization_option
+@author_option
+@timerange_option
 def ppp(organization: str, author: str, timerange: str):
     """
-    Generate PPP report.
+    Activity: Report about activities of individual authors.
     """
     inquiry = ActivityInquiry(organization=organization, author=author, created=timerange)
     report = GitHubActivityReport(inquiry=inquiry)
@@ -29,18 +36,32 @@ def ppp(organization: str, author: str, timerange: str):
 
 
 @cli.command()
-@click.option("--repository", type=str, required=False)
-@click.option("--repositories-file", type=Path, required=False)
-def qa(repository: str, repositories_file: Path = None):
+@repository_option
+@repositories_file_option
+def ci(repository: str, repositories_file: Path = None):
     """
-    Generate QA report.
+    QA: Report about CI failures.
     """
-    if repository:
-        inquiry = ActionsInquiry(repositories=[repository])
-    elif repositories_file:
-        inquiry = ActionsInquiry(repositories=repositories_file.read_text().splitlines())
-    else:
-        click.echo("Please specify --repository or --repositories-file.", err=True)
-        raise SystemExit(1)
+    try:
+        inquiry = MultiRepositoryInquiry.make(
+            repository=repository, repositories_file=repositories_file
+        )
+    except ValueError as ex:
+        click.echo(
+            f"Please specify valid input for --repository or --repositories-file: {ex}", err=True
+        )
+        raise SystemExit(1) from ex
     report = GitHubActionsReport(inquiry=inquiry)
+    report.print()
+
+
+@cli.command(aliases=["att"])
+@organization_option
+@timerange_option
+def attention(organization: str, timerange: str):
+    """
+    QA: Report about important items that deserve attention.
+    """
+    inquiry = ActivityInquiry(organization=organization, created=timerange)
+    report = GitHubAttentionReport(inquiry=inquiry)
     report.print()
