@@ -34,9 +34,9 @@ def test_cli_att(cli_runner):
     """
     result = cli_runner.invoke(
         cli,
-        args="gh att --organization=tech-writing --timerange=2024W43",
+        args="gh att --organization=tech-writing --timerange=2025W08",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
-    assert "# Importance report 2024W43" in result.output
+    assert "# Importance report 2025W08" in result.output
     assert "sphinx-design-elements" in result.output
