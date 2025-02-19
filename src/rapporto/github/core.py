@@ -229,7 +229,9 @@ class GitHubAttentionReport:
         other = []
         for item in tqdm(items, leave=False):
             labels = [label.name for label in item.labels]
-            title = sanitize_title(f"{repository_name(item.repository_url)}: {item.title}")
+            title = sanitize_title(
+                f"{repository_name(item.repository_url, with_org=True)}: {item.title}"
+            )
             link = f"[{title}]({item.html_url})"
             line = f"- {link}"
             # line = f"- {link} {', '.join(labels)}"
