@@ -54,10 +54,15 @@ rapporto slack export https://acme.slack.com/archives/D018V8WDABA/p1738873838427
 
 ::::
 
+## Contribute
+
+Contributions are very much welcome. The program is still in its infancy,
+and needs all support it can get. It is [managed on GitHub].
 
 
 [DWIM]: https://en.wikipedia.org/wiki/DWIM
 [GHA]: https://github.com/features/actions
 [GitHub]: https://en.wikipedia.org/wiki/GitHub
+[managed on GitHub]: https://github.com/tech-writing/rapporto
 [PPP]: https://weekdone.com/resources/plans-progress-problems
 [Slack]: https://en.wikipedia.org/wiki/Slack_(software)
