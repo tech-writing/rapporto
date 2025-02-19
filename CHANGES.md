@@ -11,6 +11,8 @@
   See [Rapporto Documentation].
 - Slack: Added thread exporter. Thanks, @WalBeh.
 - Slack: Refactored CLI to use Click
+- GitHub: Added `GitHubAttentionReport`, to report about important items
+  that deserve your attention, bugs first.
 
 [Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
 [Rapporto Documentation]: https://rapporto.readthedocs.io/

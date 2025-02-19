@@ -2,9 +2,8 @@ import datetime as dt
 import logging
 import os
 import typing as t
-import urllib.parse
+from collections import OrderedDict
 from operator import attrgetter
-from pathlib import Path
 from textwrap import dedent
 
 import requests_cache
@@ -13,12 +12,16 @@ from tqdm import tqdm
 
 from rapporto.github.model import (
     ActionsFilter,
-    ActionsInquiry,
     ActionsOutcome,
     ActivityInquiry,
     GitHubActivityQueryBuilder,
+    GitHubAttentionQueryBuilder,
+    GitHubSearch,
+    MultiRepositoryInquiry,
     PullRequestMetadata,
 )
+from rapporto.github.util import repository_name
+from rapporto.util import sanitize_title
 
 logger = logging.getLogger(__name__)
 
@@ -39,34 +42,21 @@ class GitHubActivityReport:
     def __init__(self, inquiry: ActivityInquiry):
         self.inquiry = inquiry
         self.session = HttpClient.session
-
-        address = GitHubActivityQueryBuilder(inquiry=inquiry)
-        self.url_issues_api = address.issue().api().url()
-        self.url_pulls_api = address.pr().api().url()
-        self.url_issues_html = address.issue().html().url()
-        self.url_pulls_html = address.pr().html().url()
+        self.search = GitHubSearch.with_query_builder(
+            self.session, GitHubActivityQueryBuilder(inquiry=inquiry)
+        )
 
     @property
     def repository_names(self):
-        items = []
-
-        response = self.session.get(self.url_issues_api)
-        response.raise_for_status()
-        items += response.json()["items"]
-
-        response = self.session.get(self.url_pulls_api)
-        response.raise_for_status()
-        items += response.json()["items"]
-
+        items = self.search.issues_and_prs()
         names = []
         for item in items:
-            url = urllib.parse.urlparse(item["repository_url"])
-            names.append(Path(url.path).name)
+            names.append(repository_name(item["repository_url"]))
         return sorted(set(names))
 
     def pull_requests(self):
         items = []
-        response = self.session.get(self.url_pulls_api)
+        response = self.session.get(self.search.pulls_api)
         response.raise_for_status()
         for item in tqdm(response.json()["items"], leave=False):
             if "pull_request" in item:
@@ -105,8 +95,8 @@ class GitHubActivityReport:
 
     @property
     def markdown_overview(self):
-        link_issues = f"[Issues]({self.url_issues_html})"
-        link_pulls = f"[Pull requests]({self.url_pulls_html})"
+        link_issues = f"[Issues]({self.search.issues_html})"
+        link_pulls = f"[Pull requests]({self.search.pulls_html})"
         return dedent(f"""
         *Progress:*
           - About: Bugfixes, Documentation, Guidance, Planning, Support
@@ -143,7 +133,7 @@ class GitHubActionsReport:
 
     DELTA_HOURS = 24
 
-    def __init__(self, inquiry: ActionsInquiry):
+    def __init__(self, inquiry: MultiRepositoryInquiry):
         self.inquiry = inquiry
         self.session = HttpClient.session
 
@@ -197,7 +187,7 @@ class GitHubActionsReport:
             ActionsFilter(event="dynamic", status="failure", created=f">{self.yesterday}")
         )
         return dedent(f"""
-# QA report {dt.datetime.today().strftime("%Y-%m-%d")}
+# CI failures report {dt.datetime.now().strftime("%Y-%m-%d")}
 A report about GitHub Actions workflow runs that failed recently (now-{self.DELTA_HOURS}h).
 
 ## Scheduled
@@ -208,7 +198,70 @@ A report about GitHub Actions workflow runs that failed recently (now-{self.DELT
 
 ## Dynamic
 {items_dynamic or "n/a"}
-        """)  # noqa: E501
+        """).strip()  # noqa: E501
+
+    def print(self):
+        print(self.markdown)
+
+
+class GitHubAttentionReport:
+    """
+    Report about important items that deserve your attention, bugs first.
+
+    Find all issues and pull requests with labels "bug" or "important".
+    """
+
+    def __init__(self, inquiry: ActivityInquiry):
+        self.inquiry = inquiry
+        self.session = HttpClient.session
+        self.search = GitHubSearch.with_query_builder(
+            self.session, GitHubAttentionQueryBuilder(inquiry=inquiry)
+        )
+
+    @property
+    def markdown(self):
+        items = self.search.issues_and_prs()
+        items = sorted(munchify(items), key=attrgetter("created_at"))
+
+        bug = []
+        important = []
+        other = []
+        for item in tqdm(items, leave=False):
+            labels = [label.name for label in item.labels]
+            title = sanitize_title(f"{repository_name(item.repository_url)}: {item.title}")
+            link = f"[{title}]({item.html_url})"
+            line = f"- {link}"
+            # line = f"- {link} {', '.join(labels)}"
+            if "bug" in labels or "type-bug" in labels or "type-crash" in labels:
+                bug.append(line)
+                continue
+            if "important" in labels:
+                important.append(line)
+                continue
+            other.append(line)
+
+        sections = OrderedDict()
+        if bug:
+            sections["Bugs"] = "\n".join(bug)
+        if important:
+            sections["Important"] = "\n".join(important)
+        if other:
+            sections["Others"] = "\n".join(other)
+
+        def render_section(name) -> str:
+            if name not in sections:
+                return ""
+            return f"\n## {name}\n{sections[name]}"
+
+        return dedent(f"""
+# Importance report {self.inquiry.created}
+
+A report about important items that deserve your attention, bugs first.
+:Time range: {self.search.query_builder.timerange}
+{render_section("Bugs")}
+{render_section("Important")}
+{render_section("Others")}
+        """).strip()  # noqa: E501
 
     def print(self):
         print(self.markdown)

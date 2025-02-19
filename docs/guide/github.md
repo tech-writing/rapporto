@@ -6,6 +6,7 @@ Tap into the GitHub API and generate reports in Markdown format.
 
 - Report about user activity in [PPP] format.
 - Report about CI failures on [GHA].
+- Report about bugs and similar important items.
 
 ## Setup
 
@@ -30,11 +31,17 @@ rapporto gh ppp --organization=python --author=AA-Turner --timerange="2025-01-01
 rapporto gh ppp --organization=python --author=AA-Turner --timerange="2025W04"
 ```
 
-### QA/CI reports
-Report about activities of GitHub Actions workflow runs.
+### CI reports
+Report about activities of GitHub Actions workflow runs, mostly failing ones.
 ```shell
-rapporto gh qa --repository=acme/acme-examples
-rapporto gh qa --repositories-file=acme-repositories.txt
+rapporto gh ci --repository=acme/acme-examples
+rapporto gh ci --repositories-file=acme-repositories.txt
+```
+
+### Importance reports
+Report about important items that deserve your attention, bugs first.
+```shell
+rapporto gh att --organization=python --timerange="2025W07"
 ```
 
 

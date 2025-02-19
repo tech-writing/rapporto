@@ -7,7 +7,7 @@ def test_cli_ppp(cli_runner):
     """
     result = cli_runner.invoke(
         cli,
-        args='gh ppp --organization=panodata --author=dependabot[bot] --timerange="2025W07"',
+        args="gh ppp --organization=panodata --author=dependabot[bot] --timerange=2025W07",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
@@ -15,14 +15,28 @@ def test_cli_ppp(cli_runner):
     assert "Activity: aika, rex9" in result.output
 
 
-def test_cli_qa(cli_runner):
+def test_cli_ci(cli_runner):
     """
-    CLI test: Invoke `rapporto gh qa`.
+    CLI test: Invoke `rapporto gh ci`.
     """
     result = cli_runner.invoke(
         cli,
-        args="gh qa --repository=panodata/rapporto",
+        args="gh ci --repository=panodata/rapporto",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
-    assert "# QA report" in result.output
+    assert "# CI failures report" in result.output
+
+
+def test_cli_att(cli_runner):
+    """
+    CLI test: Invoke `rapporto gh att`.
+    """
+    result = cli_runner.invoke(
+        cli,
+        args="gh att --organization=tech-writing --timerange=2024W43",
+        catch_exceptions=False,
+    )
+    assert result.exit_code == 0
+    assert "# Importance report 2024W43" in result.output
+    assert "sphinx-design-elements" in result.output
