@@ -9,7 +9,7 @@ We recommend to use the [uv] package manager for installing or running Rapporto.
 
 Install package from [PyPI] as a [tool].
 ```shell
-uv tool install --upgrade rapporto
+uv tool install --upgrade --compile-bytecode rapporto
 ```
 
 ## Ephemeral
