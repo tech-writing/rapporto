@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 
 @dataclasses.dataclass
 class ActivityInquiry:
-    organization: str
-    created: str
+    organization: t.Optional[str] = None
+    created: t.Optional[str] = None
     author: t.Optional[str] = None
 
 
@@ -83,8 +83,17 @@ class GitHubQueryBuilder:
         self.inquiry = inquiry
         self.type: t.Optional[QType] = None
         self.kind: t.Optional[QKind] = None
+        self.constraints: t.List[str] = []
+        self.query()
+
+    def add(self, field: str, value: t.Optional[str] = None):
+        if value is not None:
+            self.constraints.append(f"{field}:{value}")
 
     @property
+    def expression(self):
+        return " ".join(self.constraints)
+
     @abstractmethod
     def query(self):
         raise NotImplementedError("Needs to be implemented")
@@ -92,7 +101,7 @@ class GitHubQueryBuilder:
     @property
     def timerange(self):
         timerange = self.inquiry.created
-        if "W" in timerange:
+        if timerange and "W" in timerange:
             p_year, p_week = timerange.split("W")
             timerange = self.date_range_str(*self.date_range_from_week(p_year, p_week))
         return timerange
@@ -112,11 +121,11 @@ class GitHubQueryBuilder:
 
     @property
     def query_issues(self):
-        return f"{self.query} is:issue"
+        return f"{self.expression} is:issue"
 
     @property
     def query_pulls(self):
-        return f"{self.query} is:pr"
+        return f"{self.expression} is:pr"
 
     def issue(self):
         self.kind = QKind.ISSUE
@@ -155,11 +164,10 @@ class GitHubActivityQueryBuilder(GitHubQueryBuilder):
     Find all open issues and pull requests created by individual author.
     """
 
-    @property
     def query(self):
-        return (
-            f"org:{self.inquiry.organization} created:{self.timerange} author:{self.inquiry.author}"
-        )
+        self.add("org", self.inquiry.organization)
+        self.add("created", self.timerange)
+        self.add("author", self.inquiry.author)
 
 
 class GitHubAttentionQueryBuilder(GitHubQueryBuilder):
@@ -174,13 +182,11 @@ class GitHubAttentionQueryBuilder(GitHubQueryBuilder):
         "type-crash",  # CPython
     ]
 
-    @property
     def query(self):
-        return (
-            f"org:{self.inquiry.organization} "
-            f"created:{self.timerange} "
-            f"label:{','.join(self.labels)} state:open"
-        )
+        self.add("org", self.inquiry.organization)
+        self.add("created", self.timerange)
+        self.add("label", ",".join(self.labels))
+        self.add("state", "open")
 
 
 @define
