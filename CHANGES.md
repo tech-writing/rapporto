@@ -1,6 +1,8 @@
 # Change log
 
 ## In progress
+
+## v0.1.0, 2025-02-20
 - Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,
   see [Authenticate to GitHub in GitHub Actions].
 - Refactored codebase to become a real Python package
