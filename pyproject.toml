@@ -132,6 +132,7 @@ optional-dependencies.test = [
 ]
 
 urls.Issues = "https://github.com/tech-writing/rapporto/issues"
+urls.Documentation = "https://rapporto.readthedocs.io/"
 urls.Repository = "https://github.com/tech-writing/rapporto"
 
 scripts.rapporto = "rapporto.cli:cli"
