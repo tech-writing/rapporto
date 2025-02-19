@@ -14,6 +14,7 @@
 - GitHub: Added `GitHubAttentionReport`, to report about important items
   that deserve your attention, bugs first.
 - Options: Make options optional, to report about the complete corpus
+- Links: Display full notation for projects `<org>/<project>`
 
 [Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
 [Rapporto Documentation]: https://rapporto.readthedocs.io/
