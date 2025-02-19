@@ -13,7 +13,7 @@ Tap into the GitHub API and generate reports in Markdown format.
 For not exhausting the API rate limit too quickly, please use a GitHub
 token (classic), that permits access to those scopes:
 
-- `repo:status`
+- `repo`
 - `read:org`
 - `read:project`
 
