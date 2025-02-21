@@ -17,6 +17,7 @@ from rapporto.github.model import (
     GitHubActivityQueryBuilder,
     GitHubAttentionQueryBuilder,
     GitHubSearch,
+    MarkdownContent,
     MultiRepositoryInquiry,
     PullRequestMetadata,
 )
@@ -127,12 +128,21 @@ class GitHubActivityReport:
         print(self.markdown_significant)
 
 
-class GitHubActionsReport:
+class GitHubActionsRequest:
     """
-    Report about failed outcomes of GitHub Actions workflow runs.
+    Fetch outcomes of GitHub Actions workflow runs.
+
+    Possible event types are: dynamic, pull_request, push, schedule
     """
 
     DELTA_HOURS = 24
+
+    event_section_map = OrderedDict(
+        schedule="Schedule",
+        pull_request="Pull requests",
+        # push="Pushes",
+        dynamic="Dynamic",
+    )
 
     def __init__(self, inquiry: MultiRepositoryInquiry):
         self.inquiry = inquiry
@@ -164,41 +174,75 @@ class GitHubActionsReport:
             runs = munchify(response.json()).workflow_runs
             for run in runs:
                 outcome = ActionsOutcome(
+                    id=run.id,
+                    event=run.event,
                     status=run.status,
-                    repository=repository,
+                    conclusion=run.conclusion,
+                    repository=run.repository,
                     name=run.display_title,
                     url=run.html_url,
                     started=run.run_started_at,
+                    head_branch=run.head_branch,
                 )
                 outcomes.append(outcome)
         return outcomes
 
-    def to_markdown(self, filter: ActionsFilter) -> str:  # noqa:A002
-        return "\n".join([item.markdown for item in self.fetch(filter=filter)])
+    @property
+    def runs_failed(self):
+        return self.fetch(filter=ActionsFilter(status="failure", created=f">{self.yesterday}"))
+
+    @property
+    def runs_pr_success(self):
+        return self.fetch(
+            filter=ActionsFilter(
+                event="pull_request", status="success", created=f">{self.yesterday}"
+            )
+        )
+
+
+class GitHubActionsReport:
+    """
+    Report about failed outcomes of GitHub Actions workflow runs.
+    """
+
+    def __init__(self, inquiry: MultiRepositoryInquiry):
+        self.inquiry = inquiry
+        self.request = GitHubActionsRequest(inquiry)
+        self.runs_failed = self.request.runs_failed
+        self.runs_pr_success = self.request.runs_pr_success
+
+    @property
+    def runs(self):
+        """
+        All failed runs, modulo subsequent succeeding PR runs.
+        """
+        for run in self.runs_failed:
+            if run.event == "pull_request" and self.is_pr_successful(run):
+                continue
+            yield run
+
+    def is_pr_successful(self, run):
+        """
+        Find out if a given run has others that succeeded afterward.
+        """
+        for pr in self.runs_pr_success:
+            if (
+                run.repository.full_name == pr.repository.full_name
+                and run.head_branch == pr.head_branch
+            ):
+                if pr.conclusion == "success":
+                    return True
+        return False
 
     @property
     def markdown(self):
-        items_scheduled = self.to_markdown(
-            ActionsFilter(event="schedule", status="failure", created=f">{self.yesterday}")
-        )
-        items_pull_requests = self.to_markdown(
-            ActionsFilter(event="pull_request", status="failure", created=f">{self.yesterday}")
-        )
-        items_dynamic = self.to_markdown(
-            ActionsFilter(event="dynamic", status="failure", created=f">{self.yesterday}")
-        )
+        mdc = MarkdownContent(labels=self.request.event_section_map)
+        for run in self.runs:
+            mdc.add(run.event, run.markdown)
         return dedent(f"""
 # CI failures report {dt.datetime.now().strftime("%Y-%m-%d")}
-A report about GitHub Actions workflow runs that failed recently (now-{self.DELTA_HOURS}h).
-
-## Scheduled
-{items_scheduled or "n/a"}
-
-## Pull requests
-{items_pull_requests or "n/a"}
-
-## Dynamic
-{items_dynamic or "n/a"}
+A report about GitHub Actions workflow runs that failed recently (now-{self.request.DELTA_HOURS}h).
+{mdc.render()}
         """).strip()  # noqa: E501
 
     def print(self):
