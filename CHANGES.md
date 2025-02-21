@@ -4,6 +4,7 @@
 - GitHub/CI: Fixed displaying failed workflow runs on pull requests
   which succeeded afterward
 - GitHub/Important: Improved rendering of Markdown sections
+- GitHub/Bugs: Also consider labels `stale` and `type: Bug` as relevant
 
 ## v0.1.0, 2025-02-20
 - Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,

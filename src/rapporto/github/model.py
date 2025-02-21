@@ -12,7 +12,7 @@ from attrs import define
 from dataclasses_json import CatchAll, Undefined, dataclass_json
 from munch import Munch
 
-from rapporto.util import sanitize_title
+from rapporto.util import goosefeet, sanitize_title
 
 logger = logging.getLogger(__name__)
 
@@ -180,14 +180,17 @@ class GitHubAttentionQueryBuilder(GitHubQueryBuilder):
     labels = [
         "bug",  # GitHub standard.
         "important",  # CrateDB.
+        "stale",  # CrateDB.
         "type-bug",  # CPython
         "type-crash",  # CPython
+        "type: Bug",  # CrateDB.
+        "type: bug",  # CrateDB.
     ]
 
     def query(self):
         self.add("org", self.inquiry.organization)
         self.add("created", self.timerange)
-        self.add("label", ",".join(self.labels))
+        self.add("label", ",".join(map(goosefeet, self.labels)))
         self.add("state", "open")
 
 
