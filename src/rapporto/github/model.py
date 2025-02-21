@@ -4,11 +4,13 @@ import logging
 import typing as t
 import urllib.parse
 from abc import abstractmethod
+from collections import OrderedDict
 from enum import Enum
 from pathlib import Path
 
 from attrs import define
 from dataclasses_json import CatchAll, Undefined, dataclass_json
+from munch import Munch
 
 from rapporto.util import sanitize_title
 
@@ -239,24 +241,59 @@ class MultiRepositoryInquiry:
 
 @dataclasses.dataclass
 class ActionsFilter:
-    event: str
-    status: str
-    created: str
+    event: t.Optional[str] = None
+    status: t.Optional[str] = None
+    created: t.Optional[str] = None
 
     @property
     def query(self) -> str:
-        return f"event={self.event}&status={self.status}&created={self.created}"
+        expression = []
+        if self.event:
+            expression.append(f"event={self.event}")
+        if self.status:
+            expression.append(f"status={self.status}")
+        if self.created:
+            expression.append(f"created={self.created}")
+        return "&".join(expression)
 
 
 @dataclasses.dataclass
 class ActionsOutcome:
+    id: int
+    event: str
     status: str
-    repository: str
+    conclusion: str
+    repository: Munch
     name: str
     url: str
     started: str
+    head_branch: str
 
     @property
     def markdown(self):
-        title = sanitize_title(f"{self.repository}: {self.name}")
+        title = sanitize_title(f"{self.repository.full_name}: {self.name}")
         return f"- [{title}]({self.url})"
+
+
+@dataclasses.dataclass()
+class MarkdownContent:
+    labels: OrderedDict = dataclasses.field(default_factory=OrderedDict)
+    content: t.Dict[str, t.List[str]] = dataclasses.field(default_factory=dict)
+
+    def add(self, section, content):
+        self.content.setdefault(section, [])
+        self.content[section].append(content)
+
+    def render_section(self, section) -> t.Optional[str]:
+        if section not in self.content:
+            return None
+        label = self.labels.get(section, section)
+        body = "\n".join(self.content[section])
+        return f"\n## {label}\n{body}"
+
+    def render(self):
+        sections = []
+        for section in self.labels.keys():
+            if markdown := self.render_section(section):
+                sections.append(markdown)
+        return "\n".join(sections)

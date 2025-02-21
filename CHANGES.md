@@ -1,6 +1,8 @@
 # Change log
 
 ## In progress
+- GitHub/CI: Fixed displaying failed workflow runs on pull requests
+  which succeeded afterward
 
 ## v0.1.0, 2025-02-20
 - Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,
