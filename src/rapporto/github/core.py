@@ -7,7 +7,7 @@ from operator import attrgetter
 from textwrap import dedent
 
 import requests_cache
-from munch import munchify
+from munch import Munch, munchify
 from tqdm import tqdm
 
 from rapporto.github.model import (
@@ -239,11 +239,11 @@ class GitHubActionsReport:
         mdc = MarkdownContent(labels=self.request.event_section_map)
         for run in self.runs:
             mdc.add(run.event, run.markdown)
-        return dedent(f"""
+        return f"""
 # CI failures report {dt.datetime.now().strftime("%Y-%m-%d")}
 A report about GitHub Actions workflow runs that failed recently (now-{self.request.DELTA_HOURS}h).
 {mdc.render()}
-        """).strip()  # noqa: E501
+        """.strip()  # noqa: E501
 
     def print(self):
         print(self.markdown)
@@ -256,6 +256,17 @@ class GitHubAttentionReport:
     Find all issues and pull requests with labels "bug" or "important".
     """
 
+    label_section_map = OrderedDict(
+        bug="Bugs",
+        important="Important",
+        stale="Stale",
+        others="Others",
+    )
+
+    label_aliases = {
+        "bug": ["type-bug", "type-crash"],
+    }
+
     def __init__(self, inquiry: ActivityInquiry):
         self.inquiry = inquiry
         self.session = HttpClient.session
@@ -264,51 +275,53 @@ class GitHubAttentionReport:
         )
 
     @property
-    def markdown(self):
+    def items(self):
+        """
+        Return GitHub issues and PRs in scope of search constraints.
+        """
         items = self.search.issues_and_prs()
-        items = sorted(munchify(items), key=attrgetter("created_at"))
+        return sorted(munchify(items), key=attrgetter("created_at"))
 
-        bug = []
-        important = []
-        other = []
-        for item in tqdm(items, leave=False):
-            labels = [label.name for label in item.labels]
+    def has_relevant_label(self, item) -> t.Optional[Munch]:
+        """
+        Whether the given item includes a relevant label.
+        """
+        for label in item.labels:
+            if label.name in self.label_section_map or label.name in self.label_aliases.get(
+                label.name, []
+            ):
+                return label
+        return None
+
+    @property
+    def markdown(self):
+        """
+        Render report in Markdown format.
+        """
+        mdc = MarkdownContent(labels=self.label_section_map)
+        seen = {}
+        for item in tqdm(self.items, leave=False):
             title = sanitize_title(
                 f"{repository_name(item.repository_url, with_org=True)}: {item.title}"
             )
             link = f"[{title}]({item.html_url})"
             line = f"- {link}"
             # line = f"- {link} {', '.join(labels)}"
-            if "bug" in labels or "type-bug" in labels or "type-crash" in labels:
-                bug.append(line)
-                continue
-            if "important" in labels:
-                important.append(line)
-                continue
-            other.append(line)
+            if label := self.has_relevant_label(item):
+                if item.html_url in seen:
+                    continue
+                seen[item.html_url] = True
+                mdc.add(label.name, line)
+            else:
+                mdc.add("others", line)
 
-        sections = OrderedDict()
-        if bug:
-            sections["Bugs"] = "\n".join(bug)
-        if important:
-            sections["Important"] = "\n".join(important)
-        if other:
-            sections["Others"] = "\n".join(other)
-
-        def render_section(name) -> str:
-            if name not in sections:
-                return ""
-            return f"\n## {name}\n{sections[name]}"
-
-        return dedent(f"""
+        return f"""
 # Importance report {self.inquiry.created or ""}
 
 A report about important items that deserve your attention, bugs first.
 Time range: {self.search.query_builder.timerange or "n/a"}
-{render_section("Bugs")}
-{render_section("Important")}
-{render_section("Others")}
-        """).strip()  # noqa: E501
+{mdc.render()}
+        """.strip()  # noqa: E501
 
     def print(self):
         print(self.markdown)
