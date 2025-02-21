@@ -131,8 +131,8 @@ optional-dependencies.test = [
   "pytest-cov<7",
 ]
 
-urls.Issues = "https://github.com/tech-writing/rapporto/issues"
 urls.Documentation = "https://rapporto.readthedocs.io/"
+urls.Issues = "https://github.com/tech-writing/rapporto/issues"
 urls.Repository = "https://github.com/tech-writing/rapporto"
 
 scripts.rapporto = "rapporto.cli:cli"
