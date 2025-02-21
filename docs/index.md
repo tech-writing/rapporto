@@ -1,6 +1,7 @@
 # Rapporto
 
-A program for harvesting information from GitHub and Slack, [DWIM].
+Harvest information from GitHub and Slack,
+and create reports in Markdown format. [DWIM].
 
 ```{toctree}
 :maxdepth: 1
@@ -19,6 +20,10 @@ project
     Talk to GitHub and Slack, and easily extend it for other services.
 :Flexibility:
     Use as a standalone program or as a library in your own programs.
+:Interoperability:
+    The output is using Markdown format across the board, so you can
+    use it on many services like Discord, Discourse, GitHub, Slack,
+    and many more.
 
 ## Synopsis
 
@@ -53,6 +58,11 @@ rapporto slack export https://acme.slack.com/archives/D018V8WDABA/p1738873838427
 :::
 
 ::::
+
+
+```{include} readme.md
+:start-line: 15
+```
 
 ## Contribute
 

@@ -1,14 +1,7 @@
 # Rapporto
 
-A program for harvesting information from GitHub and Slack, [DWIM].
-
-» [Documentation]
-| [Changelog]
-| [PyPI]
-| [Issues]
-| [Source code]
-| [License]
-| [Community Forum]
+Harvest information from GitHub and Slack,
+and create reports in Markdown format. [DWIM].
 
 [![CI][badge-ci]][project-ci]
 [![Coverage][badge-coverage]][project-coverage]
@@ -27,6 +20,16 @@ See [Rapporto Installation].
 ## Usage
 
 See [Rapporto User Guide].
+
+## Quick links
+
+» [Documentation]
+| [Changelog]
+| [PyPI]
+| [Issues]
+| [Source code]
+| [License]
+| [Community Forum]
 
 
 [Changelog]: https://github.com/tech-writing/rapporto/blob/main/CHANGES.md
