@@ -264,7 +264,7 @@ class GitHubAttentionReport:
     )
 
     label_aliases = {
-        "bug": ["type-bug", "type-crash"],
+        "bug": ["type-bug", "type-crash", "type: Bug", "type: bug"],
     }
 
     def __init__(self, inquiry: ActivityInquiry):
