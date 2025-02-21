@@ -3,7 +3,7 @@
 ## In progress
 - GitHub/CI: Fixed displaying failed workflow runs on pull requests
   which succeeded afterward
-- GitHub/Important: Improved rendering of Markdown sections
+- GitHub/Bugs: Improved rendering of Markdown sections
 - GitHub/Bugs: Also consider labels `stale` and `type: Bug` as relevant
 
 ## v0.1.0, 2025-02-20
@@ -11,16 +11,16 @@
   see [Authenticate to GitHub in GitHub Actions].
 - Refactored codebase to become a real Python package
 - CI: Added GHA workflow invoking `poe check`, and Dependabot configuration
-- Refactored current adapter code into `rapporto.github`, to accompany
+- GitHub: Refactored current adapter code into `rapporto.github`, to accompany
   including other adapters
 - Added documentation using Sphinx and PyData Sphinx Theme, and RTD.
   See [Rapporto Documentation].
-- Slack: Added thread exporter. Thanks, @WalBeh.
+- Slack: Added conversation exporter. Thanks, @WalBeh.
 - Slack: Refactored CLI to use Click
 - GitHub: Added `GitHubAttentionReport`, to report about important items
   that deserve your attention, bugs first.
-- Options: Make options optional, to report about the complete corpus
-- Links: Display full notation for projects `<org>/<project>`
+- GitHub: Make options optional, to report about the complete corpus
+- GitHub: Display full project names `<org>/<project>` within Markdown links
 
 [Authenticate to GitHub in GitHub Actions]: https://josh-ops.com/posts/gh-auth-login-in-actions/
 [Rapporto Documentation]: https://rapporto.readthedocs.io/
