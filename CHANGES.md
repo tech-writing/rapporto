@@ -1,6 +1,7 @@
 # Change log
 
 ## In progress
+- Opsgenie: Added alert reporter. Thanks, @WalBah.
 
 ## v0.2.0, 2025-02-24
 - GitHub/CI: Fixed displaying failed workflow runs on pull requests
