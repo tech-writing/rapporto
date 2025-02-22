@@ -3,6 +3,7 @@ from click_aliases import ClickAliasedGroup
 from pueblo.util.cli import boot_click
 
 from rapporto.github.cli import cli as github_cli
+from rapporto.opsgenie.cli import cli as opsgenie_cli
 from rapporto.slack.cli import cli as slack_cli
 
 
@@ -16,4 +17,5 @@ def cli(ctx: click.Context, verbose: bool, debug: bool):
 
 
 cli.add_command(github_cli, "gh")
+cli.add_command(opsgenie_cli, "opsgenie")
 cli.add_command(slack_cli, "slack")

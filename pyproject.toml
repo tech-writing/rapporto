@@ -7,7 +7,7 @@ requires = [
 
 [project]
 name = "rapporto"
-description = "Harvest information from GitHub and Slack, and create reports in Markdown format."
+description = "Harvest information from GitHub, Opsgenie, and Slack, and create reports in Markdown format."
 readme = "README.md"
 keywords = [
   "activity report",
@@ -103,11 +103,13 @@ dependencies = [
   "importlib-metadata; python_version<'3.8'",
   "markdown-to-mrkdwn<0.2",
   "munch<5",
+  "opsgenie-sdk<3",
   "pueblo<1",
   "python-dateutil<3",
   "requests<3",
   "requests-cache<2",
   "slack-sdk<4",
+  "tabulate<0.10",
   "tqdm",
 ]
 optional-dependencies.develop = [
