@@ -2,7 +2,6 @@
 
 ## Iteration +1
 - GitHub: Export conversations
-- Refactoring: Spread GitHub modules along the feature axis
 
 ## Iteration +2
 - GitHub: s/created/updated/
@@ -48,3 +47,4 @@
 - GitHub/Bugs: Add label `type: Bug`
 - Documentation: Include breadcrumbs into static docs, not just README
 - Opsgenie: Add subsystem
+- Refactoring: Spread GitHub modules along the feature axis

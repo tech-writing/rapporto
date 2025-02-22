@@ -4,8 +4,10 @@ from pathlib import Path
 import click
 from click_aliases import ClickAliasedGroup
 
-from rapporto.github.core import GitHubActionsReport, GitHubActivityReport, GitHubAttentionReport
-from rapporto.github.model import ActivityInquiry, MultiRepositoryInquiry
+from rapporto.github.actions import GitHubActionsReport, MultiRepositoryInquiry
+from rapporto.github.activity import GitHubActivityReport
+from rapporto.github.attention import GitHubAttentionReport
+from rapporto.github.model import GitHubInquiry
 
 organization_option = click.option("--organization", "--org", type=str, required=False)
 author_option = click.option("--author", type=str, required=False)
@@ -23,29 +25,29 @@ def cli(ctx: click.Context):
     pass
 
 
-@cli.command()
+@cli.command(aliases=["ppp"])
 @organization_option
 @author_option
 @timerange_option
-def ppp(
+def activity(
     organization: t.Optional[str] = None,
     author: t.Optional[str] = None,
     timerange: t.Optional[str] = None,
 ):
     """
-    Activity: Report about activities of individual authors.
+    Activities of individual authors.
     """
-    inquiry = ActivityInquiry(organization=organization, author=author, created=timerange)
+    inquiry = GitHubInquiry(organization=organization, author=author, created=timerange)
     report = GitHubActivityReport(inquiry=inquiry)
     report.print()
 
 
-@cli.command()
+@cli.command(aliases=["ci"])
 @repository_option
 @repositories_file_option
-def ci(repository: str, repositories_file: Path = None):
+def actions(repository: str, repositories_file: Path = None):
     """
-    QA: Report about CI failures.
+    CI/GHA failures.
     """
     try:
         inquiry = MultiRepositoryInquiry.make(
@@ -65,8 +67,8 @@ def ci(repository: str, repositories_file: Path = None):
 @timerange_option
 def attention(organization: t.Optional[str] = None, timerange: t.Optional[str] = None):
     """
-    QA: Report about important items that deserve attention.
+    Important items that deserve attention.
     """
-    inquiry = ActivityInquiry(organization=organization, created=timerange)
+    inquiry = GitHubInquiry(organization=organization, created=timerange)
     report = GitHubAttentionReport(inquiry=inquiry)
     report.print()

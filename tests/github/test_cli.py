@@ -38,5 +38,5 @@ def test_cli_att(cli_runner):
         catch_exceptions=False,
     )
     assert result.exit_code == 0
-    assert "# Importance report 2025W08" in result.output
+    assert "# Attention report 2025W08" in result.output
     assert "sphinx-design-elements" in result.output
