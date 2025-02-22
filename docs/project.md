@@ -12,4 +12,29 @@ Backlog <backlog>
 - https://github.com/nedbat/dinghy
 - https://github.com/kneth/gh-utils
 - https://github.com/slackapi/slack-github-action
-- Many more.
+
+### More
+- https://github.com/badele/gitcheck
+- https://github.com/nlitsme/githubtool
+- https://github.com/badele/github-summary
+- https://pypi.org/project/github-python/
+- https://pypi.org/project/github-dlr/
+- https://pypi.org/project/github-dl/
+- https://pypi.org/project/github-crawler/
+- https://pypi.org/project/github-contributions/
+- https://pypi.org/project/github-context/
+- https://pypi.org/project/github-contents/
+- https://pypi.org/project/github-cli/
+- https://pypi.org/project/github-changes/
+- https://pypi.org/project/github-cards/
+- https://pypi.org/project/github-bot/
+- https://github.com/Chandler-Song?tab=repositories&q=github
+- https://github.com/zerosoul/github-star-stats
+- https://github.com/frodeaa/github_trending_archive
+- https://pypi.org/project/github-bird/
+- https://github.com/sigmavirus24/github3.py
+  - https://github.com/domdfcoding/github3-utils
+- https://pypi.org/project/github3api/
+- https://pypi.org/project/github2pandas/
+- https://10degres.net/github-tools-collection/
+  - https://github.com/gwen001/github-search
