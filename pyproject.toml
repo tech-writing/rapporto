@@ -7,7 +7,7 @@ requires = [
 
 [project]
 name = "rapporto"
-description = "Harvest information from GitHub, Opsgenie, and Slack, and create reports in Markdown format."
+description = "Harvest information from GitHub, Opsgenie, and Slack, create reports in Markdown format, and publish them in different ways."
 readme = "README.md"
 keywords = [
   "activity report",
@@ -99,6 +99,7 @@ dependencies = [
   "click<9",
   "click-aliases<2",
   "dataclasses-json<1",
+  "furl<3",
   "github-backup<1",
   "importlib-metadata; python_version<'3.8'",
   "markdown-to-mrkdwn<0.2",
@@ -190,6 +191,8 @@ lint.extend-ignore = [
   "RET504",
   # Unnecessary `elif` after `return` statement
   "RET505",
+  # https://docs.astral.sh/ruff/rules/function-call-in-dataclass-default-argument/
+  "RUF009",
   # Probable insecure usage of temporary file or directory
   "S108",
   "T201", # Allow use of `assert`.

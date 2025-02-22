@@ -3,6 +3,8 @@
 ## In progress
 - GitHub/Bugs: Also display `state==closed` items, formatting them
   using ~~strikethrough~~.
+- Slack/UI: Added wrapper around Slack conversations, available per
+  CLI `rapporto slack send`.
 
 ## v0.3.0, 2025-02-24
 - Opsgenie: Added alert reporter. Thanks, @WalBah.

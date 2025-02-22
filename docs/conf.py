@@ -156,3 +156,9 @@ myst_enable_extensions = [
     "tasklist",
 ]
 myst_substitutions = {}
+
+# https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#strikethrough
+# https://myst-parser.readthedocs.io/en/latest/configuration.html#myst-warnings
+suppress_warnings = [
+    "myst.strikethrough",
+]

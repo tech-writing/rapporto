@@ -1,6 +1,6 @@
 # User Guide
 
-Learn how to use Rapporto.
+Learn how to use Rapporto for acquiring information and reporting.
 
 ```{toctree}
 :maxdepth: 1
