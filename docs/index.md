@@ -1,7 +1,8 @@
 # Rapporto
 
 Harvest information from GitHub, Opsgenie, and Slack,
-and create reports in Markdown format. [DWIM].
+create reports in Markdown format, and publish them
+in different ways. [DWIM].
 
 ```{toctree}
 :maxdepth: 1
@@ -9,6 +10,7 @@ and create reports in Markdown format. [DWIM].
 
 install
 guide/index
+ui/index
 project
 ```
 

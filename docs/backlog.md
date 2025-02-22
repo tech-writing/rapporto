@@ -1,9 +1,15 @@
 # Backlog
 
 ## Iteration +1
+- Configuration
+- UI/Slack: https://api.slack.com/messaging/files
+- UI/Slack: chat_scheduleMessage
 
 ## Iteration +2
 - GitHub/Actions: Currently lacks parameter `--when`
+- General: Summaries, using the excellent `llm` package
+- GitHub/Bugs: Add labels `blocked`, `blocked-by XXX`, `impediment`
+- GitHub: Search items in specific columns (e.g. Blocked By) of specific boards
 - GitHub: Search items with significant amounts of reactions
 - GitHub: Search items with significant (amount or length of) comments
 - GitHub: Search items with EPIC or other keywords in its titles
@@ -13,7 +19,6 @@
 - Options: Make `limit=100` configurable? Is paging needed?
 - `github-backup` can do "Exceeded rate limit of 5000 requests;
   waiting 77 seconds to reset". Do we also need it?
-- Slack/Out: https://api.slack.com/messaging/files
 
 ## Iteration +3
 - Data: Identify items with high conversation activity (comment frequency, etc.)
@@ -26,6 +31,7 @@
   corresponding time range.
 - Report: Make configurable if Rapporto shall only return a share of top changes,
   or each one. Currently, the default is 2/5, but 1/3 is also reasonable.
+- https://github.com/slackapi/python-slack-events-api
 
 ## Done
 - Make it work.

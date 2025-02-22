@@ -31,7 +31,7 @@ Either define the authentication token as an environment variable,
 ```bash
 export SLACK_TOKEN='xoxb-your-slack-bot-token'
 ```
-or use the `--slack-token` command-line option.
+or use the `--api-token` command-line option.
 
 ### Export conversation
 

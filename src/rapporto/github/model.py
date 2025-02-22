@@ -6,6 +6,7 @@ from abc import abstractmethod
 from collections import OrderedDict
 from enum import Enum
 
+import dateparser
 from aika import TimeInterval, TimeIntervalParser
 from attrs import define
 
@@ -57,6 +58,10 @@ class GitHubQueryBuilder:
     @property
     def timeinterval(self) -> TimeInterval:
         timerange_user = self.inquiry.created
+        # TODO: Improve in Aika. -- https://github.com/panodata/aika/issues/112
+        if timerange_user and ".." in timerange_user:
+            parts = timerange_user.split("..")
+            return TimeInterval(start=dateparser.parse(parts[0]), end=dateparser.parse(parts[1]))
         tr = TimeIntervalParser()
         return tr.parse(timerange_user)
 
