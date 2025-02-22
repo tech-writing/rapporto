@@ -1,11 +1,11 @@
 # Backlog
 
 ## Iteration +1
-- Opsgenie: Add subsystem
 - GitHub: Export conversations
 - Refactoring: Spread GitHub modules along the feature axis
 
 ## Iteration +2
+- GitHub: s/created/updated/
 - GitHub/CI: Currently lacks parameter `--timerange`
 - GitHub: Search items with significant amounts of reactions
 - GitHub: Search items with significant (amount or length of) comments
@@ -26,14 +26,6 @@
   corresponding time range.
 - Report: Make configurable if Rapporto shall only return a share of top changes,
   or each one. Currently, the default is 2/5, but 1/3 is also reasonable.
-- GitHub/Bugs: Also consider issues flagged with `Type: Bug`,
-  orthogonal to GitHub's "labels".
-  - Examples:
-    - https://github.com/crate/cratedb-prometheus-adapter/issues/176
-    - https://github.com/tech-writing/sphinx-design-elements/issues/128
-  => Currently there is no API for this attribute yet.
-  - https://github.com/orgs/community/discussions/140874
-  - https://github.com/orgs/community/discussions/139933
 
 ## Done
 - Make it work.
@@ -55,3 +47,4 @@
   i.e. improve grouping code, making it more maintainable.
 - GitHub/Bugs: Add label `type: Bug`
 - Documentation: Include breadcrumbs into static docs, not just README
+- Opsgenie: Add subsystem
