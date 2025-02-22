@@ -23,7 +23,7 @@ def export(url: str, slack_token: str):
     """
     if not slack_token:
         raise click.UsageError(
-            "Missing option '--slack-token' or 'SLACK_TOKEN' environment variable."
+            "Missing option '--slack-token' or environment variable 'SLACK_TOKEN'."
         )
 
     exporter = SlackThreadExporter(slack_token)
