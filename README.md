@@ -1,7 +1,7 @@
 # Rapporto
 
-Harvest information from GitHub and Slack,
-and create reports in Markdown format. [DWIM].
+Harvest information from GitHub, Opsgenie, and Slack,
+and create reports in Markdown format. [DWIM](https://en.wikipedia.org/wiki/DWIM).
 
 [![CI][badge-ci]][project-ci]
 [![Coverage][badge-coverage]][project-coverage]
@@ -35,10 +35,8 @@ See [Rapporto User Guide].
 [Changelog]: https://github.com/tech-writing/rapporto/blob/main/CHANGES.md
 [Community Forum]: https://community.panodata.org/
 [Documentation]: https://rapporto.readthedocs.io/
-[DWIM]: https://en.wikipedia.org/wiki/DWIM
 [Issues]: https://github.com/tech-writing/rapporto/issues
 [License]: https://github.com/tech-writing/rapporto/blob/main/LICENSE
-[managed on GitHub]: https://github.com/tech-writing/rapporto
 [PyPI]: https://pypi.org/project/rapporto/
 [Rapporto Installation]: https://rapporto.readthedocs.io/install.html
 [Rapporto User Guide]: https://rapporto.readthedocs.io/guide/
