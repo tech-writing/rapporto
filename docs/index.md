@@ -1,6 +1,6 @@
 # Rapporto
 
-Harvest information from GitHub and Slack,
+Harvest information from GitHub, Opsgenie, and Slack,
 and create reports in Markdown format. [DWIM].
 
 ```{toctree}
@@ -61,6 +61,19 @@ rapporto gh backup --all --pull-details --prefer-ssh --token="${GH_TOKEN}" --rep
 
 ::::
 
+### Opsgenie
+
+::::{tab-set}
+
+:::{tab-item} Export alerts
+```{code-block} shell
+:caption: Report about [Opsgenie] alerts.
+rapporto opsgenie export-alerts --start-time "12-02-2025T14:00:00" --days 7
+```
+:::
+
+::::
+
 ### Slack
 
 ::::{tab-set}
@@ -91,5 +104,6 @@ and needs all support it can get. It is [managed on GitHub].
 [GitHub]: https://en.wikipedia.org/wiki/GitHub
 [github-backup]: https://pypi.org/project/github-backup/
 [managed on GitHub]: https://github.com/tech-writing/rapporto
+[Opsgenie]: https://www.atlassian.com/software/opsgenie
 [PPP]: https://weekdone.com/resources/plans-progress-problems
 [Slack]: https://en.wikipedia.org/wiki/Slack_(software)
