@@ -6,19 +6,14 @@ import urllib.parse
 from abc import abstractmethod
 from collections import OrderedDict
 from enum import Enum
-from pathlib import Path
 
 from attrs import define
-from dataclasses_json import CatchAll, Undefined, dataclass_json
-from munch import Munch
-
-from rapporto.util import goosefeet, sanitize_title
 
 logger = logging.getLogger(__name__)
 
 
 @dataclasses.dataclass
-class ActivityInquiry:
+class GitHubInquiry:
     organization: t.Optional[str] = None
     created: t.Optional[str] = None
     author: t.Optional[str] = None
@@ -34,54 +29,13 @@ class QKind(Enum):
     PULLREQUEST = 2
 
 
-@dataclass_json(undefined=Undefined.INCLUDE)
-@dataclasses.dataclass
-class PullRequestMetadata:
-    # Original fields from GitHub API.
-    number: str
-    url: str
-    html_url: str
-    title: str
-    commits: int
-    additions: int
-    deletions: int
-    changed_files: int
-    comments: int
-    review_comments: int
-
-    # Computed fields.
-    code_size: t.Optional[int] = None
-    comments_total: t.Optional[int] = None
-    repo_name: t.Optional[str] = None
-
-    # This dictionary includes all the remaining fields.
-    more: t.Optional[CatchAll] = None
-
-    def __post_init__(self):
-        self.code_size = self.additions - self.deletions
-        self.comments_total = self.comments + self.review_comments
-        try:
-            self.repo_name = self.more["base"]["repo"]["name"]  # type: ignore[index]
-        except KeyError as ex:
-            msg = f"Unable to decode repository name: {ex}"
-            logger.error(msg)
-            raise KeyError(msg) from ex
-
-    def format_item(self):
-        # Generic info (for debugging)
-        # return (f"files: {self.changed_files}, "
-        #        f"size: {self.code_size}, comments: {self.comments_total}")
-        # Repo: PR+link
-        return f"  - {self.repo_name}: [{sanitize_title(self.title)}]({self.html_url})"
-
-
 class GitHubQueryBuilder:
     template_api = (
         "https://api.github.com/search/issues?q={query}&per_page=100&sort=created&order=asc"
     )
     template_html = "https://github.com/search?q={query}&per_page=100&s=created&o=asc"
 
-    def __init__(self, inquiry: ActivityInquiry):
+    def __init__(self, inquiry: GitHubInquiry):
         self.inquiry = inquiry
         self.type: t.Optional[QType] = None
         self.kind: t.Optional[QKind] = None
@@ -161,39 +115,6 @@ class GitHubQueryBuilder:
         return template.format(query=urllib.parse.quote(query))
 
 
-class GitHubActivityQueryBuilder(GitHubQueryBuilder):
-    """
-    Find all open issues and pull requests created by individual author.
-    """
-
-    def query(self):
-        self.add("org", self.inquiry.organization)
-        self.add("created", self.timerange)
-        self.add("author", self.inquiry.author)
-
-
-class GitHubAttentionQueryBuilder(GitHubQueryBuilder):
-    """
-    Find all open issues and pull requests with labels "bug" or "important".
-    """
-
-    labels = [
-        "bug",  # GitHub standard.
-        "important",  # CrateDB.
-        "stale",  # CrateDB.
-        "type-bug",  # CPython
-        "type-crash",  # CPython
-        "type: Bug",  # CrateDB.
-        "type: bug",  # CrateDB.
-    ]
-
-    def query(self):
-        self.add("org", self.inquiry.organization)
-        self.add("created", self.timerange)
-        self.add("label", ",".join(map(goosefeet, self.labels)))
-        self.add("state", "open")
-
-
 @define
 class GitHubSearch:
     session: t.Any
@@ -226,56 +147,6 @@ class GitHubSearch:
         items += response.json()["items"]
 
         return items
-
-
-@dataclasses.dataclass
-class MultiRepositoryInquiry:
-    repositories: t.List[str]
-
-    @classmethod
-    def make(cls, repository: str, repositories_file: Path = None) -> "MultiRepositoryInquiry":
-        if repository:
-            return cls(repositories=[repository])
-        elif repositories_file:
-            return cls(repositories=repositories_file.read_text().splitlines())
-        else:
-            raise ValueError("No repository specified")
-
-
-@dataclasses.dataclass
-class ActionsFilter:
-    event: t.Optional[str] = None
-    status: t.Optional[str] = None
-    created: t.Optional[str] = None
-
-    @property
-    def query(self) -> str:
-        expression = []
-        if self.event:
-            expression.append(f"event={self.event}")
-        if self.status:
-            expression.append(f"status={self.status}")
-        if self.created:
-            expression.append(f"created={self.created}")
-        return "&".join(expression)
-
-
-@dataclasses.dataclass
-class ActionsOutcome:
-    id: int
-    event: str
-    status: str
-    conclusion: str
-    repository: Munch
-    name: str
-    url: str
-    started: str
-    head_branch: str
-
-    @property
-    def markdown(self):
-        title = sanitize_title(f"{self.repository.full_name}: {self.name}")
-        return f"- [{title}]({self.url})"
 
 
 @dataclasses.dataclass()

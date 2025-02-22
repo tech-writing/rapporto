@@ -27,37 +27,46 @@ project
 
 ## Synopsis
 
+### GitHub
+
 ::::{tab-set}
 
-:::{tab-item} GitHub: PPP
-```{code-block} shell
-:caption: Report about user activity on [GitHub] in [PPP] format.
-rapporto gh ppp --organization=python --author=AA-Turner --timerange="2025W04"
-```
-:::
-
-:::{tab-item} GitHub: CI
+:::{tab-item} Actions
 ```{code-block} shell
 :caption: Report about CI failures on [GHA].
-rapporto gh ci --repository=acme/acme-examples
+rapporto gh actions --repository=acme/acme-examples
 ```
 :::
 
-:::{tab-item} GitHub: Importance
+:::{tab-item} Activity
+```{code-block} shell
+:caption: Report about user activity on [GitHub] in [PPP] format.
+rapporto gh activity --organization=python --author=AA-Turner --timerange="2025W04"
+```
+:::
+
+:::{tab-item} Attention
 ```{code-block} shell
 :caption: Report about bugs and similar important items on [GitHub].
-rapporto gh att --organization=python --timerange="2025W07"
+rapporto gh attention --organization=python --timerange="2025W07"
 ```
 :::
 
-:::{tab-item} Slack: Export thread
+::::
+
+### Slack
+
+::::{tab-set}
+
+:::{tab-item} Export conversation
 ```{code-block} shell
-:caption: Export [Slack] conversation / thread.
+:caption: Export [Slack] conversation thread.
 rapporto slack export https://acme.slack.com/archives/D018V8WDABA/p1738873838427919
 ```
 :::
 
 ::::
+
 
 
 ```{include} readme.md
