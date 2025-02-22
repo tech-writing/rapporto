@@ -33,9 +33,9 @@ export SLACK_TOKEN='xoxb-your-slack-bot-token'
 ```
 or use the `--slack-token` command-line option.
 
-### Export thread
+### Export conversation
 
-Export Slack thread into Markdown document.
+Export Slack conversation thread into Markdown document.
 ```shell
 rapporto slack export https://acme.slack.com/archives/D018V8WDABA/p1738873838427919
 ```
