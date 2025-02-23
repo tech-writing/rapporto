@@ -18,6 +18,7 @@ keywords = [
   "github actions",
   "github activity",
   "github api",
+  "github backup",
   "github export",
   "information management",
   "markdown",
@@ -97,6 +98,7 @@ dependencies = [
   "click<9",
   "click-aliases<2",
   "dataclasses-json<1",
+  "github-backup<1",
   "importlib-metadata; python_version<'3.8'",
   "munch<5",
   "pueblo<1",
@@ -174,6 +176,7 @@ lint.select = [
 lint.extend-ignore = [
   # zip() without an explicit strict= parameter
   "B905",
+  "C408",   # Unnecessary `dict()` call (rewrite as a literal)
   "ERA001", # Found commented-out code.
   # df is a bad variable name. Be kinder to your future self.
   "PD901",

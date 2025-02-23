@@ -11,4 +11,5 @@ docs/_build
 __pycache__
 
 # Custom
+repositories
 slack_export

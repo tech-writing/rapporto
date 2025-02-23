@@ -5,6 +5,7 @@
   which succeeded afterward
 - GitHub/Bugs: Improved rendering of Markdown sections
 - GitHub/Bugs: Also consider labels `stale` and `type: Bug` as relevant
+- GitHub/Backup: Added wrapper around `github-backup`
 
 ## v0.1.0, 2025-02-20
 - Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,

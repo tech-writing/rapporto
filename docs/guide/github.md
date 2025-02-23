@@ -51,6 +51,13 @@ rapporto gh attention --organization=python --timerange="2025W07"
 If you want to explore your personal repositories, please use the
 `--organization` option with your username, e.g. `--organization=AA-Turner`.
 
+### Backup
+Full GitHub project backup using [github-backup].
+```shell
+rapporto gh backup --all --pull-details --prefer-ssh --token="${GH_TOKEN}" --repository=kotori daq-tools
+```
+
 
 [GHA]: https://github.com/features/actions
+[github-backup]: https://pypi.org/project/github-backup/
 [PPP]: https://weekdone.com/resources/plans-progress-problems

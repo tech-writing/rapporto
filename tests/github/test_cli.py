@@ -1,4 +1,11 @@
+import pytest
+
 from rapporto.cli import cli
+
+
+@pytest.fixture(autouse=True)
+def reset_environment(monkeypatch):
+    monkeypatch.delenv("GH_TOKEN", raising=False)
 
 
 def test_cli_ppp(cli_runner):
@@ -40,3 +47,19 @@ def test_cli_att(cli_runner):
     assert result.exit_code == 0
     assert "# Attention report 2025W08" in result.output
     assert "sphinx-design-elements" in result.output
+
+
+def test_cli_backup_unauthorized(cli_runner, capfd):
+    """
+    CLI test: Invoke `rapporto gh backup`.
+    """
+    result = cli_runner.invoke(
+        cli,
+        args="gh backup --repository=rapporto tech-writing",
+        catch_exceptions=False,
+    )
+    assert result.exit_code == 2
+    assert "ERROR: Command" in result.output
+
+    out, err = capfd.readouterr()
+    assert "API request returned HTTP 401: Unauthorized" in err
