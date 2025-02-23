@@ -7,6 +7,7 @@ from click_aliases import ClickAliasedGroup
 from rapporto.github.actions import GitHubActionsReport, MultiRepositoryInquiry
 from rapporto.github.activity import GitHubActivityReport
 from rapporto.github.attention import GitHubAttentionReport
+from rapporto.github.backup import GitHubBackup
 from rapporto.github.model import GitHubInquiry
 
 organization_option = click.option("--organization", "--org", type=str, required=False)
@@ -72,3 +73,22 @@ def attention(organization: t.Optional[str] = None, timerange: t.Optional[str] =
     inquiry = GitHubInquiry(organization=organization, created=timerange)
     report = GitHubAttentionReport(inquiry=inquiry)
     report.print()
+
+
+@cli.command(
+    context_settings=dict(
+        ignore_unknown_options=True,
+        allow_extra_args=True,
+    )
+)
+@click.pass_context
+def backup(ctx: click.Context):
+    """
+    Backup GitHub project.
+    """
+    backup = GitHubBackup()
+    try:
+        backup.run(ctx.args)
+    except Exception as ex:
+        click.echo(f"ERROR: {ex}", err=True)
+        raise SystemExit(2) from ex

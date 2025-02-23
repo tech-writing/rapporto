@@ -52,6 +52,13 @@ rapporto gh attention --organization=python --timerange="2025W07"
 ```
 :::
 
+:::{tab-item} Backup
+```{code-block} shell
+:caption: Full GitHub project backup using [github-backup].
+rapporto gh backup --all --pull-details --prefer-ssh --token="${GH_TOKEN}" --repository=kotori daq-tools
+```
+:::
+
 ::::
 
 ### Slack
@@ -82,6 +89,7 @@ and needs all support it can get. It is [managed on GitHub].
 [DWIM]: https://en.wikipedia.org/wiki/DWIM
 [GHA]: https://github.com/features/actions
 [GitHub]: https://en.wikipedia.org/wiki/GitHub
+[github-backup]: https://pypi.org/project/github-backup/
 [managed on GitHub]: https://github.com/tech-writing/rapporto
 [PPP]: https://weekdone.com/resources/plans-progress-problems
 [Slack]: https://en.wikipedia.org/wiki/Slack_(software)

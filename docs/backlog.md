@@ -13,6 +13,8 @@
 - GitHub/API: On errors, the JSON response includes the reason as an
   error message. However, it isn't displayed, yet.
 - Options: Make `limit=100` configurable? Is paging needed?
+- `github-backup` can do "Exceeded rate limit of 5000 requests;
+  waiting 77 seconds to reset". Do we also need it?
 
 ## Iteration +3
 - Data: Identify items with high conversation activity (comment frequency, etc.)
