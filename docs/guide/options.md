@@ -31,4 +31,15 @@ or relative human-readable notations.
 - this month
 
 
+## Output options
+
+### Slack flavored Markdown
+
+The program can output two flavors of Markdown. Standard Markdown is default,
+while the [Slack `mrkdwn` format] can be produced using the `--format=mrkdwn`
+command-line option. Rapporto uses the [markdown-to-mrkdwn] package here.
+
+
 [aika]: https://pypi.org/project/aika/
+[markdown-to-mrkdwn]: https://pypi.org/project/markdown-to-mrkdwn/
+[Slack `mrkdwn` format]: https://api.slack.com/reference/surfaces/formatting#basic-formatting

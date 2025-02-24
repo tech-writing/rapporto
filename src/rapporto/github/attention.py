@@ -110,6 +110,3 @@ A report about important items that deserve your attention, bugs first.
 Time range: {self.search.query_builder.timerange or "n/a"}
 {mdc.render()}
         """.strip()  # noqa: E501
-
-    def print(self):
-        print(self.markdown)

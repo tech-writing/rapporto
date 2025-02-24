@@ -62,9 +62,6 @@ A report about GitHub Actions workflow runs that failed recently (now-{self.requ
 {mdc.render()}
         """.strip()  # noqa: E501
 
-    def print(self):
-        print(self.markdown)
-
 
 class GitHubActionsRequest:
     """

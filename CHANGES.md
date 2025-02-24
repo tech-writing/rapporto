@@ -8,6 +8,7 @@
 - GitHub/Backup: Added wrapper around `github-backup`
 - Options: Use `aika` for parsing time intervals.
   Also, rename command-line option `--timerange` to `--when`.
+- Options: Added `--format=mrkdwn` option, improving Slack messages
 
 ## v0.1.0, 2025-02-20
 - Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,
