@@ -101,6 +101,7 @@ dependencies = [
   "dataclasses-json<1",
   "github-backup<1",
   "importlib-metadata; python_version<'3.8'",
+  "markdown-to-mrkdwn<0.2",
   "munch<5",
   "pueblo<1",
   "python-dateutil<3",

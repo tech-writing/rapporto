@@ -1,6 +1,8 @@
 import dataclasses
+import io
 import logging
 import typing as t
+from contextlib import redirect_stdout
 from operator import attrgetter
 from textwrap import dedent
 
@@ -112,14 +114,18 @@ class GitHubActivityReport:
             f"comments: {item.comments_total}, files: {item.changed_files}, size: {item.code_size}"
         )
 
-    def print(self):
+    @property
+    def markdown(self) -> str:
         timerange = self.inquiry.created and f"for {self.inquiry.created}" or ""
-        print(f"# PPP report {timerange}")
-        # print("## Overview")
-        print(self.markdown_overview)
-        print()
-        print("*Top changes:*")
-        print(self.markdown_significant)
+        with redirect_stdout(io.StringIO()) as buffer:
+            print(f"# PPP report {timerange}")
+            # print("## Overview")
+            print(self.markdown_overview)
+            print()
+            print("*Top changes:*")
+            print(self.markdown_significant)
+        buffer.seek(0)
+        return buffer.read()
 
 
 @dataclass_json(undefined=Undefined.INCLUDE)

@@ -1,3 +1,6 @@
+from markdown_to_mrkdwn import SlackMarkdownConverter
+
+
 def sanitize_title(title: str) -> str:
     """
     Strip characters that are unfortunate in Markdown link titles.
@@ -12,3 +15,10 @@ def goosefeet(text: str) -> str:
     if " " in text:
         return f'"{text}"'
     return text
+
+
+mrkdwn_converter = SlackMarkdownConverter()
+
+
+def to_mrkdwn(markdown: str) -> str:
+    return mrkdwn_converter.convert(markdown)
