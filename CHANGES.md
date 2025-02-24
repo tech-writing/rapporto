@@ -1,6 +1,8 @@
 # Change log
 
 ## In progress
+
+## v0.3.0, 2025-02-24
 - Opsgenie: Added alert reporter. Thanks, @WalBah.
 - Opsgenie: Added time interval parsing using Aika, i.e. `--when` option
 - GitHub/API: Use `updated` instead of `created` to get the whole picture
