@@ -2,6 +2,7 @@
 
 ## In progress
 - Opsgenie: Added alert reporter. Thanks, @WalBah.
+- Opsgenie: Added time interval parsing using Aika, i.e. `--when` option
 
 ## v0.2.0, 2025-02-24
 - GitHub/CI: Fixed displaying failed workflow runs on pull requests

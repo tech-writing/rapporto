@@ -68,7 +68,7 @@ rapporto gh backup --all --pull-details --prefer-ssh --token="${GH_TOKEN}" --rep
 :::{tab-item} Export alerts
 ```{code-block} shell
 :caption: Report about [Opsgenie] alerts.
-rapporto opsgenie export-alerts --start-time "12-02-2025T14:00:00" --days 7
+rapporto opsgenie export-alerts --when="-7d"
 ```
 :::
 

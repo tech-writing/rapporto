@@ -16,6 +16,7 @@ def cli(ctx: click.Context):
 @click.option(
     "--api-key", type=str, envvar="OPSGENIE_API_KEY", required=False, help="Opsgenie API key"
 )
+@click.option("--when", type=str, required=False, help="A humanized time interval expression")
 @click.option(
     "--start-time", type=str, required=False, help="Start time in format dd-mm-yyyyTHH:MM:SS"
 )
@@ -29,7 +30,9 @@ def cli(ctx: click.Context):
     help="Output format: 'md' for markdown, 'text' for nicely formatted terminal output",
 )
 @click.pass_context
-def export_alerts(ctx: click.Context, api_key: str, start_time: str, days: int, format_: str):
+def export_alerts(
+    ctx: click.Context, api_key: str, when: str, start_time: str, days: int, format_: str
+):
     """
     Report about alerts in Opsgenie.
     """
