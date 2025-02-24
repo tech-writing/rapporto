@@ -6,6 +6,7 @@ Output formats can be Markdown or nicely formatted terminal output.
 
 Usage Example:
     export OPSGENIE_API_KEY="your-api-key"
+    rapporto opsgenie export-alerts --when="-7d"
     rapporto opsgenie export-alerts --start-time "12-02-2025T14:00:00" --days 7 > opsgenie-report.md
 """
 
@@ -17,6 +18,7 @@ from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 
 import click
+from aika import TimeInterval, TimeIntervalParser
 from munch import munchify
 from opsgenie_sdk import AlertApi, ApiClient, ApiException, Configuration
 from opsgenie_sdk.exceptions import ConfigurationException
@@ -30,28 +32,42 @@ class OpsgenieAlertsClient:
     Fetch alert items from Opsgenie API.
     """
 
+    OPSGENIE_DATETIME_FORMAT = "%d-%m-%YT%H:%M:%S"
+
     def __init__(self, api_key: str, query: str):
         self.api_key = api_key
         self.query = query
         self.api: ApiClient = self.client_factory(self.api_key)
 
-    @staticmethod
-    def query_from_cli_options(ctx: click.Context) -> str:
+    @classmethod
+    def format_interval(cls, interval: TimeInterval):
+        """Format the interval for the query expression."""
+        expression = f'createdAt >= "{interval.start.strftime(cls.OPSGENIE_DATETIME_FORMAT)}"'
+        if interval.end:
+            expression += (
+                f' and createdAt <= "{interval.end.strftime(cls.OPSGENIE_DATETIME_FORMAT)}"'
+            )
+        return expression
+
+    @classmethod
+    def query_from_cli_options(cls, ctx: click.Context) -> str:
         """Build the Opsgenie query string based on CLI arguments."""
         params = munchify(ctx.params)
-        if params.start_time:
+        if params.when:
+            tr = TimeIntervalParser()
+            interval = tr.parse(params.when)
+        elif params.start_time:
             if params.days is None:
                 raise ValueError("--days is required when --start-time is provided")
-            start_dt = datetime.strptime(params.start_time, "%d-%m-%YT%H:%M:%S")
+            start_dt = datetime.strptime(params.start_time, cls.OPSGENIE_DATETIME_FORMAT)
             start_dt = start_dt.replace(tzinfo=timezone.utc)
             end_dt = start_dt + timedelta(days=params.days)
-            query = (
-                f'createdAt > "{start_dt.strftime("%d-%m-%YT%H:%M:%S")}" '
-                f'and createdAt < "{end_dt.strftime("%d-%m-%YT%H:%M:%S")}"'
-            )
+            interval = TimeInterval(start_dt, end_dt)
         else:
             seven_days_ago = datetime.now(timezone.utc) - timedelta(days=7)
-            query = f'createdAt > "{seven_days_ago.strftime("%d-%m-%YT%H:%M:%S")}"'
+            interval = TimeInterval(seven_days_ago, None)
+        query = cls.format_interval(interval)
+        logger.info(f"Using query: {query}")
         return query
 
     @staticmethod
