@@ -6,7 +6,7 @@ from abc import abstractmethod
 from collections import OrderedDict
 from enum import Enum
 
-from aika import TimeIntervalParser
+from aika import TimeInterval, TimeIntervalParser
 from attrs import define
 
 logger = logging.getLogger(__name__)
@@ -55,11 +55,15 @@ class GitHubQueryBuilder:
         raise NotImplementedError("Needs to be implemented")
 
     @property
-    def timerange(self):
+    def timeinterval(self) -> TimeInterval:
         timerange_user = self.inquiry.created
-
         tr = TimeIntervalParser()
-        timerange_effective = tr.parse(timerange_user).mathformat()
+        return tr.parse(timerange_user)
+
+    @property
+    def timerange(self) -> str:
+        timerange_user = self.inquiry.created
+        timerange_effective = self.timeinterval.githubformat()
         logger.info(f'Using timerange: user="{timerange_user}" effective="{timerange_effective}"')
         return timerange_effective
 

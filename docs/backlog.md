@@ -1,8 +1,6 @@
 # Backlog
 
 ## Iteration +1
-- Slack: Support for `mrkdwn` output
-- GitHub: Process `created` + `updated`, not just `created`
 
 ## Iteration +2
 - GitHub/Actions: Currently lacks parameter `--when`
@@ -53,3 +51,5 @@
 - Refactoring: Spread GitHub modules along the feature axis
 - GitHub: Export conversations per GitHub Backup
 - Options: Parse time intervals using `aika`
+- Slack: Support for `mrkdwn` output
+- GitHub: Process `created` + `updated`, not just `created`

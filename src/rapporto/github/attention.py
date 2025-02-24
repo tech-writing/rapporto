@@ -32,7 +32,7 @@ class GitHubAttentionQueryBuilder(GitHubQueryBuilder):
 
     def query(self):
         self.add("org", self.inquiry.organization)
-        self.add("created", self.timerange)
+        self.add("updated", self.timeinterval.githubformat())
         self.add("label", ",".join(map(goosefeet, self.labels)))
         self.add("state", "open")
 
@@ -107,6 +107,6 @@ class GitHubAttentionReport:
 # Attention report {self.inquiry.created or ""}
 
 A report about important items that deserve your attention, bugs first.
-Time range: {self.search.query_builder.timerange or "n/a"}
+Time range: {self.search.query_builder.timeinterval.githubformat() or "n/a"}
 {mdc.render()}
         """.strip()  # noqa: E501
