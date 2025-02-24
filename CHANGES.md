@@ -1,6 +1,8 @@
 # Change log
 
 ## In progress
+
+## v0.2.0, 2025-02-24
 - GitHub/CI: Fixed displaying failed workflow runs on pull requests
   which succeeded afterward
 - GitHub/Bugs: Improved rendering of Markdown sections
