@@ -41,14 +41,14 @@ rapporto gh actions --repository=acme/acme-examples
 :::{tab-item} Activity
 ```{code-block} shell
 :caption: Report about user activity on [GitHub] in [PPP] format.
-rapporto gh activity --organization=python --author=AA-Turner --timerange="2025W04"
+rapporto gh activity --organization=python --author=AA-Turner --when="2025W04"
 ```
 :::
 
 :::{tab-item} Attention
 ```{code-block} shell
 :caption: Report about bugs and similar important items on [GitHub].
-rapporto gh attention --organization=python --timerange="2025W07"
+rapporto gh attention --organization=python --when="2025W07"
 ```
 :::
 

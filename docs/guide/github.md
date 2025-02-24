@@ -39,14 +39,14 @@ rapporto gh actions --repositories-file=acme-repositories.txt
 ### Activity report
 Report about activities of individual authors.
 ```shell
-rapporto gh activity --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
-rapporto gh activity --organization=python --author=AA-Turner --timerange="2025W04"
+rapporto gh activity --organization=python --author=AA-Turner --when="2025-01-01..2025-01-31"
+rapporto gh activity --organization=python --author=AA-Turner --when="2025W04"
 ```
 
 ### Attention report
 Report about important items that deserve your attention, bugs first.
 ```shell
-rapporto gh attention --organization=python --timerange="2025W07"
+rapporto gh attention --organization=python --when="2025W07"
 ```
 If you want to explore your personal repositories, please use the
 `--organization` option with your username, e.g. `--organization=AA-Turner`.

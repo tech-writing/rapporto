@@ -14,7 +14,7 @@ def test_cli_ppp(cli_runner):
     """
     result = cli_runner.invoke(
         cli,
-        args="gh ppp --organization=panodata --author=dependabot[bot] --timerange=2025W07",
+        args="gh ppp --organization=panodata --author=dependabot[bot] --when=2025W07",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
@@ -41,7 +41,7 @@ def test_cli_att(cli_runner):
     """
     result = cli_runner.invoke(
         cli,
-        args="gh att --organization=tech-writing --timerange=2025W08",
+        args="gh att --organization=tech-writing --when=2025W08",
         catch_exceptions=False,
     )
     assert result.exit_code == 0

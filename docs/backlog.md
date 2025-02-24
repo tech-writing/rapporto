@@ -1,11 +1,11 @@
 # Backlog
 
 ## Iteration +1
-- GitHub: Export conversations
+- Slack: Support for `mrkdwn` output
+- GitHub: Process `created` + `updated`, not just `created`
 
 ## Iteration +2
-- GitHub: s/created/updated/
-- GitHub/CI: Currently lacks parameter `--timerange`
+- GitHub/Actions: Currently lacks parameter `--when`
 - GitHub: Search items with significant amounts of reactions
 - GitHub: Search items with significant (amount or length of) comments
 - GitHub: Search items with EPIC or other keywords in its titles
@@ -15,6 +15,7 @@
 - Options: Make `limit=100` configurable? Is paging needed?
 - `github-backup` can do "Exceeded rate limit of 5000 requests;
   waiting 77 seconds to reset". Do we also need it?
+- Slack/Out: https://api.slack.com/messaging/files
 
 ## Iteration +3
 - Data: Identify items with high conversation activity (comment frequency, etc.)
@@ -50,3 +51,5 @@
 - Documentation: Include breadcrumbs into static docs, not just README
 - Opsgenie: Add subsystem
 - Refactoring: Spread GitHub modules along the feature axis
+- GitHub: Export conversations per GitHub Backup
+- Options: Parse time intervals using `aika`

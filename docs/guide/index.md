@@ -8,9 +8,11 @@ Learn how to use Rapporto.
 
 github
 slack
+options
 ```
 
 ::::{grid} 2
+:gutter: 4
 
 :::{grid-item-card}
 :link: github
@@ -34,6 +36,18 @@ Slack
 {fab}`slack;sd-text-success fa-2xl`
 +++
 Tap into the Slack API and export threads into Markdown format.
+:::
+
+:::{grid-item-card}
+:link: options
+:link-type: doc
+:class-body: sd-text-center sd-fs-3 sd-font-weight-bold
+:class-footer: sd-fs-6
+Options
+
+{fas}`gears;sd-text-white fa-2xl`
++++
+Program options, input and output.
 :::
 
 ::::
