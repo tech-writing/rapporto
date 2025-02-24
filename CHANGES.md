@@ -6,6 +6,8 @@
 - GitHub/Bugs: Improved rendering of Markdown sections
 - GitHub/Bugs: Also consider labels `stale` and `type: Bug` as relevant
 - GitHub/Backup: Added wrapper around `github-backup`
+- Options: Use `aika` for parsing time intervals.
+  Also, rename command-line option `--timerange` to `--when`.
 
 ## v0.1.0, 2025-02-20
 - Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,
@@ -55,5 +57,5 @@
   "org:python author:AA-Turner created:2025-01-01..2025-01-31 is:pr"
   ```
   ```shell
-  rapporto ppp --organization=python --author=AA-Turner --timerange="2025-01-01..2025-01-31"
+  rapporto ppp --organization=python --author=AA-Turner --when="2025-01-01..2025-01-31"
   ```

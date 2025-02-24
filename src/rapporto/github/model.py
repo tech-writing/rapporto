@@ -1,5 +1,4 @@
 import dataclasses
-import datetime as dt
 import logging
 import typing as t
 import urllib.parse
@@ -7,6 +6,7 @@ from abc import abstractmethod
 from collections import OrderedDict
 from enum import Enum
 
+from aika import TimeIntervalParser
 from attrs import define
 
 logger = logging.getLogger(__name__)
@@ -56,24 +56,12 @@ class GitHubQueryBuilder:
 
     @property
     def timerange(self):
-        timerange = self.inquiry.created
-        if timerange and "W" in timerange:
-            p_year, p_week = timerange.split("W")
-            timerange = self.date_range_str(*self.date_range_from_week(p_year, p_week))
-        return timerange
+        timerange_user = self.inquiry.created
 
-    @staticmethod
-    def date_range_from_week(p_year, p_week):
-        """
-        http://mvsourcecode.com/python-how-to-get-date-range-from-week-number-mvsourcecode/
-        """
-        firstdayofweek = dt.datetime.strptime(f"{p_year}-W{int(p_week) - 1}-1", "%Y-W%W-%w").date()
-        lastdayofweek = firstdayofweek + dt.timedelta(days=6.9)
-        return firstdayofweek, lastdayofweek
-
-    @staticmethod
-    def date_range_str(start: dt.datetime, end: dt.datetime):
-        return f"{start.isoformat()}..{end.isoformat()}"
+        tr = TimeIntervalParser()
+        timerange_effective = tr.parse(timerange_user).mathformat()
+        logger.info(f'Using timerange: user="{timerange_user}" effective="{timerange_effective}"')
+        return timerange_effective
 
     @property
     def query_issues(self):
