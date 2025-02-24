@@ -27,7 +27,7 @@ class GitHubActivityQueryBuilder(GitHubQueryBuilder):
 
     def query(self):
         self.add("org", self.inquiry.organization)
-        self.add("created", self.timerange)
+        self.add("updated", self.timeinterval.githubformat())
         self.add("author", self.inquiry.author)
 
 
