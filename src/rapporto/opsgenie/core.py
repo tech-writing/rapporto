@@ -128,6 +128,8 @@ class OpsgenieAlertsReport:
             r"prod",
             r"kubernetes-nodes",
             r"stable",
+            r"db cloud",
+            r"( metrics p)",
             r"\(metrics promethe",
         ]
 
