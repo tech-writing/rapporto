@@ -94,7 +94,7 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "aika>=0.2,<0.3",
+  "aika>=0.2.1,<0.3",
   "attrs<26",
   "click<9",
   "click-aliases<2",
