@@ -9,5 +9,5 @@ from shutil import which
 
 class GitHubBackup:
     def run(self, args):
-        cmd = [which("github-backup")] + args
+        cmd = [which("github-backup"), *args]
         subprocess.check_call(cmd)  # noqa: S603

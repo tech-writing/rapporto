@@ -168,6 +168,8 @@ lint.select = [
   "PD",
   # return
   "RET",
+  # Ruff-specific rules
+  "RUF",
   # Bandit
   "S",
   # print

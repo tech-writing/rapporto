@@ -60,7 +60,7 @@ class GitHubActionsReport:
 # CI failures report {dt.datetime.now().strftime("%Y-%m-%d")}
 A report about GitHub Actions workflow runs that failed recently (now-{self.request.DELTA_HOURS}h).
 {mdc.render()}
-        """.strip()  # noqa: E501
+        """.strip()
 
 
 class GitHubActionsRequest:
@@ -72,7 +72,7 @@ class GitHubActionsRequest:
 
     DELTA_HOURS = 24
 
-    event_section_map = OrderedDict(
+    event_section_map: t.ClassVar[t.OrderedDict[str, str]] = OrderedDict(
         schedule="Schedule",
         pull_request="Pull requests",
         # push="Pushes",
@@ -140,7 +140,9 @@ class MultiRepositoryInquiry:
     repositories: t.List[str]
 
     @classmethod
-    def make(cls, repository: str, repositories_file: Path = None) -> "MultiRepositoryInquiry":
+    def make(
+        cls, repository: str, repositories_file: t.Optional[Path] = None
+    ) -> "MultiRepositoryInquiry":
         if repository:
             return cls(repositories=[repository])
         elif repositories_file:

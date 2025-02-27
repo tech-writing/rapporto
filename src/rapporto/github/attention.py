@@ -20,7 +20,7 @@ class GitHubAttentionQueryBuilder(GitHubQueryBuilder):
     Find all open issues and pull requests with labels "bug" or "important".
     """
 
-    labels = [
+    labels: t.ClassVar[t.List[str]] = [
         "bug",  # GitHub standard.
         "important",  # CrateDB.
         "stale",  # CrateDB.
@@ -44,14 +44,14 @@ class GitHubAttentionReport:
     Find all issues and pull requests with labels "bug" or "important".
     """
 
-    label_section_map = OrderedDict(
+    label_section_map: t.ClassVar[t.OrderedDict[str, str]] = OrderedDict(
         bug="Bugs",
         important="Important",
         stale="Stale",
         others="Others",
     )
 
-    label_aliases = {
+    label_aliases: t.ClassVar[t.Dict[str, t.List[str]]] = {
         "bug": ["type-bug", "type-crash", "type: Bug", "type: bug"],
     }
 
@@ -109,4 +109,4 @@ class GitHubAttentionReport:
 A report about important items that deserve your attention, bugs first.
 Time range: {self.search.query_builder.timeinterval.githubformat() or "n/a"}
 {mdc.render()}
-        """.strip()  # noqa: E501
+        """.strip()

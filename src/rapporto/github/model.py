@@ -143,7 +143,7 @@ class GitHubSearch:
 
 @dataclasses.dataclass()
 class MarkdownContent:
-    labels: OrderedDict = dataclasses.field(default_factory=OrderedDict)
+    labels: t.OrderedDict[str, str] = dataclasses.field(default_factory=OrderedDict)
     content: t.Dict[str, t.List[str]] = dataclasses.field(default_factory=dict)
 
     def add(self, section, content):

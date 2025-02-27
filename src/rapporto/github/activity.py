@@ -116,7 +116,7 @@ class GitHubActivityReport:
 
     @property
     def markdown(self) -> str:
-        timerange = self.inquiry.created and f"for {self.inquiry.created}" or ""
+        timerange = (self.inquiry.created and f"for {self.inquiry.created}") or ""
         with redirect_stdout(io.StringIO()) as buffer:
             print(f"# PPP report {timerange}")
             # print("## Overview")
