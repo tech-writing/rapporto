@@ -34,7 +34,7 @@ class GitHubAttentionQueryBuilder(GitHubQueryBuilder):
         self.add("org", self.inquiry.organization)
         self.add("updated", self.timeinterval.githubformat())
         self.add("label", ",".join(map(goosefeet, self.labels)))
-        self.add("state", "open")
+        # self.add("state", "open")
 
 
 class GitHubAttentionReport:
@@ -89,11 +89,15 @@ class GitHubAttentionReport:
         mdc = MarkdownContent(labels=self.label_section_map)
         seen = {}
         for item in tqdm(self.items, leave=False):
+            is_closed = item.state == "closed"
             title = sanitize_title(
                 f"{repository_name(item.repository_url, with_org=True)}: {item.title}"
             )
             link = f"[{title}]({item.html_url})"
-            line = f"- {link}"
+            if is_closed:
+                line = f"- ~{link}~"
+            else:
+                line = f"- {link}"
             # line = f"- {link} {', '.join(labels)}"
             if label := self.has_relevant_label(item):
                 if item.html_url in seen:

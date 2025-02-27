@@ -1,6 +1,8 @@
 # Change log
 
 ## In progress
+- GitHub/Bugs: Also display `state==closed` items, formatting them
+  using ~~strikethrough~~.
 
 ## v0.3.0, 2025-02-24
 - Opsgenie: Added alert reporter. Thanks, @WalBah.
