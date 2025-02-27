@@ -60,7 +60,9 @@ def print_output(report, format_):
 @repository_option
 @repositories_file_option
 @format_option
-def actions(repository: str, repositories_file: Path = None, format_: t.Optional[str] = None):
+def actions(
+    repository: str, repositories_file: t.Optional[Path] = None, format_: t.Optional[str] = None
+):
     """
     CI/GHA failures.
     """
