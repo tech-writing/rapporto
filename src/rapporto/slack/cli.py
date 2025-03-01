@@ -6,29 +6,29 @@ from pathlib import Path
 import click
 from slack_sdk.errors import SlackApiError
 
+from rapporto.notify.slack.conversation import SlackConversation
 from rapporto.slack.core import SlackThreadExporter
-from rapporto.ui.slack import SlackConversation
 from rapporto.util import Zapper
 
 logger = logging.getLogger(__name__)
 
-api_token_option = click.option(
-    "--api-token", type=str, envvar="SLACK_TOKEN", required=False, help="Slack API token"
+slack_api_token_option = click.option(
+    "--slack-token", type=str, envvar="SLACK_TOKEN", required=False, help="Slack API token"
 )
 
 
 @click.group()
-@api_token_option
+@slack_api_token_option
 @click.pass_context
-def cli(ctx: click.Context, api_token: str):
+def cli(ctx: click.Context, slack_token: str):
     """
     Harvest information from Slack.
     """
-    if not api_token:
+    if not slack_token:
         raise click.UsageError(
-            "Missing option '--api-token' or environment variable 'SLACK_TOKEN'."
+            "Missing option '--slack-token' or environment variable 'SLACK_TOKEN'."
         )
-    ctx.meta.update({"api_token": api_token})
+    ctx.meta.update({"slack_token": slack_token})
 
 
 @cli.command()
@@ -38,7 +38,7 @@ def export(ctx: click.Context, url: str):
     """
     Export a Slack thread into Markdown format.
     """
-    exporter = SlackThreadExporter(ctx.meta["api_token"])
+    exporter = SlackThreadExporter(ctx.meta["slack_token"])
     exporter.export_thread(url)
 
 
@@ -67,7 +67,7 @@ def send(
 
     channel = channel or update or reply_to
 
-    conversation = SlackConversation(api_token=ctx.meta["api_token"], channel=channel)
+    conversation = SlackConversation(api_token=ctx.meta["slack_token"], channel=channel)
     message_ids = []
     for msg in message:
         if msg == "-":
@@ -101,10 +101,13 @@ def send(
 )
 @click.pass_context
 def delete(ctx: click.Context, channel: str, identifiers: t.List[str]):
+    """
+    Delete individual Slack messages by IDs or URLs.
+    """
     if not (channel or identifiers):
         raise click.UsageError("Please provide either 'channel' and/or 'identifiers'")
     channel = channel or identifiers[0]
-    conversation = SlackConversation(api_token=ctx.meta["api_token"], channel=channel)
+    conversation = SlackConversation(api_token=ctx.meta["slack_token"], channel=channel)
     for identifier in identifiers:
         try:
             conversation.delete_message(identifier=identifier)

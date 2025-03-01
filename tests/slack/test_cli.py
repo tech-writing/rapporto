@@ -19,7 +19,7 @@ def test_cli_export_without_token(cli_runner):
     )
     assert result.exit_code == 2
     assert (
-        "Error: Missing option '--api-token' or environment variable 'SLACK_TOKEN'."
+        "Error: Missing option '--slack-token' or environment variable 'SLACK_TOKEN'."
         in result.output
     )
 

@@ -75,10 +75,11 @@ class GitHubAttentionReport:
         Whether the given item includes a relevant label.
         """
         for label in item.labels:
-            if label.name in self.label_section_map or label.name in self.label_aliases.get(
-                label.name, []
-            ):
-                return label
+            for label_key in self.label_section_map.keys():
+                if label.name == label_key or label.name in self.label_aliases.get(label_key, []):
+                    # It's easier for the downstream renderer when using canonical category labels.
+                    label.category = label_key
+                    return label
         return None
 
     @property
@@ -103,12 +104,12 @@ class GitHubAttentionReport:
                 if item.html_url in seen:
                     continue
                 seen[item.html_url] = True
-                mdc.add(label.name, line)
+                mdc.add(label.category, line)
             else:
                 mdc.add("others", line)
 
         return f"""
-# Attention report {self.inquiry.created or ""}
+# Attention report {self.inquiry.updated or ""}
 
 A report about important items that deserve your attention, bugs first.
 Time range: {self.search.query_builder.timeinterval.githubformat() or "n/a"}

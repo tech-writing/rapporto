@@ -42,7 +42,7 @@ def activity(
     """
     Activities of individual authors.
     """
-    inquiry = GitHubInquiry(organization=organization, author=author, created=when)
+    inquiry = GitHubInquiry(organization=organization, author=author, updated=when)
     report = GitHubActivityReport(inquiry=inquiry)
     print_output(report, format_)
 
@@ -91,7 +91,7 @@ def attention(
     """
     Important items that deserve attention.
     """
-    inquiry = GitHubInquiry(organization=organization, created=when)
+    inquiry = GitHubInquiry(organization=organization, updated=when)
     report = GitHubAttentionReport(inquiry=inquiry)
     print_output(report, format_)
 

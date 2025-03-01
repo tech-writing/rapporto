@@ -1,6 +1,6 @@
-# User Interface
+# Event Sinks
 
-Learn how to use Rapporto through a user interface, or for notifying.
+Learn how to use Rapporto's event sinks for notifying humans and machines.
 
 ```{toctree}
 :maxdepth: 1

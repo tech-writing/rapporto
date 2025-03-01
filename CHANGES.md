@@ -3,8 +3,12 @@
 ## In progress
 - GitHub/Bugs: Also display `state==closed` items, formatting them
   using ~~strikethrough~~.
-- Slack/UI: Added wrapper around Slack conversations, available per
-  CLI `rapporto slack send`.
+- Goof: Added wrapper around Slack conversations, available per
+  CLI `goof slack send`.
+- Shell (Reports/Daily+Weekly): Generate daily and weekly reports in
+  Markdown or YAML formats.
+- Shell (Slack/Weekly): Publish daily reports to Slack, in a per-week
+  context, with hourly granularity.
 
 ## v0.3.0, 2025-02-24
 - Opsgenie: Added alert reporter. Thanks, @WalBah.
