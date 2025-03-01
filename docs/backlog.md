@@ -1,9 +1,19 @@
 # Backlog
 
 ## Iteration +1
-- Configuration
+- Shell '25: Introduce _daily_ and _weekly_ operation modes / interfaces
+- Naming things: `source` vs. `sink` vs. Slack CLI domains
+- Project layout and docs: Bring up to speed
+- Docs: Generic page about `--when` option
+- Shell/Daily: Interleave CI reports
+- UI/Slack: Improve zapping
+- Aika: Fix bugs and refactor code
+- Pueblo: Fix bugs and refactor code
+- Configuration: Per `[tool]` section in `pyproject.toml`
 - UI/Slack: https://api.slack.com/messaging/files
 - UI/Slack: chat_scheduleMessage
+- Options: Program currently understands `--slack-token=`, but lacks `--github-token=`
+- UI/Console: Spice up Markdown output using `rich` and friends
 
 ## Iteration +2
 - GitHub/Actions: Currently lacks parameter `--when`
@@ -32,6 +42,18 @@
 - Report: Make configurable if Rapporto shall only return a share of top changes,
   or each one. Currently, the default is 2/5, but 1/3 is also reasonable.
 - https://github.com/slackapi/python-slack-events-api
+- https://github.com/dizzbot/productivity
+- Markdown rendering with nested offsets:
+  https://github.com/executablebooks/MyST-Parser/blob/8a44f5d35197b19aab2f1fe35b6f1dce4960bce5/myst_parser/mdit_to_docutils/base.py#L283-L290
+- Bring back `mrkdwn`?
+  > #### Slack flavored Markdown
+  >
+  > The program can output two flavors of Markdown. Standard Markdown is default,
+  > while the [Slack `mrkdwn` format] can be produced using the `--format=mrkdwn`
+  > command-line option. Rapporto uses the [markdown-to-mrkdwn] package here.
+  >
+  > [markdown-to-mrkdwn]: https://pypi.org/project/markdown-to-mrkdwn/
+  > [Slack `mrkdwn` format]: https://api.slack.com/reference/surfaces/formatting#basic-formatting
 
 ## Done
 - Make it work.

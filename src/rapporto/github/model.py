@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 @dataclasses.dataclass
 class GitHubInquiry:
     organization: t.Optional[str] = None
-    created: t.Optional[str] = None
+    updated: t.Optional[str] = None
     author: t.Optional[str] = None
 
 
@@ -57,7 +57,7 @@ class GitHubQueryBuilder:
 
     @property
     def timeinterval(self) -> TimeInterval:
-        timerange_user = self.inquiry.created
+        timerange_user = self.inquiry.updated
         # TODO: Improve in Aika. -- https://github.com/panodata/aika/issues/112
         if timerange_user and ".." in timerange_user:
             parts = timerange_user.split("..")
@@ -67,7 +67,7 @@ class GitHubQueryBuilder:
 
     @property
     def timerange(self) -> str:
-        timerange_user = self.inquiry.created
+        timerange_user = self.inquiry.updated
         timerange_effective = self.timeinterval.githubformat()
         logger.info(f'Using timerange: user="{timerange_user}" effective="{timerange_effective}"')
         return timerange_effective

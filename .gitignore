@@ -3,6 +3,8 @@ coverage.xml
 .coverage*
 dist
 docs/_build
+tmp
+var
 .idea
 .mypy_cache
 .ruff_cache

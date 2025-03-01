@@ -1,4 +1,4 @@
-from rapporto.ui.slack import SlackUrl
+from rapporto.notify.slack.model import SlackUrl
 
 
 def test_url_channel():

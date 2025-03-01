@@ -1,4 +1,4 @@
-# Slack UI
+# Slack Conversations
 
 Have conversations on Slack.
 
@@ -24,7 +24,13 @@ rapporto slack send --channel=C08EF2NGZGB --message="**Hello, world.**"
 rapporto slack send --channel=https://acme.slack.com/archives/C08EF2NGZGB --message="**Hello, world.**"
 ```
 
-## Features
+## Usage
+
+Either define the authentication token as an environment variable,
+```bash
+export SLACK_TOKEN='xoxb-your-slack-bot-token'
+```
+or use the `--slack-token` command-line option.
 
 ### Multiple messages
 

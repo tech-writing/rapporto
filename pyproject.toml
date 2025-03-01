@@ -107,6 +107,7 @@ dependencies = [
   "opsgenie-sdk<3",
   "pueblo<1",
   "python-dateutil<3",
+  "pyyaml<7",
   "requests<3",
   "requests-cache<2",
   "slack-sdk<4",
