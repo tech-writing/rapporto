@@ -8,40 +8,53 @@ import dateparser
 
 class Zapper:
     """
-    Support zapping messages after a) pressing enter, or b) waiting a few seconds.
+    Wait for a) pressing enter, or b) a few seconds.
     """
 
-    def __init__(self, zap: str) -> None:
-        self.zap = zap
+    def __init__(self, when: str, action: t.Optional[t.Callable] = None) -> None:
+        self.when = when
+        self.action: t.Optional[t.Callable] = action
+        self.validate()
+        self.delay: float = self._compute_delay()
 
-    def wait(self) -> None:
-        self.check()
-        if self.zap.endswith("s"):
-            duration = dateparser.parse(self.zap)
+    @property
+    def is_stopclock(self):
+        return self.when.endswith("s")
+
+    @property
+    def is_keypress(self):
+        return self.when.startswith("key")
+
+    def _compute_delay(self) -> float:
+        if self.is_stopclock:
+            duration = dateparser.parse(self.when)
             if duration is None:
                 raise ValueError(f"Unable to parse duration: {duration}")
-            delay = dt.datetime.now() - duration
-            time.sleep(delay.total_seconds())
-        elif self.zap.startswith("key"):
-            print("Press enter to zap messages and continue the program flow.", file=sys.stderr)
-            tty_input()
-            # wait_key()
+            return (dt.datetime.now() - duration).total_seconds()
+        return 0
 
-    def check(self):
-        if self.zap is None:
-            return True
-        if self.zap.endswith("s") or self.zap.startswith("key"):
+    def validate(self) -> bool:
+        if self.is_stopclock or self.is_keypress:
             return True
         raise ValueError(
-            f"Invalid configuration for zap: {self.zap}. "
+            f"Invalid value for `when` argument: {self.when}. "
             f"Either provide a duration (e.g. 1.42s), or `keypress`."
         )
 
-    def process(self):
-        if self.zap:
+    def process(self) -> bool:
+        if self.when:
             self.wait()
+            if self.action is not None:
+                self.action()
             return True
         return False
+
+    def wait(self) -> None:
+        if self.is_stopclock:
+            time.sleep(self.delay)
+        elif self.is_keypress:
+            print("Press enter to zap and continue the program flow.", file=sys.stderr)
+            tty_input()
 
 
 def tty_input(prompt: t.Union[str, None] = None):

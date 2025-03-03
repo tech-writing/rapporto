@@ -2,7 +2,6 @@
 
 ## Iteration +1
 - Shell/Daily: Interleave CI reports
-- UI/Slack: Improve zapping
 - Aika: Fix bugs and refactor code
 - Pueblo: Fix bugs and refactor code
 - Configuration: Per `[tool]` section in `pyproject.toml`
@@ -84,3 +83,4 @@
 - Naming things: `source` vs. `sink` vs. Slack CLI domains
 - Project layout and docs: Bring up to speed
 - Docs: Caveats / Philosophy
+- UI/Slack: Improve zapping

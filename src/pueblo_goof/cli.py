@@ -57,15 +57,14 @@ def send(
     Send one or multiple Slack messages in Markdown format.
     """
 
-    zapper = Zapper(zap)
-    zapper.check()
-
     if not (channel or update or reply_to):
         raise click.UsageError("Please provide either 'channel' or 'update' or 'reply_to'")
 
     channel = channel or update or reply_to
 
     conversation = SlackConversation(api_token=ctx.meta["slack_token"], channel=channel)
+    zapper = Zapper(when=zap, action=conversation.delete)
+
     message_ids = []
     for msg in message:
         if msg == "-":
@@ -80,8 +79,7 @@ def send(
         message_ids.append(message_id)
 
     try:
-        if zapper.process():
-            conversation.delete()
+        zapper.process()
     except Exception as e:
         raise click.ClickException(f"The 'zap' operation failed: {e}") from e
 
