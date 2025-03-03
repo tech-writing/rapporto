@@ -11,7 +11,7 @@
 - UI/Slack: chat_scheduleMessage
 - Options: Program currently understands `--slack-token=`, but lacks `--github-token=`
 - UI/Console: Spice up Markdown output using `rich` and friends
-- `rapporto gh activity` needs a section about "Top issues"
+- `rapporto github activity` needs a section about "Top issues"
 
 ## Iteration +2
 - GitHub/Actions: Currently lacks parameter `--when`

@@ -8,23 +8,23 @@ def reset_environment(monkeypatch):
     monkeypatch.delenv("GH_TOKEN", raising=False)
 
 
-def test_cli_ppp(cli_runner):
+def test_cli_activity(cli_runner):
     """
-    CLI test: Invoke `rapporto gh ppp`.
+    CLI test: Invoke `rapporto github activity`.
     """
     result = cli_runner.invoke(
         cli,
-        args="gh ppp --organization=panodata --author=dependabot[bot] --when=2025W07",
+        args="github activity --organization=panodata --author=dependabot[bot] --when=2025W07",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
-    assert "# PPP report for 2025W07" in result.output
+    assert "# Activity report for 2025W07" in result.output
     assert "Activity: aika, rex9" in result.output
 
 
 def test_cli_ci(cli_runner):
     """
-    CLI test: Invoke `rapporto gh ci`.
+    CLI test: Invoke `rapporto github actions`.
     """
     result = cli_runner.invoke(
         cli,
@@ -37,7 +37,7 @@ def test_cli_ci(cli_runner):
 
 def test_cli_att(cli_runner):
     """
-    CLI test: Invoke `rapporto gh att`.
+    CLI test: Invoke `rapporto github attention`.
     """
     result = cli_runner.invoke(
         cli,
@@ -51,7 +51,7 @@ def test_cli_att(cli_runner):
 
 def test_cli_backup_unauthorized(cli_runner, capfd):
     """
-    CLI test: Invoke `rapporto gh backup`.
+    CLI test: Invoke `rapporto github backup`.
     """
     result = cli_runner.invoke(
         cli,

@@ -73,5 +73,5 @@
   "org:python author:AA-Turner created:2025-01-01..2025-01-31 is:pr"
   ```
   ```shell
-  rapporto ppp --organization=python --author=AA-Turner --when="2025-01-01..2025-01-31"
+  rapporto github activity --organization=python --author=AA-Turner --when="2025-01-01..2025-01-31"
   ```
