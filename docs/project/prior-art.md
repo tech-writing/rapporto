@@ -1,13 +1,6 @@
-# Project
+# Prior art
 
-```{toctree}
-:maxdepth: 1
-
-Changelog <changes>
-Backlog <backlog>
-```
-
-## Prior art
+## Primary inspirations
 - https://github.com/saschpe/rapport
 - https://github.com/nedbat/dinghy
 - https://github.com/kneth/gh-utils
@@ -15,7 +8,7 @@ Backlog <backlog>
 - https://gist.github.com/Chandler/fb7a070f52883849de35
 - https://github.com/zach-snell/slack-export
 
-### More
+## More inspirations
 - https://github.com/badele/gitcheck
 - https://github.com/nlitsme/githubtool
 - https://github.com/badele/github-summary

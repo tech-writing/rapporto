@@ -2,7 +2,7 @@
 
 Harvest information from GitHub, Opsgenie, and Slack,
 create reports in Markdown format, and publish them
-in different ways. [DWIM].
+in different ways. [DWIM], with notable {ref}`caveats`.
 
 ```{toctree}
 :maxdepth: 1
@@ -12,7 +12,7 @@ install
 source/index
 report/index
 tool/index
-project
+project/index
 ```
 
 ## Features
@@ -27,6 +27,12 @@ project
     The output is using Markdown format across the board, so you can
     use it on many services like Discord, Discourse, GitHub, Slack,
     and many more.
+
+::::{attention}
+**With great power comes great responsibility.**
+Rapporto is a powerful tool, please use it
+{ref}`responsibly <caveats>`.
+::::
 
 ## Synopsis
 
