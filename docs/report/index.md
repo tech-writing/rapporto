@@ -30,12 +30,12 @@ a given time interval.
 
 Please provide a valid GitHub token. This token is invalid.
 ```shell
-export GH_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
+export GH_TOKEN="ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP"
 ```
 
 Please provide a valid Slack API token. This token is invalid.
 ```bash
-export SLACK_TOKEN='xoxb-your-slack-bot-token'
+export SLACK_TOKEN="xoxb-your-slack-bot-token"
 ```
 Alternatively to using the environment variable, you can also use the
 `rapporto notify --slack-token=` command-line option.
