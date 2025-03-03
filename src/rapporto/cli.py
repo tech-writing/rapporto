@@ -18,7 +18,7 @@ def cli(ctx: click.Context, verbose: bool, debug: bool):
     setup_logging(verbose=verbose)
 
 
-cli.add_command(github_cli, "gh")
+cli.add_command(github_cli, "github", aliases=["gh"])
 cli.add_command(opsgenie_cli, "opsgenie")
 cli.add_command(slack_cli, "slack")
 cli.add_command(notify_cli, "notify")
