@@ -143,6 +143,7 @@ urls.Documentation = "https://rapporto.readthedocs.io/"
 urls.Issues = "https://github.com/tech-writing/rapporto/issues"
 urls.Repository = "https://github.com/tech-writing/rapporto"
 
+scripts.goof = "pueblo_goof.cli:cli"
 scripts.rapporto = "rapporto.cli:cli"
 
 [tool.ruff]
