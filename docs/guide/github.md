@@ -19,15 +19,21 @@ token (classic), that permits access to those scopes:
 
 ## Usage
 
-### Introduction
+### Authentication
 
 Please provide a valid GitHub token. This token is invalid.
 ```shell
 export GH_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
 ```
 
-Note that many options are optional. Just omit them in order to expand the
-search scope.
+### Options
+
+The [`--when`](#when-option) command-line option accepts a wide range of
+values to adjust the time interval. You can also omit the option completely,
+in which case the program will assume the current day or calendar week.
+
+Note that many other options are also optional. Just omit them in order to
+expand the search scope.
 
 ### Actions report
 Report about activities of GitHub Actions workflow runs, mostly failing ones.

@@ -6,9 +6,9 @@
 - Goof: Added wrapper around Slack conversations, available per
   CLI `goof slack send`.
 - Shell (Reports/Daily+Weekly): Generate daily and weekly reports in
-  Markdown or YAML formats.
+  Markdown or YAML formats, available per `rapporto report`.
 - Shell (Slack/Weekly): Publish daily reports to Slack, in a per-week
-  context, with hourly granularity.
+  context, with hourly granularity, available per `rapporto notify`.
 
 ## v0.3.0, 2025-02-24
 - Opsgenie: Added alert reporter. Thanks, @WalBah.
