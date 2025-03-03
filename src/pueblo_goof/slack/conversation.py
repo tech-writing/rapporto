@@ -15,7 +15,7 @@ from munch import Munch, munchify
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-from rapporto.notify.slack.model import SlackChannel, SlackMessage
+from pueblo_goof.slack.model import SlackChannel, SlackMessage, SlackOptions
 
 logger = logging.getLogger(__name__)
 
@@ -25,11 +25,17 @@ class SlackConversation:
     Wrap a Slack conversation.
     """
 
-    def __init__(self, api_token: str, channel: str):
-        self.api_token = api_token
+    def __init__(
+        self,
+        options: t.Optional[SlackOptions] = None,
+        api_token: t.Optional[str] = None,
+        channel: t.Optional[str] = None,
+    ):
+        self.options = options or SlackOptions(token=api_token, channel=channel)
+        self.api_token = self.options.token
         self.message_ids: t.List[str] = []
         self.webclient = WebClient(token=self.api_token)
-        self.channel_id = self.decode_channel(channel)
+        self.channel_id = self.decode_channel(self.options.channel)
 
     def decode_channel(self, channel: str) -> str:
         """

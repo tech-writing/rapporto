@@ -1,10 +1,9 @@
 import datetime as dt
 import logging
 import sys
-import time
 import typing as t
 
-import dateparser
+from aika import TimeIntervalParser
 from markdown_to_mrkdwn import SlackMarkdownConverter
 
 logger = logging.getLogger(__name__)
@@ -40,53 +39,29 @@ def to_mrkdwn(markdown: str, unordered_list: bool = True) -> str:
     return mrkdwn_converter.convert(markdown)
 
 
-def tty_input(prompt: t.Union[str, None] = None):
+def setup_logging(level=logging.INFO, verbose: bool = False):
     """
-    Read string from TTY.
+    Configure Python's logging module.
     """
-    with open("/dev/tty") as terminal:
-        sys.stdin = terminal
-        if prompt is None:
-            user_input = input()
-        else:
-            user_input = input(prompt)
-    sys.stdin = sys.__stdin__
-    return user_input
+    log_format = "%(asctime)-15s [%(name)-36s] %(levelname)-8s: %(message)s"
+    logging.basicConfig(format=log_format, stream=sys.stderr, level=level)
 
 
-class Zapper:
+def week_to_day_range(when: str, skip_the_future: bool = True) -> t.List[str]:
     """
-    Support zapping messages after a) pressing enter, or b) waiting a few seconds.
+    From a current point in time, derive the calendar week in ISO8601 format.
+
+    TODO: Refactor to Aika.
     """
-
-    def __init__(self, zap: str) -> None:
-        self.zap = zap
-
-    def wait(self) -> None:
-        self.check()
-        if self.zap.endswith("s"):
-            duration = dateparser.parse(self.zap)
-            if duration is None:
-                raise ValueError(f"Unable to parse duration: {duration}")
-            delay = dt.datetime.now() - duration
-            time.sleep(delay.total_seconds())
-        elif self.zap.startswith("key"):
-            print("Press enter to zap messages and continue the program flow.", file=sys.stderr)
-            tty_input()
-            # wait_key()
-
-    def check(self):
-        if self.zap is None:
-            return True
-        if self.zap.endswith("s") or self.zap.startswith("key"):
-            return True
-        raise ValueError(
-            f"Invalid configuration for zap: {self.zap}. "
-            f"Either provide a duration (e.g. 1.42s), or `keypress`."
-        )
-
-    def process(self):
-        if self.zap:
-            self.wait()
-            return True
-        return False
+    week = []
+    today = dt.date.today()
+    tip = TimeIntervalParser()
+    interval = tip.parse(when)
+    cursor = interval.start
+    while cursor <= interval.end:
+        week.append(cursor.strftime("%Y-%m-%d"))
+        cursor += dt.timedelta(days=1)
+        if skip_the_future and cursor.date() > today:
+            logger.info(f"Skipping day in the future: {cursor.date().isoformat()}.")
+            break
+    return week

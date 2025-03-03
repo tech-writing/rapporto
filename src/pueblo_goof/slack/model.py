@@ -1,15 +1,35 @@
 import typing as t
 
 import attr
+import click
 from attrs import define
 from furl import furl
+
+slack_api_token_option = click.option(
+    "--slack-token", type=str, envvar="SLACK_TOKEN", required=False, help="Slack API token"
+)
+slack_channel_option = click.option(
+    "--slack-channel", "-c", type=str, envvar="SLACK_CHANNEL", required=False, help="Slack channel"
+)
+
+
+@define
+class SlackOptions:
+    """
+    Composite Slack options.
+    """
+
+    token: str
+    channel: str
 
 
 @define
 class SlackUrl:
     """
     Manage and decode a full HTTP Slack URL.
+
     https://acme.slack.com/archives/C08EF2NGZGB
+    https://acme.slack.com/archives/C08EF2NGZGB/p1740421750904349
     https://acme.slack.com/archives/C08EF2NGZGB/p1740478361323219?thread_ts=1740421750.904349&cid=C08EF2NGZGB
     """
 
