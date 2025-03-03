@@ -1,6 +1,6 @@
 import click
 
-from rapporto.opsgenie.core import OpsgenieAlertsClient, OpsgenieAlertsReport
+from rapporto.source.opsgenie.core import OpsgenieAlertsClient, OpsgenieAlertsReport
 
 
 @click.group()

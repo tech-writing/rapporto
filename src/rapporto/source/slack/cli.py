@@ -3,7 +3,7 @@ import logging
 import click
 
 from pueblo_goof.slack.model import slack_api_token_option
-from rapporto.slack.core import SlackThreadExporter
+from rapporto.source.slack.core import SlackThreadExporter
 
 logger = logging.getLogger(__name__)
 

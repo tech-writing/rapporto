@@ -4,11 +4,11 @@ from pathlib import Path
 import click
 from click_aliases import ClickAliasedGroup
 
-from rapporto.github.actions import GitHubActionsReport, MultiRepositoryInquiry
-from rapporto.github.activity import GitHubActivityReport
-from rapporto.github.attention import GitHubAttentionReport
-from rapporto.github.backup import GitHubBackup
-from rapporto.github.model import GitHubInquiry
+from rapporto.source.github.actions import GitHubActionsReport, MultiRepositoryInquiry
+from rapporto.source.github.activity import GitHubActivityReport
+from rapporto.source.github.attention import GitHubAttentionReport
+from rapporto.source.github.backup import GitHubBackup
+from rapporto.source.github.model import GitHubInquiry
 from rapporto.util import to_mrkdwn
 
 organization_option = click.option("--organization", "--org", type=str, required=False)

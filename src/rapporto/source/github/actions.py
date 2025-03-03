@@ -8,10 +8,10 @@ from pathlib import Path
 from munch import Munch, munchify
 from tqdm import tqdm
 
-from rapporto.github.model import (
+from rapporto.source.github.model import (
     MarkdownContent,
 )
-from rapporto.github.util import GitHubHttpClient
+from rapporto.source.github.util import GitHubHttpClient
 from rapporto.util import sanitize_title
 
 logger = logging.getLogger(__name__)

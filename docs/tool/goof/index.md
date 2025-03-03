@@ -7,7 +7,9 @@ Notify humans and machines, [DWIM].
 Goof supports Rapporto's "notify" subsystem. You can also use it in other
 programs, either using its Python API, or its command-line interface.
 
-## Guide
+## Notifiers
+
+Goof currently supports Slack as a notification target.
 
 ```{toctree}
 :maxdepth: 1
