@@ -4,14 +4,11 @@
 - Shell/Daily: Interleave CI reports
 - Aika: Fix bugs and refactor code
 - Pueblo: Fix bugs and refactor code
-- Configuration: Per `[tool]` section in `pyproject.toml`
-- UI/Slack: https://api.slack.com/messaging/files
-- UI/Slack: chat_scheduleMessage
-- Options: Program currently understands `--slack-token=`, but lacks `--github-token=`
-- UI/Console: Spice up Markdown output using `rich` and friends
 - `rapporto github activity` needs a section about "Top issues"
 
 ## Iteration +2
+- Options: Program currently understands `--slack-token=`, but lacks `--github-token=`
+- Configuration: Per `[tool]` section in `pyproject.toml`
 - GitHub/Actions: Currently lacks parameter `--when`
 - General: Summaries, using the excellent `llm` package
 - GitHub/Bugs: Add labels `blocked`, `blocked-by XXX`, `impediment`
@@ -26,6 +23,7 @@
 - Options: Make `limit=100` configurable? Is paging needed?
 - `github-backup` can do "Exceeded rate limit of 5000 requests;
   waiting 77 seconds to reset". Do we also need it?
+- UI/Console: Spice up Markdown output using `rich` and friends
 
 ## Iteration +3
 - Data: Identify items with high conversation activity (comment frequency, etc.)
@@ -51,6 +49,8 @@
   >
   > [markdown-to-mrkdwn]: https://pypi.org/project/markdown-to-mrkdwn/
   > [Slack `mrkdwn` format]: https://api.slack.com/reference/surfaces/formatting#basic-formatting
+- UI/Slack: https://api.slack.com/messaging/files
+- UI/Slack: chat_scheduleMessage
 
 ## Done
 - Make it work.
