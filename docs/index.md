@@ -9,7 +9,7 @@ in different ways. [DWIM].
 :hidden:
 
 install
-guide/index
+source/index
 report/index
 tool/index
 project

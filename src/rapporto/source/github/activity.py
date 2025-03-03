@@ -9,12 +9,12 @@ from textwrap import dedent
 from dataclasses_json import CatchAll, Undefined, dataclass_json
 from tqdm import tqdm
 
-from rapporto.github.model import (
+from rapporto.source.github.model import (
     GitHubInquiry,
     GitHubQueryBuilder,
     GitHubSearch,
 )
-from rapporto.github.util import GitHubHttpClient, repository_name
+from rapporto.source.github.util import GitHubHttpClient, repository_name
 from rapporto.util import sanitize_title
 
 logger = logging.getLogger(__name__)
@@ -118,7 +118,7 @@ class GitHubActivityReport:
     def markdown(self) -> str:
         timerange = (self.inquiry.updated and f"for {self.inquiry.updated}") or ""
         with redirect_stdout(io.StringIO()) as buffer:
-            print(f"# PPP report {timerange}")
+            print(f"# Activity report {timerange}")
             # print("## Overview")
             print(self.markdown_overview)
             print()

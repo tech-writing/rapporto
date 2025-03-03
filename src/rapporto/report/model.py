@@ -6,8 +6,8 @@ import attr
 import yaml
 from attrs import define
 
-from rapporto.github.attention import GitHubAttentionReport
-from rapporto.github.model import GitHubInquiry
+from rapporto.source.github.attention import GitHubAttentionReport
+from rapporto.source.github.model import GitHubInquiry
 from rapporto.util import week_to_day_range
 
 

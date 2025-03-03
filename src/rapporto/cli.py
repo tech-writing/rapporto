@@ -1,11 +1,11 @@
 import click
 from click_aliases import ClickAliasedGroup
 
-from rapporto.github.cli import cli as github_cli
 from rapporto.notify.cli import cli as notify_cli
-from rapporto.opsgenie.cli import cli as opsgenie_cli
 from rapporto.report.cli import cli as report_cli
-from rapporto.slack.cli import cli as slack_cli
+from rapporto.source.github.cli import cli as github_cli
+from rapporto.source.opsgenie.cli import cli as opsgenie_cli
+from rapporto.source.slack.cli import cli as slack_cli
 from rapporto.util import setup_logging
 
 

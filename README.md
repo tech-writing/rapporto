@@ -1,7 +1,7 @@
 # Rapporto
 
-Harvest information from GitHub, Opsgenie, and Slack,
-and create reports in Markdown format. [DWIM](https://en.wikipedia.org/wiki/DWIM).
+Harvest information from GitHub, Opsgenie, and Slack, create reports in
+Markdown format, and publish them in different ways. [DWIM](https://en.wikipedia.org/wiki/DWIM).
 
 [![CI][badge-ci]][project-ci]
 [![Coverage][badge-coverage]][project-coverage]
@@ -19,7 +19,7 @@ See [Rapporto Installation].
 
 ## Usage
 
-See [Rapporto User Guide].
+See [Rapporto Sources] and [Rapporto Reports].
 
 ## Quick links
 
@@ -39,7 +39,8 @@ See [Rapporto User Guide].
 [License]: https://github.com/tech-writing/rapporto/blob/main/LICENSE
 [PyPI]: https://pypi.org/project/rapporto/
 [Rapporto Installation]: https://rapporto.readthedocs.io/install.html
-[Rapporto User Guide]: https://rapporto.readthedocs.io/guide/
+[Rapporto Sources]: https://rapporto.readthedocs.io/source/
+[Rapporto Reports]: https://rapporto.readthedocs.io/report/
 [Source code]: https://github.com/tech-writing/rapporto
 
 [badge-ci]: https://github.com/tech-writing/rapporto/actions/workflows/main.yml/badge.svg

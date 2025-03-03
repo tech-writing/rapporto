@@ -5,13 +5,13 @@ from operator import attrgetter
 from munch import Munch, munchify
 from tqdm import tqdm
 
-from rapporto.github.model import (
+from rapporto.source.github.model import (
     GitHubInquiry,
     GitHubQueryBuilder,
     GitHubSearch,
     MarkdownContent,
 )
-from rapporto.github.util import GitHubHttpClient, repository_name
+from rapporto.source.github.util import GitHubHttpClient, repository_name
 from rapporto.util import goosefeet, sanitize_title
 
 
