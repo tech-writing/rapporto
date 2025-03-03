@@ -52,13 +52,14 @@ def week_to_day_range(when: str, skip_the_future: bool = True) -> t.List[str]:
     From a current point in time, derive the calendar week in ISO8601 format.
 
     TODO: Refactor to Aika.
+    TODO: Make it configurable whether to return 7 or 8 days.
     """
     week = []
     today = dt.date.today()
     tip = TimeIntervalParser()
     interval = tip.parse(when)
     cursor = interval.start
-    while cursor <= interval.end:
+    while cursor < interval.end:
         week.append(cursor.strftime("%Y-%m-%d"))
         cursor += dt.timedelta(days=1)
         if skip_the_future and cursor.date() > today:
