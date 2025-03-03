@@ -40,19 +40,16 @@ def weekly(ctx: click.Context, week: str, zap: str):
     Weekly report converged into Slack thread.
     """
 
-    zapper = Zapper(zap)
-    zapper.check()
-
     report_options: ReportOptions = ctx.meta["report_options"]
     slack_options: SlackOptions = ctx.meta["slack_options"]
 
     conversation = SlackConversation(options=slack_options)
+    zapper = Zapper(when=zap, action=conversation.delete)
+
     section = SlackWeekly(week=week, options=report_options, conversation=conversation)
     section.refresh()
 
     try:
-        if zapper.process():
-            conversation.delete()
-    except ValueError as e:
-        click.echo(f"ERROR: {e}", err=True)
-        raise SystemExit(1) from e
+        zapper.process()
+    except Exception as e:
+        raise click.ClickException(f"The 'zap' operation failed: {e}") from e
