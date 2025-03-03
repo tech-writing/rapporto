@@ -13,7 +13,7 @@ def sanitize_title(title: str) -> str:
     """
     Strip characters that are unfortunate in Markdown link titles.
     """
-    return title
+    return title.replace("[", "⎡").replace("]", "⎦")
 
 
 def goosefeet(text: str) -> str:
