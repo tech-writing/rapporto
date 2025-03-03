@@ -134,7 +134,7 @@ copybutton_prompt_is_regexp = True
 # Configure sphinxext-opengraph
 ogp_site_url = "https://rapporto.readthedocs.io/"
 ogp_enable_meta_description = True
-# ogp_image = "http://example.org/image.png"
+ogp_image = "https://github.com/user-attachments/assets/bb775ff8-95dd-47f9-a593-37a04757e4d8"
 # ogp_description_length = 300
 
 

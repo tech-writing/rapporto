@@ -1,7 +1,6 @@
 # Backlog
 
 ## Iteration +1
-- Caveats / Philosophy
 - Shell/Daily: Interleave CI reports
 - UI/Slack: Improve zapping
 - Aika: Fix bugs and refactor code
@@ -84,3 +83,4 @@
 - Docs: Generic page about `--when` option
 - Naming things: `source` vs. `sink` vs. Slack CLI domains
 - Project layout and docs: Bring up to speed
+- Docs: Caveats / Philosophy
