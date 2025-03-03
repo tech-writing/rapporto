@@ -10,6 +10,7 @@
 - Shell (Slack/Weekly): Publish daily reports to Slack, in a per-week
   context, with hourly granularity, available per `rapporto notify`.
 - Slack/Markdown: Fixed encoding link titles including square brackets
+- Time Interval: Fixed `week_to_day_range`
 
 ## v0.3.0, 2025-02-24
 - Opsgenie: Added alert reporter. Thanks, @WalBah.
