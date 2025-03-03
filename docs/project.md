@@ -1,4 +1,4 @@
-# Project Information
+# Project
 
 ```{toctree}
 :maxdepth: 1

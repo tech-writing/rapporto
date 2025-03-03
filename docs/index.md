@@ -10,8 +10,8 @@ in different ways. [DWIM].
 
 install
 guide/index
-sink/index
 report/index
+tool/index
 project
 ```
 

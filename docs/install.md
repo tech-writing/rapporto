@@ -1,4 +1,4 @@
-# Installation
+# Install
 
 We recommend to use the [uv] package manager for installing or running Rapporto.
 ```shell

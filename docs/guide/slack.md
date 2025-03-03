@@ -27,6 +27,8 @@ authentication token with access permissions to the required [OAuth scopes].
 
 ## Usage
 
+### Authentication
+
 Either define the authentication token as an environment variable,
 ```bash
 export SLACK_TOKEN='xoxb-your-slack-bot-token'
@@ -37,7 +39,8 @@ or use the `--slack-token` command-line option.
 
 Export Slack conversation thread into Markdown document.
 ```shell
-rapporto slack export https://acme.slack.com/archives/D018V8WDABA/p1738873838427919
+rapporto slack export \
+  "https://acme.slack.com/archives/D018V8WDABA/p1738873838427919"
 ```
 
 

@@ -1,6 +1,13 @@
-# Event Sinks
+# Goof
 
-Learn how to use Rapporto's event sinks for notifying humans and machines.
+Notify humans and machines, [DWIM].
+
+## About
+
+Goof supports Rapporto's "notify" subsystem. You can also use it in other
+programs, either using its Python API, or its command-line interface.
+
+## Guide
 
 ```{toctree}
 :maxdepth: 1
@@ -24,3 +31,6 @@ Tap into the Slack API and have conversations.
 :::
 
 ::::
+
+
+[DWIM]: https://en.wikipedia.org/wiki/DWIM

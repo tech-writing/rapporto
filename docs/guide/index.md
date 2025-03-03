@@ -1,6 +1,6 @@
-# User Guide
+# Sources
 
-Learn how to use Rapporto for acquiring information and reporting.
+Use Rapporto for acquiring information from different APIs.
 
 ```{toctree}
 :maxdepth: 1
@@ -9,7 +9,6 @@ Learn how to use Rapporto for acquiring information and reporting.
 github
 opsgenie
 slack
-options
 ```
 
 ::::{grid} 3
@@ -46,18 +45,6 @@ Tap into the Opsgenie API and generate reports in Markdown format.
 {fab}`slack;sd-text-success fa-2xl`
 +++
 Tap into the Slack API and export threads into Markdown format.
-:::
-
-:::{grid-item-card}
-:link: options
-:link-type: doc
-:class-body: sd-text-center sd-fs-3 sd-font-weight-bold
-:class-footer: sd-fs-6
-Options
-
-{fas}`gears;sd-text-white fa-2xl`
-+++
-Program options, input and output.
 :::
 
 ::::

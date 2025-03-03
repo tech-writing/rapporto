@@ -14,34 +14,32 @@ In order to authenticate with the Opsgenie API, you will need an Opsgenie API ke
 
 ## Usage
 
+### Authentication
+
 Either define the authentication token as an environment variable,
 ```bash
 export OPSGENIE_API_KEY="your-api-key"
 ```
 or use the `--api-key` command-line option.
 
+### Options
+
+The [`--when`](#when-option) command-line option accepts a wide range of
+values to adjust the time interval. You can also omit the option completely,
+in which case the program will assume the current day or calendar week.
+
 ### Alert report
 
-Generate report about Opsgenie alerts.
-
-Report about the previous seven days.
-```shell
-rapporto opsgenie export-alerts --when="-7d"
-```
+Generate report about Opsgenie alerts in Markdown format.
 
 Report about yesterday.
 ```shell
 rapporto opsgenie export-alerts --when="yesterday"
 ```
 
-Report about the previous week.
+Report about the previous seven days.
 ```shell
-rapporto opsgenie export-alerts --when="last week"
-```
-
-Report about the current week.
-```shell
-rapporto opsgenie export-alerts --when="this week"
+rapporto opsgenie export-alerts --when="-7d"
 ```
 
 Describe the time interval by start time and duration in days.
