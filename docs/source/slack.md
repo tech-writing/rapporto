@@ -31,7 +31,7 @@ authentication token with access permissions to the required [OAuth scopes].
 
 Either define the authentication token as an environment variable,
 ```bash
-export SLACK_TOKEN='xoxb-your-slack-bot-token'
+export SLACK_TOKEN="xoxb-your-slack-bot-token"
 ```
 or use the `--slack-token` command-line option.
 

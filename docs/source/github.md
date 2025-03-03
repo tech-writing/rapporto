@@ -23,7 +23,7 @@ token (classic), that permits access to those scopes:
 
 Please provide a valid GitHub token. This token is invalid.
 ```shell
-export GH_TOKEN=ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP
+export GH_TOKEN="ghp_600VEZtdzinvalid7K2R86JTiKJAAp1wNwVP"
 ```
 
 ### Options
@@ -38,21 +38,21 @@ expand the search scope.
 ### Actions report
 Report about activities of GitHub Actions workflow runs, mostly failing ones.
 ```shell
-rapporto github actions --repository=acme/acme-examples
-rapporto github actions --repositories-file=acme-repositories.txt
+rapporto github actions --repository="acme/acme-examples"
+rapporto github actions --repositories-file="acme-repositories.txt"
 ```
 
 ### Activity report
 Report about activities of individual authors.
 ```shell
-rapporto github activity --organization=python --author=AA-Turner --when="2025-01-01..2025-01-31"
-rapporto github activity --organization=python --author=AA-Turner --when="2025W04"
+rapporto github activity --organization="python" --author="AA-Turner" --when="2025-01-01..2025-01-31"
+rapporto github activity --organization="python" --author="AA-Turner" --when="2025W04"
 ```
 
 ### Attention report
 Report about important items that deserve your attention, bugs first.
 ```shell
-rapporto github attention --organization=python --when="2025W07"
+rapporto github attention --organization="python" --when="2025W07"
 ```
 If you want to explore your personal repositories, please use the
 `--organization` option with your username, e.g. `--organization=AA-Turner`.
@@ -60,7 +60,9 @@ If you want to explore your personal repositories, please use the
 ### Backup
 Full GitHub project backup using [github-backup].
 ```shell
-rapporto github backup --all --pull-details --prefer-ssh --token="${GH_TOKEN}" --repository=kotori daq-tools
+rapporto github backup \
+  --all --pull-details --prefer-ssh --token="${GH_TOKEN}" \
+  --repository="kotori" daq-tools
 ```
 
 
