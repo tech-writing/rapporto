@@ -4,11 +4,11 @@ import typing as t
 
 import attr
 import yaml
-from aika import TimeIntervalParser
 from attrs import define
 
 from rapporto.github.attention import GitHubAttentionReport
 from rapporto.github.model import GitHubInquiry
+from rapporto.util import week_to_day_range
 
 
 @define
@@ -40,6 +40,7 @@ class ReportOptions:
     """
 
     github_organization: str
+    output_format: str = "markdown"
 
 
 @define
@@ -58,7 +59,7 @@ class ReportBase:
         return yaml.dump(self.to_dict(), sort_keys=False)
 
     def to_json(self) -> str:
-        raise NotImplementedError("Needs special support for `attrs`, see Zyp/Tikray")
+        raise NotImplementedError("Needs special support by `cattrs`, see Zyp/Tikray")
         # return json.dumps(yaml.load(self.to_yaml(), yaml.UnsafeLoader), sort_keys=False, indent=2)
         # return json.dumps(munchify(self.to_dict()), sort_keys=False, indent=2)
 
@@ -72,6 +73,16 @@ class ReportBase:
             buffer.write(item.markdown)
             buffer.write("\n\n")
         return buffer.getvalue()
+
+    def render(self, format_: str):
+        if format_ in ["markdown", "md"]:
+            return self.markdown
+        elif format_ == "yaml":
+            return self.to_yaml()
+        elif format_ == "json":
+            return self.to_json()
+        else:
+            raise NotImplementedError(f"Unknown format: {format_}")
 
 
 @define
@@ -141,17 +152,7 @@ class WeeklyReport(ReportBase):
 
         TODO: Refactor to Aika.
         """
-        week = []
-        today = dt.date.today()
-        tip = TimeIntervalParser()
-        rr = tip.parse(self.week)
-        cursor = rr.start
-        while cursor < rr.end:
-            week.append(cursor.strftime("%Y-%m-%d"))
-            cursor += dt.timedelta(days=1)
-            if self.SKIP_THE_FUTURE and cursor.date() > today:
-                break
-        return week
+        return week_to_day_range(self.week, skip_the_future=self.SKIP_THE_FUTURE)
 
     def process(self):
         """

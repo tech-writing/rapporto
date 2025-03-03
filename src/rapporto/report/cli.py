@@ -2,23 +2,25 @@ import logging
 
 import click
 
+from rapporto.option import github_organization_option
 from rapporto.report.model import DailyReport, ReportOptions, WeeklyReport
 
 logger = logging.getLogger(__name__)
 
-github_organization_option = click.option(
-    "--github-organization", "--gh-org", type=str, required=True
-)
+format_option = click.option("--format", "format_", type=str, required=True, default="markdown")
 
 
 @click.group()
 @github_organization_option
+@format_option
 @click.pass_context
-def cli(ctx: click.Context, github_organization: str):
+def cli(ctx: click.Context, github_organization: str, format_: str):
     """
     Generate reports.
     """
-    ctx.meta["options"] = ReportOptions(github_organization=github_organization)
+    ctx.meta["options"] = ReportOptions(
+        github_organization=github_organization, output_format=format_
+    )
 
 
 @cli.command()
@@ -28,13 +30,12 @@ def daily(ctx: click.Context, when: str):
     """
     Daily report.
     """
-    daily = DailyReport(
+    report = DailyReport(
         day=when,
         options=ctx.meta["options"],
     )
-    daily.process()
-    # print(daily.to_json())
-    print(daily.to_markdown())
+    report.process()
+    print(report.render(report.options.output_format))
 
 
 @cli.command()
@@ -44,10 +45,9 @@ def weekly(ctx: click.Context, when: str):
     """
     Weekly report.
     """
-    weekly = WeeklyReport(
+    report = WeeklyReport(
         week=when,
         options=ctx.meta["options"],
     )
-    weekly.process()
-    # print(weekly.to_yaml())
-    print(weekly.to_markdown())
+    report.process()
+    print(report.render(report.options.output_format))
