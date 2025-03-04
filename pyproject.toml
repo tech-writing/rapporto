@@ -35,8 +35,11 @@ keywords = [
   "utility",
 ]
 license = { text = "AGPL 3, EUPL 1.2" }
-authors = [
+maintainers = [
   { name = "Andreas Motl", email = "andreas.motl@panodata.org" },
+]
+authors = [
+  { name = "The Panodata Developers" },
 ]
 requires-python = ">=3.8"
 classifiers = [
