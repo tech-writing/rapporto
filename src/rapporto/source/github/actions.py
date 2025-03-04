@@ -32,11 +32,20 @@ class GitHubActionsReport:
     @property
     def runs(self):
         """
-        All failed runs, modulo subsequent succeeding PR runs.
+        All failed runs, modulo duplicates and subsequent succeeding PR runs.
         """
+        seen = set()
         for run in self.runs_failed:
+            # Filter duplicates.
+            key = f"{run.repository.full_name}-{run.head_branch}"
+            if key in seen:
+                continue
+
+            # Filter PRs that subsequently succeeded.
             if run.event == "pull_request" and self.is_pr_successful(run):
                 continue
+
+            seen.add(key)
             yield run
 
     def is_pr_successful(self, run):
