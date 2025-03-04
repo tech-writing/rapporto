@@ -4,7 +4,6 @@
 - Shell/Daily: Interleave CI reports
 - Aika: Fix bugs and refactor code
 - Pueblo: Fix bugs and refactor code
-- `rapporto github activity` needs a section about "Top issues"
 
 ## Iteration +2
 - Options: Program currently understands `--slack-token=`, but lacks `--github-token=`
@@ -84,3 +83,4 @@
 - Docs: Caveats / Philosophy
 - UI/Slack: Improve zapping
 - GitHub/Actions: Currently lacks parameter `--when`
+- GitHub/Activity: Section about "Top issues"
