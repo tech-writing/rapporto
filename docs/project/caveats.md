@@ -5,6 +5,18 @@
 
 _It's like the government is being run by BuzzFeed. [It's ridiculous!][BuzzFeed]._
 
+## Development
+
+To protect your confidential information on GitHub, it is not recommended
+to run CI workflow jobs for Rapporto on an organization including private
+repositories. On a misconfiguration of GitHub secrets, this may reveal such
+information. The same holds true with the other subsystems that access APIs
+of Opsgenie, Slack, and others.
+
+## Don't Panic
+
+![Image](https://github.com/user-attachments/assets/bb775ff8-95dd-47f9-a593-37a04757e4d8)
+
 ## Guardrails
 
 Rapporto provides much information on your fingertips suitable to haunt
@@ -24,10 +36,6 @@ in one way or another. Don't do that.
 > Q: What's the difference between a controller and a terrorist?
 > <br>
 > A: A terrorist at least has sympathisers.
-
-## Don't Panic
-
-![Image](https://github.com/user-attachments/assets/bb775ff8-95dd-47f9-a593-37a04757e4d8)
 
 
 [BuzzFeed]: https://www.youtube.com/watch?v=4xGUlG5Ck6c&t=105s
