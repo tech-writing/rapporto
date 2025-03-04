@@ -13,7 +13,7 @@ from rapporto.util import to_mrkdwn
 
 organization_option = click.option("--organization", "--org", type=str, required=False)
 author_option = click.option("--author", type=str, required=False)
-when_option = click.option("--when", type=str, required=False)
+when_option = click.option("--when", type=str, required=False, help="Time interval")
 format_option = click.option("--format", "format_", type=str, required=False, default="markdown")
 repository_option = click.option("--repository", type=str, required=False)
 repositories_file_option = click.option("--repositories-file", type=Path, required=False)
@@ -59,16 +59,20 @@ def print_output(report, format_):
 @cli.command(aliases=["ci"])
 @repository_option
 @repositories_file_option
+@when_option
 @format_option
 def actions(
-    repository: str, repositories_file: t.Optional[Path] = None, format_: t.Optional[str] = None
+    repository: str,
+    repositories_file: t.Optional[Path] = None,
+    when: t.Optional[str] = None,
+    format_: t.Optional[str] = None,
 ):
     """
     CI/GHA failures.
     """
     try:
         inquiry = MultiRepositoryInquiry.make(
-            repository=repository, repositories_file=repositories_file
+            repository=repository, repositories_file=repositories_file, when=when
         )
     except ValueError as ex:
         click.echo(

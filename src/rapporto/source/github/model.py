@@ -1,4 +1,5 @@
 import dataclasses
+import datetime as dt
 import logging
 import typing as t
 import urllib.parse
@@ -57,13 +58,7 @@ class GitHubQueryBuilder:
 
     @property
     def timeinterval(self) -> TimeInterval:
-        timerange_user = self.inquiry.updated
-        # TODO: Improve in Aika. -- https://github.com/panodata/aika/issues/112
-        if timerange_user and ".." in timerange_user:
-            parts = timerange_user.split("..")
-            return TimeInterval(start=dateparser.parse(parts[0]), end=dateparser.parse(parts[1]))
-        tr = TimeIntervalParser()
-        return tr.parse(timerange_user)
+        return timeinterval(self.inquiry.updated)
 
     @property
     def timerange(self) -> str:
@@ -168,3 +163,16 @@ class MarkdownContent:
             if markdown := self.render_section(section):
                 sections.append(markdown)
         return "\n".join(sections)
+
+
+def timeinterval(when: t.Optional[str] = None) -> TimeInterval:
+    if when is None:
+        return TimeInterval(dt.datetime.today())
+
+    # TODO: Add edge case to Aika. -- https://github.com/panodata/aika/issues/112
+    if when and ".." in when:
+        parts = when.split("..")
+        return TimeInterval(start=dateparser.parse(parts[0]), end=dateparser.parse(parts[1]))
+    # TODO: Let optionally Aika NOT set the `end` part of the interval to NOW.
+    tr = TimeIntervalParser()
+    return tr.parse(when)

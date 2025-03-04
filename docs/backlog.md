@@ -9,7 +9,6 @@
 ## Iteration +2
 - Options: Program currently understands `--slack-token=`, but lacks `--github-token=`
 - Configuration: Per `[tool]` section in `pyproject.toml`
-- GitHub/Actions: Currently lacks parameter `--when`
 - General: Summaries, using the excellent `llm` package
 - GitHub/Bugs: Add labels `blocked`, `blocked-by XXX`, `impediment`
 - GitHub: Search items in specific columns (e.g. Blocked By) of specific boards
@@ -84,3 +83,4 @@
 - Project layout and docs: Bring up to speed
 - Docs: Caveats / Philosophy
 - UI/Slack: Improve zapping
+- GitHub/Actions: Currently lacks parameter `--when`
