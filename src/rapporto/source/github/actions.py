@@ -1,15 +1,16 @@
 import dataclasses
-import datetime as dt
 import logging
 import typing as t
 from collections import OrderedDict
 from pathlib import Path
 
+from aika import TimeInterval
 from munch import Munch, munchify
 from tqdm import tqdm
 
 from rapporto.source.github.model import (
     MarkdownContent,
+    timeinterval,
 )
 from rapporto.source.github.util import GitHubHttpClient
 from rapporto.util import sanitize_title
@@ -57,20 +58,20 @@ class GitHubActionsReport:
         for run in self.runs:
             mdc.add(run.event, run.markdown)
         return f"""
-# CI failures report {dt.datetime.now().strftime("%Y-%m-%d")}
-A report about GitHub Actions workflow runs that failed recently (now-{self.request.DELTA_HOURS}h).
+# CI failures report {self.request.timeinterval.start.date().isoformat()}
+
+A report about GitHub Actions workflow runs that failed recently.
+Time range: {self.request.timeinterval.githubformat() or "n/a"}
 {mdc.render()}
         """.strip()
 
 
 class GitHubActionsRequest:
     """
-    Fetch outcomes of GitHub Actions workflow runs.
+    Fetch outcomes of recent GitHub Actions workflow runs.
 
     Possible event types are: dynamic, pull_request, push, schedule
     """
-
-    DELTA_HOURS = 24
 
     event_section_map: t.ClassVar[t.OrderedDict[str, str]] = OrderedDict(
         schedule="Schedule",
@@ -84,14 +85,25 @@ class GitHubActionsRequest:
         self.session = GitHubHttpClient.session
 
     @property
-    def yesterday(self) -> str:
+    def timeinterval(self) -> TimeInterval:
+        """
+        Return same-day time interval.
+
+        TODO: Expand to use other, more broad time intervals sensibly.
+        """
+        ti = timeinterval(self.inquiry.created)
+        ti.end = ti.start
+        return ti
+
+    @property
+    def created(self) -> str:
         """
         Compute the start timestamp in ISO format.
         Truncate the ISO format after the hour, to permit caching.
         """
-        return dt.datetime.strftime(
-            dt.datetime.now() - dt.timedelta(hours=self.DELTA_HOURS), "%Y-%m-%dT%H"
-        )
+        # TODO: What about `%Y-%m-%dT%H`?
+        # TODO: What about `dt.timedelta(hours=self.DELTA_HOURS)`, with `DELTA_HOURS = 24`?
+        return self.timeinterval.githubformat()
 
     def fetch(self, filter: "ActionsFilter") -> t.List["ActionsOutcome"]:  # noqa:A002
         outcomes = []
@@ -106,8 +118,7 @@ class GitHubActionsRequest:
             if response.status_code == 404:
                 continue
             response.raise_for_status()
-            runs = munchify(response.json()).workflow_runs
-            for run in runs:
+            for run in munchify(response.json()).workflow_runs:
                 outcome = ActionsOutcome(
                     id=run.id,
                     event=run.event,
@@ -124,29 +135,31 @@ class GitHubActionsRequest:
 
     @property
     def runs_failed(self):
-        return self.fetch(filter=ActionsFilter(status="failure", created=f">{self.yesterday}"))
+        return self.fetch(filter=ActionsFilter(status="failure", created=self.created))
 
     @property
     def runs_pr_success(self):
         return self.fetch(
-            filter=ActionsFilter(
-                event="pull_request", status="success", created=f">{self.yesterday}"
-            )
+            filter=ActionsFilter(event="pull_request", status="success", created=self.created)
         )
 
 
 @dataclasses.dataclass
 class MultiRepositoryInquiry:
     repositories: t.List[str]
+    created: t.Optional[str] = None
 
     @classmethod
     def make(
-        cls, repository: str, repositories_file: t.Optional[Path] = None
+        cls,
+        repository: str,
+        repositories_file: t.Optional[Path] = None,
+        when: t.Optional[str] = None,
     ) -> "MultiRepositoryInquiry":
         if repository:
-            return cls(repositories=[repository])
+            return cls(repositories=[repository], created=when)
         elif repositories_file:
-            return cls(repositories=repositories_file.read_text().splitlines())
+            return cls(repositories=repositories_file.read_text().splitlines(), created=when)
         else:
             raise ValueError("No repository specified")
 

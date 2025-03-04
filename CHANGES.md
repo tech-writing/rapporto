@@ -11,6 +11,7 @@
   context, with hourly granularity, available per `rapporto notify`.
 - Slack/Markdown: Fixed encoding link titles including square brackets
 - Time Interval: Fixed `week_to_day_range`
+- GitHub/Actions: Permitted commandeering the time interval per `--when` option
 
 ## v0.3.0, 2025-02-24
 - Opsgenie: Added alert reporter. Thanks, @WalBah.
