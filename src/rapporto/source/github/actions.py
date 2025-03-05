@@ -2,13 +2,13 @@ import dataclasses
 import logging
 import typing as t
 from collections import OrderedDict
-from pathlib import Path
 
 from aika import TimeInterval
 from munch import Munch, munchify
 from tqdm import tqdm
 
 from rapporto.source.github.model import (
+    GitHubMultiRepositoryInquiry,
     MarkdownContent,
     timeinterval,
 )
@@ -23,7 +23,7 @@ class GitHubActionsReport:
     Report about failed outcomes of GitHub Actions workflow runs.
     """
 
-    def __init__(self, inquiry: "MultiRepositoryInquiry"):
+    def __init__(self, inquiry: GitHubMultiRepositoryInquiry):
         self.inquiry = inquiry
         self.request = GitHubActionsRequest(inquiry)
         self.runs_failed = self.request.runs_failed
@@ -89,7 +89,7 @@ class GitHubActionsRequest:
         dynamic="Dynamic",
     )
 
-    def __init__(self, inquiry: "MultiRepositoryInquiry"):
+    def __init__(self, inquiry: GitHubMultiRepositoryInquiry):
         self.inquiry = inquiry
         self.session = GitHubHttpClient.session
 
@@ -151,26 +151,6 @@ class GitHubActionsRequest:
         return self.fetch(
             filter=ActionsFilter(event="pull_request", status="success", created=self.created)
         )
-
-
-@dataclasses.dataclass
-class MultiRepositoryInquiry:
-    repositories: t.List[str]
-    created: t.Optional[str] = None
-
-    @classmethod
-    def make(
-        cls,
-        repository: str,
-        repositories_file: t.Optional[Path] = None,
-        when: t.Optional[str] = None,
-    ) -> "MultiRepositoryInquiry":
-        if repository:
-            return cls(repositories=[repository], created=when)
-        elif repositories_file:
-            return cls(repositories=repositories_file.read_text().splitlines(), created=when)
-        else:
-            raise ValueError("No repository specified")
 
 
 @dataclasses.dataclass

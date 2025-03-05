@@ -40,32 +40,42 @@ export SLACK_TOKEN="xoxb-your-slack-bot-token"
 Alternatively to using the environment variable, you can also use the
 `rapporto notify --slack-token=` command-line option.
 
-### Options
-
-The [`--when`](#when-option) command-line option accepts a wide range of
-values to adjust the time interval. You can also omit the option completely,
-in which case the program will assume the current day or calendar week.
-
 ## Markdown Reports
 
-Report about given day.
+Report attention items about a given day.
 ```shell
-rapporto report --github-organization="acme" daily --when="2025-02-28"
+rapporto report --github-organization="acme" daily --day="2025-02-28"
 ```
 
 Report about given calendar week.
 ```shell
-rapporto report --github-organization="acme" weekly --when="2025W09"
+rapporto report --github-organization="acme" weekly --day="2025W09"
 ```
 
 Print yesterday's report.
 ```shell
-rapporto report --github-organization="acme" daily --when="yesterday"
+rapporto report --github-organization="acme" daily --day="yesterday"
 ```
 
 Print today's report in YAML format.
 ```shell
 rapporto report --github-organization="acme" --format="yaml" daily
+```
+
+Report attention items and CI failures about a given day.
+```shell
+rapporto report \
+  --github-organization="acme" \
+  --github-repository="acme/foobar" \
+  daily --day="2025-02-28"
+```
+
+Load list of repositories from file.
+```shell
+rapporto report \
+  --github-organization="acme" \
+  --github-repository="/path/to/repositories.txt" \
+  daily --day="2025-02-28"
 ```
 
 
@@ -79,6 +89,14 @@ rapporto notify --gh-org="acme" --slack-channel="janitor-bot" weekly
 Report and notify about given calendar week.
 ```shell
 rapporto notify --gh-org="acme" --slack-channel="janitor-bot" weekly --week="2025W09"
+```
+
+Report and notify about given calendar week, loading list of repositories from file.
+```shell
+rapporto notify \
+  --gh-org="acme" --gh-repo="/path/to/repositories.txt" \
+  --slack-channel="janitor-bot" \
+  weekly --week="2025W09"
 ```
 
 For development purposes, zap messages after pressing enter.

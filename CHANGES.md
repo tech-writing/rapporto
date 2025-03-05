@@ -14,6 +14,7 @@
 - GitHub/Actions: Permitted commandeering the time interval per `--when` option
 - GitHub/Actions: Added filtering duplicates
 - GitHub/Activity: Added section about "Top issues"
+- Shell/Daily: Interleaved Attention vs. CI reports
 
 ## v0.3.0, 2025-02-24
 - Opsgenie: Added alert reporter. Thanks, @WalBah.
