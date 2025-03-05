@@ -1,6 +1,8 @@
 # Change log
 
 ## In progress
+
+## v0.4.0, 2025-03-05
 - GitHub/Bugs: Also display `state==closed` items, formatting them
   using ~~strikethrough~~.
 - Goof: Added wrapper around Slack conversations, available per
