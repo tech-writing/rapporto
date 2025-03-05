@@ -1,9 +1,8 @@
 # Backlog
 
 ## Iteration +1
-- Shell/Daily: Interleave CI reports
-- Aika: Fix bugs and refactor code
-- Pueblo: Fix bugs and refactor code
+- `rapporto report` without `--github-repository` should iterate **all** repositories
+- Bugfixing and refactoring: Aika and Pueblo
 
 ## Iteration +2
 - Options: Program currently understands `--slack-token=`, but lacks `--github-token=`
@@ -84,3 +83,4 @@
 - UI/Slack: Improve zapping
 - GitHub/Actions: Currently lacks parameter `--when`
 - GitHub/Activity: Section about "Top issues"
+- Shell/Daily: Interleave CI reports

@@ -2,52 +2,60 @@ import logging
 
 import click
 
-from rapporto.option import github_organization_option
+from rapporto.option import (
+    format_option,
+    github_organization_option,
+    github_repository_option,
+)
 from rapporto.report.model import DailyReport, ReportOptions, WeeklyReport
+from rapporto.source.github.model import GitHubOptions
 
 logger = logging.getLogger(__name__)
-
-format_option = click.option("--format", "format_", type=str, required=True, default="markdown")
 
 
 @click.group()
 @github_organization_option
+@github_repository_option
 @format_option
 @click.pass_context
-def cli(ctx: click.Context, github_organization: str, format_: str):
+def cli(ctx: click.Context, github_organization: str, github_repository: str, format_: str):
     """
     Generate reports.
     """
-    ctx.meta["options"] = ReportOptions(
-        github_organization=github_organization, output_format=format_
+    ctx.meta["github_options"] = GitHubOptions(organization=github_organization).add_repos(
+        github_repository
     )
+    ctx.meta["report_options"] = ReportOptions(output_format=format_)
 
 
 @cli.command()
-@click.option("--when", type=str, required=False, help="Point in time")
+@click.option("--day", type=str, required=False, help="Day in ISO format, e.g. 2025-03-03")
 @click.pass_context
-def daily(ctx: click.Context, when: str):
+def daily(ctx: click.Context, day: str):
     """
     Daily report.
     """
     report = DailyReport(
-        day=when,
-        options=ctx.meta["options"],
+        day=day,
+        github_options=ctx.meta["github_options"],
+        report_options=ctx.meta["report_options"],
     )
     report.process()
-    print(report.render(report.options.output_format))
+    print(report.render(report.report_options.output_format))
 
 
 @cli.command()
-@click.option("--when", type=str, required=False, help="Point in time")
+@click.option("--week", type=str, required=False, help="Calendar week in ISO format, e.g. 2025W03")
+@github_repository_option
 @click.pass_context
-def weekly(ctx: click.Context, when: str):
+def weekly(ctx: click.Context, week: str):
     """
     Weekly report.
     """
     report = WeeklyReport(
-        week=when,
-        options=ctx.meta["options"],
+        week=week,
+        github_options=ctx.meta["github_options"],
+        report_options=ctx.meta["report_options"],
     )
     report.process()
-    print(report.render(report.options.output_format))
+    print(report.render(report.report_options.output_format))

@@ -4,19 +4,23 @@ from pathlib import Path
 import click
 from click_aliases import ClickAliasedGroup
 
-from rapporto.source.github.actions import GitHubActionsReport, MultiRepositoryInquiry
+from rapporto.option import format_option
+from rapporto.source.github.actions import GitHubActionsReport
 from rapporto.source.github.activity import GitHubActivityReport
 from rapporto.source.github.attention import GitHubAttentionReport
 from rapporto.source.github.backup import GitHubBackup
-from rapporto.source.github.model import GitHubInquiry
+from rapporto.source.github.model import GitHubInquiry, GitHubMultiRepositoryInquiry, GitHubOptions
 from rapporto.util import to_mrkdwn
 
 organization_option = click.option("--organization", "--org", type=str, required=False)
 author_option = click.option("--author", type=str, required=False)
 when_option = click.option("--when", type=str, required=False, help="Time interval")
-format_option = click.option("--format", "format_", type=str, required=False, default="markdown")
-repository_option = click.option("--repository", type=str, required=False)
-repositories_file_option = click.option("--repositories-file", type=Path, required=False)
+repository_option = click.option(
+    "--repository",
+    type=str,
+    required=True,
+    help="GitHub repository, single or path to file",
+)
 
 
 @click.group(cls=ClickAliasedGroup)
@@ -58,27 +62,18 @@ def print_output(report, format_):
 
 @cli.command(aliases=["ci"])
 @repository_option
-@repositories_file_option
 @when_option
 @format_option
 def actions(
-    repository: str,
-    repositories_file: t.Optional[Path] = None,
+    repository: t.Union[str, Path],
     when: t.Optional[str] = None,
     format_: t.Optional[str] = None,
 ):
     """
     CI/GHA failures.
     """
-    try:
-        inquiry = MultiRepositoryInquiry.make(
-            repository=repository, repositories_file=repositories_file, when=when
-        )
-    except ValueError as ex:
-        click.echo(
-            f"Please specify valid input for --repository or --repositories-file: {ex}", err=True
-        )
-        raise SystemExit(1) from ex
+    options = GitHubOptions().add_repos(repository)
+    inquiry = GitHubMultiRepositoryInquiry(repositories=options.repositories, created=when)
     report = GitHubActionsReport(inquiry=inquiry)
     print_output(report, format_)
 

@@ -5,19 +5,27 @@ import click
 from pueblo_goof.slack.conversation import SlackConversation
 from pueblo_goof.slack.model import SlackOptions, slack_api_token_option, slack_channel_option
 from pueblo_goof.util import Zapper
-from rapporto.option import github_organization_option
+from rapporto.option import github_organization_option, github_repository_option
 from rapporto.report.model import ReportOptions
 from rapporto.report.slack import SlackWeekly
+from rapporto.source.github.model import GitHubOptions
 
 logger = logging.getLogger(__name__)
 
 
 @click.group()
 @github_organization_option
+@github_repository_option
 @slack_api_token_option
 @slack_channel_option
 @click.pass_context
-def cli(ctx: click.Context, github_organization: str, slack_token: str, slack_channel: str):
+def cli(
+    ctx: click.Context,
+    github_organization: str,
+    github_repository: str,
+    slack_token: str,
+    slack_channel: str,
+):
     """
     Notify humans and machines.
     """
@@ -25,10 +33,11 @@ def cli(ctx: click.Context, github_organization: str, slack_token: str, slack_ch
         raise click.UsageError(
             "Missing option '--slack-token' or environment variable 'SLACK_TOKEN'."
         )
-    ctx.meta["slack_options"] = SlackOptions(token=slack_token, channel=slack_channel)
-    ctx.meta["report_options"] = ReportOptions(
-        github_organization=github_organization, output_format="markdown"
+    ctx.meta["github_options"] = GitHubOptions(organization=github_organization).add_repos(
+        github_repository
     )
+    ctx.meta["slack_options"] = SlackOptions(token=slack_token, channel=slack_channel)
+    ctx.meta["report_options"] = ReportOptions(output_format="markdown")
 
 
 @cli.command()
@@ -40,13 +49,19 @@ def weekly(ctx: click.Context, week: str, zap: str):
     Weekly report converged into Slack thread.
     """
 
+    github_options: GitHubOptions = ctx.meta["github_options"]
     report_options: ReportOptions = ctx.meta["report_options"]
     slack_options: SlackOptions = ctx.meta["slack_options"]
 
     conversation = SlackConversation(options=slack_options)
     zapper = Zapper(when=zap, action=conversation.delete)
 
-    section = SlackWeekly(week=week, options=report_options, conversation=conversation)
+    section = SlackWeekly(
+        week=week,
+        github_options=github_options,
+        report_options=report_options,
+        conversation=conversation,
+    )
     section.refresh()
 
     try:

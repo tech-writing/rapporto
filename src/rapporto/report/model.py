@@ -6,8 +6,9 @@ import attr
 import yaml
 from attrs import define
 
+from rapporto.source.github.actions import GitHubActionsReport
 from rapporto.source.github.attention import GitHubAttentionReport
-from rapporto.source.github.model import GitHubInquiry
+from rapporto.source.github.model import GitHubInquiry, GitHubMultiRepositoryInquiry, GitHubOptions
 from rapporto.util import week_to_day_range
 
 
@@ -39,7 +40,6 @@ class ReportOptions:
     Composite report options.
     """
 
-    github_organization: str
     output_format: str = "markdown"
 
 
@@ -92,7 +92,8 @@ class DailyReport(ReportBase):
     """
 
     day: str
-    options: ReportOptions
+    github_options: GitHubOptions
+    report_options: ReportOptions
     items: t.List[DailyItem] = attr.field(factory=list)
 
     def __attrs_post_init__(self):
@@ -106,14 +107,28 @@ class DailyReport(ReportBase):
         """
         Generate set of reports across different domains or topics.
         """
+        self.github_actions()
         self.github_attention()
+
+    def github_actions(self):
+        """
+        CI workflow run failures on GitHub.
+        """
+        # TODO: Use `TimeIntervalParser`.
+        created = f"{self.day}..{self.day}"
+        inquiry = GitHubMultiRepositoryInquiry(
+            repositories=self.github_options.repositories, created=created
+        )
+        report = GitHubActionsReport(inquiry=inquiry)
+        self.items.append(DailyItem(type="github-actions", day=self.day, markdown=report.markdown))
 
     def github_attention(self):
         """
         Items on GitHub that deserve your attention.
         """
+        # TODO: Use `TimeIntervalParser`.
         updated = f"{self.day}..{self.day}"
-        inquiry = GitHubInquiry(organization=self.options.github_organization, updated=updated)
+        inquiry = GitHubInquiry(organization=self.github_options.organization, updated=updated)
         report = GitHubAttentionReport(inquiry=inquiry)
         self.items.append(
             DailyItem(type="github-attention", day=self.day, markdown=report.markdown)
@@ -133,7 +148,8 @@ class WeeklyReport(ReportBase):
     """
 
     week: str
-    options: ReportOptions
+    github_options: GitHubOptions
+    report_options: ReportOptions
     dailies: t.List[DailyReport] = attr.field(factory=list)
 
     SKIP_THE_FUTURE = True
@@ -159,7 +175,9 @@ class WeeklyReport(ReportBase):
         Create all daily reports.
         """
         for day in self.days:
-            report = DailyReport(day=day, options=self.options)
+            report = DailyReport(
+                day=day, github_options=self.github_options, report_options=self.report_options
+            )
             report.process()
             self.dailies.append(report)
 

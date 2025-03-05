@@ -9,6 +9,7 @@ import typing as t
 
 from pueblo_goof.slack.conversation import SlackConversation
 from rapporto.report.model import DailyItem, ReportOptions, WeeklyReport
+from rapporto.source.github.model import GitHubOptions
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +25,8 @@ class SlackWeekly:
     AUTHOR = "qa-bot"
 
     week: str
-    options: ReportOptions
+    github_options: GitHubOptions
+    report_options: ReportOptions
     conversation: SlackConversation
 
     # Message id of the root message.
@@ -87,7 +89,8 @@ class SlackWeekly:
     def render(self):
         weekly = WeeklyReport(
             week=self.week,
-            options=self.options,
+            github_options=self.github_options,
+            report_options=self.report_options,
         )
         weekly.process()
         for daily_report in weekly.dailies:

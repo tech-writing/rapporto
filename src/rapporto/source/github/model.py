@@ -6,7 +6,9 @@ import urllib.parse
 from abc import abstractmethod
 from collections import OrderedDict
 from enum import Enum
+from pathlib import Path
 
+import attr
 import dateparser
 from aika import TimeInterval, TimeIntervalParser
 from attrs import define
@@ -14,11 +16,43 @@ from attrs import define
 logger = logging.getLogger(__name__)
 
 
+@define
+class GitHubOptions:
+    """
+    Options for GitHub.
+    """
+
+    organization: t.Optional[str] = None
+    repositories: t.List[str] = attr.field(factory=list)
+
+    def add_repos(self, repos: t.Union[str, Path]) -> "GitHubOptions":
+        path = Path(repos)
+        if path.exists():
+            self.add_repositories_file(path)
+        elif isinstance(repos, str):
+            self.add_repository(repos)
+        else:
+            raise TypeError("repos must be a str or Path")
+        return self
+
+    def add_repository(self, name: str):
+        self.repositories.append(name)
+
+    def add_repositories_file(self, path: Path):
+        self.repositories += path.read_text().splitlines()
+
+
 @dataclasses.dataclass
 class GitHubInquiry:
     organization: t.Optional[str] = None
     updated: t.Optional[str] = None
     author: t.Optional[str] = None
+
+
+@dataclasses.dataclass
+class GitHubMultiRepositoryInquiry:
+    repositories: t.List[str]
+    created: t.Optional[str] = None
 
 
 class QType(Enum):
