@@ -38,5 +38,5 @@ in one way or another. Don't do that.
 > A: A terrorist at least has sympathisers.
 
 
-[BuzzFeed]: https://www.youtube.com/watch?v=4xGUlG5Ck6c&t=105s
+[BuzzFeed]: https://youtu.be/4xGUlG5Ck6c?t=105
 [license document]: https://github.com/tech-writing/rapporto/blob/main/LICENSE
