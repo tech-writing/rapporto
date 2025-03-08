@@ -11,8 +11,8 @@ class Zapper:
     Wait for a) pressing enter, or b) a few seconds.
     """
 
-    def __init__(self, when: str, action: t.Optional[t.Callable] = None) -> None:
-        self.when = when
+    def __init__(self, when: t.Optional[str] = None, action: t.Optional[t.Callable] = None) -> None:
+        self.when = when or ""
         self.action: t.Optional[t.Callable] = action
         self.validate()
         self.delay: float = self._compute_delay()
@@ -34,7 +34,7 @@ class Zapper:
         return 0
 
     def validate(self) -> bool:
-        if self.is_stopclock or self.is_keypress:
+        if self.when == "" or self.is_stopclock or self.is_keypress:
             return True
         raise ValueError(
             f"Invalid value for `when` argument: {self.when}. "
