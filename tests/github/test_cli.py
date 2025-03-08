@@ -1,13 +1,4 @@
-import os
-
-import pytest
-
 from rapporto.cli import cli
-
-
-@pytest.fixture(autouse=True)
-def reset_environment(monkeypatch):
-    monkeypatch.setenv("GH_TOKEN", os.getenv("GH_TOKEN_TEST"))
 
 
 def test_cli_activity(cli_runner):
