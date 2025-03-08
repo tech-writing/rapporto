@@ -5,9 +5,9 @@ import click
 from pueblo_goof.slack.conversation import SlackConversation
 from pueblo_goof.slack.model import SlackOptions, slack_api_token_option, slack_channel_option
 from pueblo_goof.util import Zapper
+from rapporto.notify.slack import SlackWeekly
 from rapporto.option import github_organization_option, github_repository_option
 from rapporto.report.model import ReportOptions
-from rapporto.report.slack import SlackWeekly
 from rapporto.source.github.model import GitHubOptions
 
 logger = logging.getLogger(__name__)
