@@ -5,6 +5,7 @@
 - GitHub/Attention: Added label "incidents", considering as important
 - GitHub/Attention: Improved labels processing
 - GitHub/Attention: Added DIY inquiry links
+- GitHub/Attention: Added idle notice
 - GitHub/Activity: Accept inquiring multiple organizations and authors
 - Shell/Notify: Fixed invocation without `--zap=`
 - Shell/Notify: Improved preamble, adding "Producer" field
