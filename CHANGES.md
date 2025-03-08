@@ -1,6 +1,7 @@
 # Change log
 
 ## In progress
+- GitHub/Bugs: Compare labels per lower-case
 
 ## v0.4.0, 2025-03-05
 - GitHub/Bugs: Also display `state==closed` items, formatting them

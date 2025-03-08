@@ -76,7 +76,9 @@ class GitHubAttentionReport:
         """
         for label in item.labels:
             for label_key in self.label_section_map.keys():
-                if label.name == label_key or label.name in self.label_aliases.get(label_key, []):
+                label_key = label_key.lower()
+                label_name = label.name.lower()
+                if label_name == label_key or label_name in self.label_aliases.get(label_key, []):
                     # It's easier for the downstream renderer when using canonical category labels.
                     label.category = label_key
                     return label
