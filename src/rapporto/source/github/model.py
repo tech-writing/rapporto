@@ -78,8 +78,12 @@ class GitHubQueryBuilder:
         self.constraints: t.List[str] = []
         self.query()
 
-    def add(self, field: str, value: t.Optional[str] = None):
+    def add(self, field: str, value: t.Optional[str] = None, is_list: bool = False):
         if value is not None:
+            if is_list:
+                for item in value.split(","):
+                    self.add(field, item.strip())
+                return
             self.constraints.append(f"{field}:{value}")
 
     @property
