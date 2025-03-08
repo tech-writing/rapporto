@@ -113,6 +113,15 @@ class GitHubAttentionReport:
             else:
                 mdc.add("others", line)
 
+        body = mdc.render()
+        if not body:
+            easy_day = "[easy day](https://www.youtube.com/watch?v=neg7yhoZgdw)"
+            body = (
+                f"_Apparently, nothing significant happened yet. "
+                f"Please also have a look at previous editions. "
+                f"Otherwise, have an {easy_day}._"
+            )
+
         link_issues = f"[Issues]({self.search.issues_html})"
         link_pulls = f"[Pull requests]({self.search.pulls_html})"
 
@@ -120,7 +129,8 @@ class GitHubAttentionReport:
 # Attention report {self.inquiry.updated or ""}
 
 A report about important items that deserve your attention, bugs first.
-Time range: {self.search.query_builder.timeinterval.githubformat() or "n/a"}
-{mdc.render()}
+- Time range: {self.search.query_builder.timeinterval.githubformat() or "n/a"}
 - Details: {link_issues}, {link_pulls}
+
+{body}
         """.strip()
