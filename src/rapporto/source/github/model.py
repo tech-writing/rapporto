@@ -26,6 +26,8 @@ class GitHubOptions:
     repositories: t.List[str] = attr.field(factory=list)
 
     def add_repos(self, repos: t.Union[str, Path]) -> "GitHubOptions":
+        if repos is None:
+            return self
         path = Path(repos)
         if path.exists():
             self.add_repositories_file(path)

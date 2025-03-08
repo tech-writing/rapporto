@@ -40,16 +40,22 @@ export SLACK_TOKEN="xoxb-your-slack-bot-token"
 Alternatively to using the environment variable, you can also use the
 `rapporto notify --slack-token=` command-line option.
 
+### Options
+
+Note that many CLI options are optional. Just omit them in order to
+expand the search scope, or assume reasonable default values.
+
+
 ## Markdown Reports
+
+Report attention items about current day.
+```shell
+rapporto report --github-organization="acme" daily
+```
 
 Report attention items about a given day.
 ```shell
 rapporto report --github-organization="acme" daily --day="2025-02-28"
-```
-
-Report about given calendar week.
-```shell
-rapporto report --github-organization="acme" weekly --day="2025W09"
 ```
 
 Print yesterday's report.
@@ -60,6 +66,16 @@ rapporto report --github-organization="acme" daily --day="yesterday"
 Print today's report in YAML format.
 ```shell
 rapporto report --github-organization="acme" --format="yaml" daily
+```
+
+Report about current calendar week.
+```shell
+rapporto report --github-organization="acme" weekly
+```
+
+Report about given calendar week.
+```shell
+rapporto report --github-organization="acme" weekly --day="2025W09"
 ```
 
 Report attention items and CI failures about a given day.

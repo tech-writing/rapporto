@@ -46,7 +46,6 @@ def daily(ctx: click.Context, day: str):
 
 @cli.command()
 @click.option("--week", type=str, required=False, help="Calendar week in ISO format, e.g. 2025W03")
-@github_repository_option
 @click.pass_context
 def weekly(ctx: click.Context, week: str):
     """

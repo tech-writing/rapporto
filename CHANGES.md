@@ -9,6 +9,7 @@
 - GitHub/Activity: Accept inquiring multiple organizations and authors
 - Shell/Notify: Fixed invocation without `--zap=`
 - Shell/Notify: Improved preamble, adding "Producer" field
+- Shell/Report: Made `--github-repository` option optional
 
 ## v0.4.0, 2025-03-05
 - GitHub/Attention: Also display `state==closed` items, formatting them

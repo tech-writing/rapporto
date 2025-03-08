@@ -3,7 +3,6 @@
 ## Iteration +1
 - Docs about end-to-end automation
   Advise about GH tokens and caching, re. `http_cache.sqlite`
-- `rapporto report` without `--github-repository` should iterate **all** repositories
 - Bugfixing and refactoring: Aika and Pueblo
 - Absorb PyGource
   https://github.com/cicerops/pygource
@@ -93,3 +92,4 @@
 - GitHub/Activity: Section about "Top issues"
 - Shell/Daily: Interleave CI reports
 - GitHub/Activity: Permit running on multiple organizations
+- `rapporto report` without `--github-repository` should iterate **all** repositories
