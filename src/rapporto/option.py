@@ -7,7 +7,7 @@ github_repository_option = click.option(
     "--github-repository",
     "--gh-repo",
     type=str,
-    required=True,
+    required=False,
     help="GitHub repository, single or path to file",
 )
 format_option = click.option(
