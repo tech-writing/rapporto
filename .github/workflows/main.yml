@@ -33,6 +33,13 @@ jobs:
     name: Python ${{ matrix.python-version }} on OS ${{ matrix.os }}
     steps:
 
+    - name: Install prerequisites
+      env:
+        DEBIAN_FRONTEND: noninteractive
+        TERM: linux
+      run: |
+        sudo apt-get install --yes --no-install-recommends --no-install-suggests ffmpeg gource mp3wrap
+
     - name: Acquire sources
       uses: actions/checkout@v4
 

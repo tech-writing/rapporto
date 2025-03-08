@@ -116,6 +116,7 @@ dependencies = [
   "slack-sdk<4",
   "tabulate<0.10",
   "tqdm",
+  "yt-dlp",
 ]
 optional-dependencies.develop = [
   "mypy<1.16",

@@ -4,8 +4,6 @@
 - Docs about end-to-end automation
   Advise about GH tokens and caching, re. `http_cache.sqlite`
 - Bugfixing and refactoring: Aika and Pueblo
-- Absorb PyGource
-  https://github.com/cicerops/pygource
 - Absorb Manticore extensions as CLI utilities
   https://github.com/tech-writing/manticore-ext
 
@@ -93,3 +91,4 @@
 - Shell/Daily: Interleave CI reports
 - GitHub/Activity: Permit running on multiple organizations
 - `rapporto report` without `--github-repository` should iterate **all** repositories
+- Absorb PyGource. https://github.com/cicerops/pygource
