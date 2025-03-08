@@ -16,12 +16,13 @@ def test_cli_activity(cli_runner):
     """
     result = cli_runner.invoke(
         cli,
-        args="github activity --organization=panodata --author=dependabot[bot] --when=2025W07",
+        args="github activity "
+        "--organization=panodata,tech-writing --author=amotl,dependabot[bot] --when=2025W07",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
     assert "# Activity report for 2025W07" in result.output
-    assert "Activity: aika, rex9" in result.output
+    assert "Activity: aika, rapporto, rex9, sphinx-design-elements" in result.output
 
 
 def test_cli_ci(cli_runner):

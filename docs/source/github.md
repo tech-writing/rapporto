@@ -48,6 +48,11 @@ Report about activities of individual authors.
 rapporto github activity --organization="python" --author="AA-Turner" --when="2025-01-01..2025-01-31"
 rapporto github activity --organization="python" --author="AA-Turner" --when="2025W04"
 ```
+You can supply multiple values to the "organization" and "author" options.
+They will be combined per `or`.
+```shell
+rapporto github activity --organization="torvalds,subsurface" --author="torvalds,bstoeger" --when="2020W40"
+```
 
 ### Attention report
 Report about important items that deserve your attention, bugs first.
