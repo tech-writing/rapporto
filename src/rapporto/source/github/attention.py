@@ -113,10 +113,14 @@ class GitHubAttentionReport:
             else:
                 mdc.add("others", line)
 
+        link_issues = f"[Issues]({self.search.issues_html})"
+        link_pulls = f"[Pull requests]({self.search.pulls_html})"
+
         return f"""
 # Attention report {self.inquiry.updated or ""}
 
 A report about important items that deserve your attention, bugs first.
 Time range: {self.search.query_builder.timeinterval.githubformat() or "n/a"}
 {mdc.render()}
+- Details: {link_issues}, {link_pulls}
         """.strip()
