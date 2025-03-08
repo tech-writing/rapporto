@@ -1,6 +1,7 @@
 import click
 from click_aliases import ClickAliasedGroup
 
+from rapporto.animate.cli import cli as animate_cli
 from rapporto.notify.cli import cli as notify_cli
 from rapporto.report.cli import cli as report_cli
 from rapporto.source.github.cli import cli as github_cli
@@ -23,3 +24,4 @@ cli.add_command(opsgenie_cli, "opsgenie")
 cli.add_command(slack_cli, "slack")
 cli.add_command(notify_cli, "notify")
 cli.add_command(report_cli, "report")
+cli.add_command(animate_cli, "animate")

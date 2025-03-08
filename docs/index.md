@@ -1,8 +1,9 @@
 # Rapporto
 
-Harvest information from GitHub, Opsgenie, and Slack,
-create reports in Markdown format, and publish them
-in different ways. [DWIM], with notable {ref}`caveats`.
+Harvest information from Git, GitHub, Opsgenie, and Slack,
+create reports in Markdown format, animations in video formats,
+and publish them in different ways.
+[DWIM], with notable {ref}`caveats`.
 
 ```{toctree}
 :maxdepth: 1
@@ -11,6 +12,7 @@ in different ways. [DWIM], with notable {ref}`caveats`.
 install
 source/index
 report/index
+animate/index
 tool/index
 project/index
 ```
@@ -20,13 +22,14 @@ project/index
 :DWIM:
     Harvest, report, summarize, and notify like you always wanted to.
 :Polyglot:
-    Talk to GitHub and Slack, and easily extend it for other services.
+    Inquire Git, GitHub, Opsgenie, and Slack, and easily extend it for
+    other services.
 :Flexibility:
     Use as a standalone program or as a library in your own programs.
 :Interoperability:
-    The output is using Markdown format across the board, so you can
-    use it on many services like Discord, Discourse, GitHub, Slack,
-    and many more.
+    The output is using Markdown format and other standards across the
+    board, so you can use it on services like Discord, Discourse,
+    GitHub, Slack, and many more.
 
 ::::{attention}
 **With great power comes great responsibility.**
