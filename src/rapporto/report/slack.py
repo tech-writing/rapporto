@@ -8,6 +8,7 @@ import logging
 import typing as t
 
 from pueblo_goof.slack.conversation import SlackConversation
+from rapporto import __version__
 from rapporto.report.model import DailyItem, ReportOptions, WeeklyReport
 from rapporto.source.github.model import GitHubOptions
 
@@ -79,10 +80,12 @@ class SlackWeekly:
         The message body for the root message, in Markdown format.
         """
         timestamp = dt.datetime.now().replace(microsecond=0).isoformat()
+        rapporto_link = "[Rapporto](https://rapporto.readthedocs.io/)"
         items = [
             f"**Week:** {self.week}",
             f"**Updated:** {timestamp}",
             f"**Message:** {self.root_id}",
+            f"**Producer:** {rapporto_link} v{__version__}",
         ]
         return "# qa-bot ready\n\n" + "\n".join(items)
 
