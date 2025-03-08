@@ -1,8 +1,16 @@
 # Backlog
 
 ## Iteration +1
+- GitHub/Attention: »Apparently, nothing significant happened yet. Have an easy day.«
+  https://www.youtube.com/watch?v=neg7yhoZgdw
+- Docs about end-to-end automation
+- GitHub/Activity: Permit running on multiple organizations
 - `rapporto report` without `--github-repository` should iterate **all** repositories
 - Bugfixing and refactoring: Aika and Pueblo
+- Absorb PyGource
+  https://github.com/cicerops/pygource
+- Absorb Manticore extensions as CLI utilities
+  https://github.com/tech-writing/manticore-ext
 
 ## Iteration +2
 - Options: Program currently understands `--slack-token=`, but lacks `--github-token=`
