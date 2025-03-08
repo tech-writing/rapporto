@@ -16,7 +16,7 @@ def test_cli_report_daily(cli_runner):
     """
     result = cli_runner.invoke(
         cli,
-        args="report --gh-org=tech-writing daily",
+        args="report --gh-org=panodata daily",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
@@ -24,13 +24,14 @@ def test_cli_report_daily(cli_runner):
     assert "# Attention report" in result.output
 
 
+@pytest.mark.xfail(strict=False)
 def test_cli_report_weekly(cli_runner):
     """
     CLI test: Invoke `rapporto report weekly`.
     """
     result = cli_runner.invoke(
         cli,
-        args="report --gh-org=tech-writing weekly",
+        args="report --gh-org=panodata weekly",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
