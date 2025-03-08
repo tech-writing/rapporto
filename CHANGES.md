@@ -5,7 +5,7 @@
 - GitHub/Bugs: Added label "incidents", considering as important
 
 ## v0.4.0, 2025-03-05
-- GitHub/Bugs: Also display `state==closed` items, formatting them
+- GitHub/Attention: Also display `state==closed` items, formatting them
   using ~~strikethrough~~.
 - Goof: Added wrapper around Slack conversations, available per
   CLI `goof slack send`.
@@ -26,27 +26,27 @@
 - GitHub/API: Use `updated` instead of `created` to get the whole picture
 
 ## v0.2.0, 2025-02-24
-- GitHub/CI: Fixed displaying failed workflow runs on pull requests
+- GitHub/Actions: Fixed displaying failed workflow runs on pull requests
   which succeeded afterward
-- GitHub/Bugs: Improved rendering of Markdown sections
-- GitHub/Bugs: Also consider labels `stale` and `type: Bug` as relevant
+- GitHub/Attention: Improved rendering of Markdown sections
+- GitHub/Attention: Also consider labels `stale` and `type: Bug` as relevant
 - GitHub/Backup: Added wrapper around `github-backup`
 - Options: Use `aika` for parsing time intervals.
   Also, rename command-line option `--timerange` to `--when`.
-- Options: Added `--format=mrkdwn` option, improving Slack messages
+- Slack/Options: Added `--format=mrkdwn` option, improving Slack messages
 
 ## v0.1.0, 2025-02-20
-- Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,
+- GitHub: Started using `GH_TOKEN` environment variable instead of `GITHUB_TOKEN`,
   see [Authenticate to GitHub in GitHub Actions].
-- Refactored codebase to become a real Python package
-- CI: Added GHA workflow invoking `poe check`, and Dependabot configuration
+- Project: Refactored codebase to become a real Python package
+- Project: Added CI/GHA workflow invoking `poe check`, and Dependabot configuration
 - GitHub: Refactored current adapter code into `rapporto.github`, to accompany
   including other adapters
-- Added documentation using Sphinx and PyData Sphinx Theme, and RTD.
+- Project: Added documentation using Sphinx and PyData Sphinx Theme, and RTD.
   See [Rapporto Documentation].
-- Slack: Added conversation exporter. Thanks, @WalBeh.
-- Slack: Refactored CLI to use Click
-- GitHub: Added `GitHubAttentionReport`, to report about important items
+- Slack/Export: Added conversation exporter. Thanks, @WalBeh.
+- Slack/Export: Refactored CLI to use Click
+- GitHub/Attention: Added `GitHubAttentionReport`, to report about important items
   that deserve your attention, bugs first.
 - GitHub: Make options optional, to report about the complete corpus
 - GitHub: Display full project names `<org>/<project>` within Markdown links
@@ -55,18 +55,18 @@
 [Rapporto Documentation]: https://rapporto.readthedocs.io/
 
 ## v0.0.2, 2025-02-17
-- Fixed link templating API vs. HTML
-- Feature: Accept year-of-week time range format like `2025W06`
-- Added subcommand "qa", for reporting about PR failures
-- Added logging
-- Fixed using GITHUB_TOKEN only if it's defined
-- Improved documentation
-- Markdown: Sanitized link titles that include `[]` brackets
-- Report: Improved layout
+- GitHub/API: Fixed link templating API vs. HTML
+- UX: Accept year-of-week time range format like `2025W06`
+- GitHub/Actions: Added subcommand "qa", for reporting about PR failures
+- Infra: Added logging
+- GitHub: Fixed using GITHUB_TOKEN only if it's defined
+- Project: Improved documentation
+- GitHub/Activity: Markdown: Sanitized link titles that include `[]` brackets
+- GitHub/Activity: Improved report layout
 
 ## v0.0.1, 2025-01-21
-- Added command-line interface (CLI).
-- Added "top/significant changes" feature, roughly based on those PR attributes:
+- GitHub/Activity: Added command-line interface (CLI).
+- GitHub/Activity: Added "top/significant changes" feature, roughly based on those PR attributes:
   ```
   comments	0
   review_comments	0
@@ -77,7 +77,7 @@
   ```
 
 ## v0.0.0, 2025-01-20
-- Made it work by translating GitHub search queries into Python code.
+- GitHub/Activity: Made it work by translating GitHub search queries into Python code.
   ```text
   "org:python author:AA-Turner created:2025-01-01..2025-01-31 is:issue"
   "org:python author:AA-Turner created:2025-01-01..2025-01-31 is:pr"
