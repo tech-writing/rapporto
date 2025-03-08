@@ -46,6 +46,7 @@ class GitHubAttentionReport:
 
     label_section_map: t.ClassVar[t.OrderedDict[str, str]] = OrderedDict(
         bug="Bugs",
+        incident="Incidents",
         important="Important",
         stale="Stale",
         others="Others",
@@ -53,6 +54,7 @@ class GitHubAttentionReport:
 
     label_aliases: t.ClassVar[t.Dict[str, t.List[str]]] = {
         "bug": ["type-bug", "type-crash", "type: Bug", "type: bug"],
+        "incident": ["type: Incident"],
     }
 
     def __init__(self, inquiry: GitHubInquiry):
