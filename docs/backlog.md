@@ -1,10 +1,8 @@
 # Backlog
 
 ## Iteration +1
-- GitHub/Attention: »Apparently, nothing significant happened yet. Have an easy day.«
-  https://www.youtube.com/watch?v=neg7yhoZgdw
 - Docs about end-to-end automation
-- GitHub/Activity: Permit running on multiple organizations
+  Advise about GH tokens and caching, re. `http_cache.sqlite`
 - `rapporto report` without `--github-repository` should iterate **all** repositories
 - Bugfixing and refactoring: Aika and Pueblo
 - Absorb PyGource
@@ -20,6 +18,8 @@
 - GitHub: Search items in specific columns (e.g. Blocked By) of specific boards
 - GitHub: Search items with significant amounts of reactions
 - GitHub: Search items with significant (amount or length of) comments
+- GitHub: Search items with significant (amount or length of) inbound links
+  Example: https://github.com/crate/crate/issues/10063
 - GitHub: Search items with EPIC or other keywords in its titles
 - GitHub: Search items with people assignments
 - GitHub/API: On errors, the JSON response includes the reason as an
@@ -92,3 +92,4 @@
 - GitHub/Actions: Currently lacks parameter `--when`
 - GitHub/Activity: Section about "Top issues"
 - Shell/Daily: Interleave CI reports
+- GitHub/Activity: Permit running on multiple organizations

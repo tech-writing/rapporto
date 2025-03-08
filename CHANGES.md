@@ -1,12 +1,12 @@
 # Change log
 
 ## In progress
-- GitHub/Bugs: Compare labels per lower-case
-- GitHub/Bugs: Added label "incidents", considering as important
-- Shell (Slack/Weekly): Improved preamble, adding "Producer" field
+- GitHub/Attention: Compare labels per lower-case
+- GitHub/Attention: Added label "incidents", considering as important
 - GitHub/Attention: Improved labels processing
-- Shell/Notify: Fixed invocation without `--zap=`
 - GitHub/Activity: Accept inquiring multiple organizations and authors
+- Shell/Notify: Fixed invocation without `--zap=`
+- Shell/Notify: Improved preamble, adding "Producer" field
 
 ## v0.4.0, 2025-03-05
 - GitHub/Attention: Also display `state==closed` items, formatting them
