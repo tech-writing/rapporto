@@ -22,12 +22,13 @@ class GitHubAttentionQueryBuilder(GitHubQueryBuilder):
 
     labels: t.ClassVar[t.List[str]] = [
         "bug",  # GitHub standard.
-        "important",  # CrateDB.
-        "stale",  # CrateDB.
+        "important",
+        "incident",
+        "stale",
         "type-bug",  # CPython
         "type-crash",  # CPython
-        "type: Bug",  # CrateDB.
-        "type: bug",  # CrateDB.
+        "type: bug",
+        "type: incident",
     ]
 
     def query(self):
@@ -53,8 +54,8 @@ class GitHubAttentionReport:
     )
 
     label_aliases: t.ClassVar[t.Dict[str, t.List[str]]] = {
-        "bug": ["type-bug", "type-crash", "type: Bug", "type: bug"],
-        "incident": ["type: Incident"],
+        "bug": ["type-bug", "type-crash", "type: bug"],
+        "incident": ["type: incident"],
     }
 
     def __init__(self, inquiry: GitHubInquiry):
@@ -77,9 +78,9 @@ class GitHubAttentionReport:
         Whether the given item includes a relevant label.
         """
         for label in item.labels:
+            label_name = label.name.lower()
             for label_key in self.label_section_map.keys():
                 label_key = label_key.lower()
-                label_name = label.name.lower()
                 if label_name == label_key or label_name in self.label_aliases.get(label_key, []):
                     # It's easier for the downstream renderer when using canonical category labels.
                     label.category = label_key
