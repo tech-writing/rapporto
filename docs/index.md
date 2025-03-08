@@ -15,14 +15,6 @@ tool/index
 project/index
 ```
 
-```{toctree}
-:maxdepth: 1
-:hidden:
-
-readme
-```
-
-
 ## Features
 
 :DWIM:
