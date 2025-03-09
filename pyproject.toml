@@ -211,6 +211,7 @@ lint.per-file-ignores."tests/*" = [
 addopts = """
   -rfEXs -p pytester --strict-markers --verbosity=3
   --cov --cov-report=term-missing --cov-report=xml
+  -m "not nondefault"
   """
 minversion = "2.0"
 log_level = "DEBUG"
@@ -224,6 +225,7 @@ testpaths = [
 ]
 xfail_strict = true
 markers = [
+  "nondefault",
 ]
 
 [tool.coverage.run]
