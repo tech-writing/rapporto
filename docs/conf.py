@@ -9,7 +9,7 @@
 # ruff: noqa: ERA001
 
 project = "Rapporto"
-copyright = "2025, The Panodata Developers"  # noqa: A001
+copyright = "2013-2025, The Panodata Developers"  # noqa: A001
 author = "The Panodata Developers"
 
 # -- General configuration ---------------------------------------------------
@@ -76,6 +76,7 @@ html_theme_options = {
     "navbar_align": "left",
     "show_toc_level": 1,
     "use_edit_page_button": True,
+    "header_links_before_dropdown": 9,
 }
 
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/source-buttons.html#github

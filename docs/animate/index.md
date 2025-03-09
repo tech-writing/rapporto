@@ -1,4 +1,4 @@
-# Animate
+# Animations
 
 Use Rapporto for animating time series information acquired from different sources.
 
