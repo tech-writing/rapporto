@@ -1,6 +1,8 @@
 # Change log
 
 ## In progress
+
+## v0.5.0, 2025-03-09
 - GitHub/Attention: Compare labels per lower-case
 - GitHub/Attention: Added label "incidents", considering as important
 - GitHub/Attention: Improved labels processing
