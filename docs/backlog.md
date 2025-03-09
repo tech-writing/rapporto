@@ -1,7 +1,6 @@
 # Backlog
 
 ## Iteration +1
-- Animate: Disable tests by default
 - Shell/Notify: Split root message into root+preamble
 - Docs about end-to-end automation
   Advise about GH tokens and caching, re. `http_cache.sqlite`
@@ -95,3 +94,4 @@
 - `rapporto report` without `--github-repository` should iterate **all** repositories
 - Absorb PyGource. https://github.com/cicerops/pygource
 - Docs: Sandbox
+- Animate: Disable tests by default
