@@ -36,6 +36,11 @@ If you can't use `uv`, use the [pipx] package manager.
 pipx install rapporto
 ```
 
+## Development
+
+In order to install Rapporto for hacking on it, see relevant instructions
+about setting up a development {ref}`sandbox`.
+
 
 [pipx]: https://pipx.pypa.io/
 [PyPI]: https://en.wikipedia.org/wiki/Pypi
