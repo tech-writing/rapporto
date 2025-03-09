@@ -1,8 +1,13 @@
 # Backlog
 
 ## Iteration +1
-- Docs about end-to-end automation
-  Advise about GH tokens and caching, re. `http_cache.sqlite`
+- Refinement: HTTP caching and `http_cache.sqlite`
+  - Docs: Educate about it
+  - Possibly add CLI option to purge the cache
+  - Relocate cache file to user cache directory
+- Docs: Advise about running on CI
+  - GH tokens
+  - Persist cache file `http_cache.sqlite` across invocations
 - Bugfixing and refactoring: Aika and Pueblo
 - Absorb Manticore extensions as CLI utilities
   https://github.com/tech-writing/manticore-ext
