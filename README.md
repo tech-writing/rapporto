@@ -21,6 +21,10 @@ See [Rapporto Installation].
 
 See [Rapporto Sources] and [Rapporto Reports].
 
+## Contribute
+
+See [Rapporto Sandbox].
+
 ## Quick links
 
 » [Documentation]
@@ -39,6 +43,7 @@ See [Rapporto Sources] and [Rapporto Reports].
 [License]: https://github.com/tech-writing/rapporto/blob/main/LICENSE
 [PyPI]: https://pypi.org/project/rapporto/
 [Rapporto Installation]: https://rapporto.readthedocs.io/install.html
+[Rapporto Sandbox]: https://rapporto.readthedocs.io/project/sandbox.html
 [Rapporto Sources]: https://rapporto.readthedocs.io/source/
 [Rapporto Reports]: https://rapporto.readthedocs.io/report/
 [Source code]: https://github.com/tech-writing/rapporto

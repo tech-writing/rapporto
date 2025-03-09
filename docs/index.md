@@ -108,7 +108,8 @@ rapporto slack export https://acme.slack.com/archives/D018V8WDABA/p1738873838427
 ## Contribute
 
 Contributions are very much welcome. The program is still in its infancy,
-and needs all support it can get. It is [managed on GitHub].
+and needs all support it can get. It is [managed on GitHub], and provides
+relevant instructions for installing a development {ref}`sandbox`.
 
 
 [DWIM]: https://en.wikipedia.org/wiki/DWIM
