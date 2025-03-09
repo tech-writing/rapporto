@@ -77,3 +77,18 @@ values.
 Using this incantation style, Rapporto supports a popular use case by running
 it unattended and recurrent, for example when hooked into a cron-like scheduler,
 providing maximum DWIM convenience to the caller.
+
+### GitHub Actions
+
+If you are using GitHub Actions to schedule recurrent invocations of Rapporto,
+according to how to [use secrets in GitHub Actions], supply them like this,
+effectively populating relevant environment variables. It is a snippet from a
+GitHub Actions workflow definition YAML file.
+```yaml
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+```
+
+
+[use secrets in GitHub Actions]: https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions

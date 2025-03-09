@@ -8,6 +8,7 @@
 - Docs: Advise about running on CI
   - GH tokens
   - Persist cache file `http_cache.sqlite` across invocations
+- Can it work together with `gh auth login --with-token`?
 - Bugfixing and refactoring: Aika and Pueblo
 - Absorb Manticore extensions as CLI utilities
   https://github.com/tech-writing/manticore-ext
