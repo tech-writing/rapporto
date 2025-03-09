@@ -7,7 +7,7 @@ _It's like the government is being run by BuzzFeed. [It's ridiculous!][BuzzFeed]
 
 ## Development
 
-It is not recommended that development of Rapporto takes place on a GitHub
+It is **not recommended** that development of Rapporto takes place on a GitHub
 organization account which includes private repositories. Its test suite,
 invoked by CI/GHA workflow jobs, together with a misconfiguration of API
 secrets, may reveal sensitive or confidential information.

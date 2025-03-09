@@ -1,6 +1,6 @@
 # Project
 
-Project information. This and that. Contributions are very much welcome.
+Project information. Contributions are welcome.
 
 :::{rubric} Operations
 :::
@@ -15,8 +15,8 @@ caveats
 ```{toctree}
 :maxdepth: 1
 
-Changelog <../changes>
-Backlog <../backlog>
 sandbox
+../changes
+../backlog
 prior-art
 ```
