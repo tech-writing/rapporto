@@ -1,7 +1,6 @@
 # Backlog
 
 ## Iteration +1
-- Shell/Notify: Split root message into root+preamble
 - Docs about end-to-end automation
   Advise about GH tokens and caching, re. `http_cache.sqlite`
 - Bugfixing and refactoring: Aika and Pueblo
@@ -9,6 +8,7 @@
   https://github.com/tech-writing/manticore-ext
 
 ## Iteration +2
+- Notify/Preamble: Include link to Slack channel, not just the ID
 - Options: Program currently understands `--slack-token=`, but lacks `--github-token=`
 - Configuration: Per `[tool]` section in `pyproject.toml`
 - General: Summaries, using the excellent `llm` package
@@ -95,3 +95,4 @@
 - Absorb PyGource. https://github.com/cicerops/pygource
 - Docs: Sandbox
 - Animate: Disable tests by default
+- Shell/Notify: Split root message into root+preamble

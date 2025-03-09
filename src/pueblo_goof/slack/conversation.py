@@ -281,3 +281,12 @@ class SlackConversation:
         response = self.webclient.chat_delete(channel=self.channel_id, ts=identifier_effective)
         logger.info(f"Deleted message: {response['ts']}")
         return response
+
+    def get_permalink(self, message_id: str) -> str:
+        """
+        Retrieve a permalink URL for a specific message.
+
+        https://api.slack.com/methods/chat.getPermalink
+        """
+        response = self.webclient.chat_getPermalink(channel=self.channel_id, message_ts=message_id)
+        return response.data["permalink"]

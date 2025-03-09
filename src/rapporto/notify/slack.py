@@ -22,6 +22,7 @@ class SlackWeekly:
     """
 
     ROOT_EVENT = "qabot_root_created"
+    PREAMBLE_EVENT = "qabot_preamble_created"
     ITEM_EVENT = "qabot_item_created"
     AUTHOR = "qa-bot"
 
@@ -43,10 +44,10 @@ class SlackWeekly:
 
     def seed(self, just_created: bool = False):
         """
-        Seed the root message.
+        Create/update and seed the conversation.
         """
 
-        logger.info(f"Creating or updating root message for week {self.week}")
+        logger.info(f"Creating or updating conversation for calendar week: {self.week}")
 
         message = self.conversation.find_message_by_metadata(
             self.conversation.messages(), type="root", week=self.week
@@ -64,30 +65,42 @@ class SlackWeekly:
                 ts=self.root_id, markdown=self.root_markdown, metadata=metadata
             )
         else:
-            # Prevent running in circles.
-            if just_created:
-                return
-
-            # Submit the root / seed message.
-            self.conversation.send(
+            # Submit the root message.
+            response = self.conversation.send(
                 markdown=self.root_markdown, event=self.ROOT_EVENT, metadata=metadata
             )
-            self.seed(just_created=True)
+            self.root_id = response["ts"]
+            if self.root_id is None:
+                raise KeyError("Root message was not created")
+
+        # Submit or update the preamble message.
+        preamble = DailyItem(type="preamble", day=self.week, markdown=self.preamble_markdown)
+        self.create_or_update_item(item=preamble, msg_type="preamble", event=self.PREAMBLE_EVENT)
 
     @property
     def root_markdown(self):
         """
         The message body for the root message, in Markdown format.
         """
+        return f"# qa-bot {self.week}"
+
+    @property
+    def preamble_markdown(self):
+        """
+        The message body for the preamble message, in Markdown format.
+        """
         timestamp = dt.datetime.now().replace(microsecond=0).isoformat()
-        rapporto_link = "[Rapporto](https://rapporto.readthedocs.io/)"
+        conversation_link = (
+            self.root_id and f"[🔗]({self.conversation.get_permalink(self.root_id)})"
+        ) or ""
+        changelog_link = "[🔗](https://rapporto.readthedocs.io/changes.html)"
         items = [
             f"**Week:** {self.week}",
             f"**Updated:** {timestamp}",
-            f"**Message:** {self.root_id}",
-            f"**Producer:** {rapporto_link} v{__version__}",
+            f"**Root message:** {self.root_id}  {conversation_link}",
+            f"**Producer:** Rapporto v{__version__}  {changelog_link}",
         ]
-        return "# qa-bot ready\n\n" + "\n".join(items)
+        return "\n".join(items)
 
     def render(self):
         weekly = WeeklyReport(
@@ -98,38 +111,43 @@ class SlackWeekly:
         weekly.process()
         for daily_report in weekly.dailies:
             for daily_item in daily_report.items:
-                key = f"{daily_item.type}_{daily_item.day}"
-                self.create_or_update_item(key, daily_item)
+                self.create_or_update_item(daily_item)
 
-    def create_or_update_item(self, key: str, item: DailyItem):
+    def create_or_update_item(
+        self, item: DailyItem, msg_type: str = "item", event: str = ITEM_EVENT
+    ):
         """
         Create or update a Slack message representing a DailyItem.
 
         TODO: Add timestamp fields to metadata, and also update them on Slack's `update` operations.
         TODO: Generalize to also use with conversation's `seed` operation.
         """
+        key = f"{item.type}_{item.day}"
+
         if self.root_id is None:
             raise KeyError("Unable to create items without root message")
         logger.info(f"Creating or updating reply for key: {key}")
         message = self.conversation.find_message_by_metadata(
-            self.conversation.replies(ts=self.root_id), type="item", key=key
+            self.conversation.replies(ts=self.root_id), type=msg_type, key=key
         )
         metadata = {
             "key": key,
-            "type": "item",
+            "type": msg_type,
             "author": self.AUTHOR,
             "week": self.week,
             "day": item.day,
         }
         if message:
             message_id = message["ts"]
-            self.conversation.update(ts=message_id, markdown=item.markdown, metadata=metadata)
-            logger.info(f"Updated message for key: {key}")
+            logger.info(f"Updating message with key: {key}")
+            return self.conversation.update(
+                ts=message_id, markdown=item.markdown, metadata=metadata
+            )
         else:
-            self.conversation.send(
+            logger.info(f"Sending message with key: {key}")
+            return self.conversation.send(
                 markdown=item.markdown,
                 reply_to=self.root_id,
-                event=self.ITEM_EVENT,
+                event=event,
                 metadata=metadata,
             )
-            logger.info(f"Created message for key: {key}")

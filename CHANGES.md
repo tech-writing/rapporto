@@ -1,6 +1,8 @@
 # Changelog
 
 ## In progress
+- Shell/Notify: Split root message into root+preamble, including links
+  to root message and producer.
 
 ## v0.5.0, 2025-03-09
 - GitHub/Attention: Compare labels per lower-case
