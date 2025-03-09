@@ -5,6 +5,7 @@
   to root message and producer.
 - Documentation: Added dedicated pages about sandbox installation,
   and text vs. slack reports
+- Source/Changes: Added change log aggregator from _Goof suite_
 
 ## v0.5.0, 2025-03-09
 - GitHub/Attention: Compare labels per lower-case
@@ -16,7 +17,7 @@
 - Shell/Notify: Fixed invocation without `--zap=`
 - Shell/Notify: Improved preamble, adding "Producer" field
 - Shell/Report: Made `--github-repository` option optional
-- Shell/Animate: Added PyGource renderer from _goof suite_
+- Shell/Animate: Added PyGource renderer from _Goof suite_
 
 ## v0.4.0, 2025-03-05
 - GitHub/Attention: Also display `state==closed` items, formatting them

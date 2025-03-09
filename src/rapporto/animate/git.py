@@ -16,6 +16,7 @@ Synopsis::
 References:
 - https://gource.io/
 - https://github.com/acaudwell/Gource
+- zt.manticore.ext.gource
 """
 
 # Relax linter.
