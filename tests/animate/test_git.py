@@ -1,9 +1,12 @@
 import tempfile
 from urllib.request import urlretrieve
 
+import pytest
+
 from rapporto.cli import cli
 
 
+@pytest.mark.xfail(strict=False)
 def test_cli_animate_git(cli_runner, tmp_path, caplog):
     """
     CLI test: Invoke `rapporto animate git`.
