@@ -35,6 +35,7 @@ in which case the program will assume the current day or calendar week.
 Note that many other options are also optional. Just omit them in order to
 expand the search scope.
 
+(github-actions)=
 ### Actions report
 Report about activities of GitHub Actions workflow runs, mostly failing ones.
 ```shell
@@ -42,6 +43,7 @@ rapporto github actions --repository="acme/acme-examples"
 rapporto github actions --repositories-file="acme-repositories.txt"
 ```
 
+(github-activity)=
 ### Activity report
 Report about activities of individual authors.
 ```shell
@@ -54,6 +56,7 @@ They will be combined per `or`.
 rapporto github activity --organization="torvalds,subsurface" --author="torvalds,bstoeger" --when="2020W40"
 ```
 
+(github-attention)=
 ### Attention report
 Report about important items that deserve your attention, bugs first.
 ```shell
