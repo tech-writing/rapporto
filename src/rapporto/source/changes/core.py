@@ -249,17 +249,17 @@ class ChangesAggregator:
             os.makedirs(summary_path)
         project_names = [project.name for project in self.projects]
         project_names.sort()
-        f = open(summary_file, "w")
-        f.write(rest_header("Release notes", "zt.manticore.ext.changes"))
-        f.write("\n.. include:: ../global/manticore-links.rst\n\n")
+        # f = open(summary_file, "w")
+        f = sys.stdout
+        f.write(rest_header("Release notes", "rapporto"))
         f.write(
-            "Aggregated release notes across all projects ``CHANGES.rst`` "
-            "in reverse chronological order as an activity stream.\n\n"
+            "Aggregated release notes across multiple projects' change log files\n"
+            "in reverse chronological order, to be read as an activity stream.\n\n"
         )
-        f.write("project names: ")
+        f.write("Project names: ")
         f.write(", ".join(project_names))
-        f.write("\n\n")
-        f.write(self.get_timeline_widget())
+        # f.write("\n\n")
+        # f.write(self.get_timeline_widget())
         f.write("\n\n\n")
 
         changes = copy.copy(self.changes)
@@ -359,6 +359,8 @@ Timeline data: :download:`changes.js`.
 
     def run(self):
         self.compute_changes()
+
+    def print(self):
         self.write_summary_rst()
         self.write_summary_js()
 
@@ -369,5 +371,5 @@ def aggregate(source_path, summary_path):
     logger.info(f"Input path: {ca.project_path}")
     logger.info(f"Output path: {ca.summary_path}")
     ca.run()
-    # pprint(ca.changes)
     logger.info("Ready: Found %s changes in %s projects" % (len(ca.changes), len(ca.projects)))
+    ca.print()
