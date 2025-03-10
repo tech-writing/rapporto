@@ -1,6 +1,7 @@
 import datetime
 import os
 from io import StringIO
+from pathlib import Path
 
 project_blacklist = ["gitstats"]
 
@@ -13,28 +14,35 @@ class Project:
         self.changes_file = None
 
     def __str__(self):
-        return "zt.manticore.Project={0}".format(self.name)
+        return "Project={0}".format(self.name)
 
     def __repr__(self):
         return str(self)
 
 
+def mkproject(path: str):
+    if os.path.isdir(path):
+        subdirs = os.listdir(path)
+        if ".svn" in subdirs:
+            vcs = "svn"
+        elif ".git" in subdirs:
+            vcs = "git"
+        else:
+            raise FileNotFoundError(f"Project is not a VCS: {path}")
+        p = Path(path).absolute()
+        project = Project(p.name, path, vcs)
+        return project
+    else:
+        raise FileNotFoundError(f"Project is not a path: {path}")
+
+
 def walk_projects(source_directory):
-    """Scans all main level directories in the projects directory"""
+    """Scan all main level directories in the projects directory"""
     for project_name in sorted(os.listdir(source_directory)):
         if project_name in project_blacklist:
             continue
         project_path = os.path.join(source_directory, project_name)
-        if os.path.isdir(project_path):
-            subdirs = os.listdir(project_path)
-            vcs = None
-            if ".svn" in subdirs:
-                vcs = "svn"
-            if ".git" in subdirs:
-                vcs = "git"
-            if vcs:
-                project = Project(project_name, project_path, vcs)
-                yield project
+        yield mkproject(project_path)
 
 
 def now():

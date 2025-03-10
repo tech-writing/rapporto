@@ -16,7 +16,7 @@ from collections import namedtuple
 from operator import attrgetter
 from pathlib import Path
 
-from .util import rest_header, walk_projects
+from .util import mkproject, rest_header, walk_projects
 
 HACKS: t.Dict[str, t.Dict[str, str]] = {
     "project_aliases": {
@@ -155,7 +155,14 @@ class ChangesAggregator:
 
     def __init__(self, project_path, summary_path):
         # configuration data
-        self.filename_choices = ["CHANGES.rst", "CHANGES.txt", "CHANGES"]
+        self.filename_choices = [
+            "CHANGES.rst",
+            "CHANGELOG.rst",
+            "CHANGES.txt",
+            "CHANGELOG.txt",
+            "CHANGES",
+            "HISTORY",
+        ]
         self.project_path = project_path
         self.summary_path = summary_path
 
@@ -165,7 +172,12 @@ class ChangesAggregator:
 
     def walk_projects_changes_files(self):
         """Scans all main level directories in the projects directory for a 'CHANGES.rst' file"""
-        for project in walk_projects(self.project_path):
+        p = mkproject(self.project_path)
+        if p is None:
+            projects = walk_projects(self.project_path)
+        else:
+            projects = [p]
+        for project in projects:
             possible_files = glob.glob(project.path + "/*") + glob.glob(project.path + "/*/*")
             changes_files_found = [
                 changes_file
@@ -351,12 +363,11 @@ Timeline data: :download:`changes.js`.
         self.write_summary_js()
 
 
-def aggregate():
+def aggregate(source_path, summary_path):
     logger.info("Computing aggregated CHANGES and summarizing in reStructuredText format")
-    source_path = sys.argv[1]
-    summary_path = sys.argv[2]
     ca = ChangesAggregator(source_path, summary_path)
-    logger.info("Output path will be '%s'" % ca.summary_path)
+    logger.info(f"Input path: {ca.project_path}")
+    logger.info(f"Output path: {ca.summary_path}")
     ca.run()
     # pprint(ca.changes)
     logger.info("Ready: Found %s changes in %s projects" % (len(ca.changes), len(ca.projects)))
