@@ -1,6 +1,8 @@
 # Changelog
 
 ## In progress
+
+## v0.6.0, 2025-03-11
 - Shell/Notify: Split root message into root+preamble, including links
   to root message and producer.
 - Documentation: Added dedicated pages about sandbox installation,
