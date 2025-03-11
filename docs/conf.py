@@ -9,7 +9,7 @@
 # ruff: noqa: ERA001
 
 project = "Rapporto"
-copyright = "2013-2025, The Panodata Developers"  # noqa: A001
+copyright = "2011-2025, The Panodata Developers"  # noqa: A001
 author = "The Panodata Developers"
 
 # -- General configuration ---------------------------------------------------
