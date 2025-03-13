@@ -94,11 +94,13 @@ class SlackWeekly:
             self.root_id and f"[🔗]({self.conversation.get_permalink(self.root_id)})"
         ) or ""
         changelog_link = "[🔗](https://rapporto.readthedocs.io/changes.html)"
+        caveats_link = "[🔗](https://rapporto.readthedocs.io/project/caveats.html)"
         items = [
             f"**Week:** {self.week}",
             f"**Updated:** {timestamp}",
             f"**Root message:** {self.root_id}  {conversation_link}",
             f"**Producer:** Rapporto v{__version__}  {changelog_link}",
+            f"**Caveats:** Use responsibly.  {caveats_link}",
         ]
         return "\n".join(items)
 

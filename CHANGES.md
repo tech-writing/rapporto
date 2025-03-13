@@ -1,6 +1,7 @@
 # Changelog
 
 ## In progress
+- Shell/Notify: Add reference about caveats page to weekly report's preamble
 
 ## v0.6.0, 2025-03-11
 - Shell/Notify: Split root message into root+preamble, including links
