@@ -33,6 +33,7 @@
 - `github-backup` can do "Exceeded rate limit of 5000 requests;
   waiting 77 seconds to reset". Do we also need it?
 - UI/Console: Spice up Markdown output using `rich` and friends
+- Changes: https://github.com/sbstjn/timesheet.js
 
 ## Iteration +3
 - Data: Identify items with high conversation activity (comment frequency, etc.)
