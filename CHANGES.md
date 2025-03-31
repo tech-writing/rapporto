@@ -1,7 +1,8 @@
 # Changelog
 
 ## In progress
-- Shell/Notify: Add reference about caveats page to weekly report's preamble
+- Shell/Notify: Added reference about caveats page to weekly report's preamble
+- GitHub/Actions: Fixed deduplication for multiple different workflows per repository
 
 ## v0.6.0, 2025-03-11
 - Shell/Notify: Split root message into root+preamble, including links

@@ -37,7 +37,7 @@ class GitHubActionsReport:
         seen = set()
         for run in self.runs_failed:
             # Filter duplicates.
-            key = f"{run.repository.full_name}-{run.head_branch}"
+            key = f"{run.repository.full_name}-{run.head_branch}-{run.name}"
             if key in seen:
                 continue
 
@@ -52,13 +52,13 @@ class GitHubActionsReport:
         """
         Find out if a given run has others that succeeded afterward.
         """
-        for pr in self.runs_pr_success:
+        for pr_run in self.runs_pr_success:
             if (
-                run.repository.full_name == pr.repository.full_name
-                and run.head_branch == pr.head_branch
+                run.repository.full_name == pr_run.repository.full_name
+                and run.head_branch == pr_run.head_branch
+                and run.name == pr_run.name
             ):
-                if pr.conclusion == "success":
-                    return True
+                return True
         return False
 
     @property
