@@ -1,6 +1,8 @@
 # Changelog
 
 ## In progress
+
+## v0.6.1, 2025-04-01
 - Shell/Notify: Added reference about caveats page to weekly report's preamble
 - GitHub/Actions: Fixed deduplication for multiple different workflows per repository
 
