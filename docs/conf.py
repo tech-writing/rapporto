@@ -6,7 +6,6 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-# ruff: noqa: ERA001
 
 project = "Rapporto"
 copyright = "2011-2025, The Panodata Developers"  # noqa: A001
