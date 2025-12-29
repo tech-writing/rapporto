@@ -105,7 +105,7 @@ dependencies = [
   "furl<3",
   "github-backup<1",
   "importlib-metadata; python_version<'3.8'",
-  "markdown-to-mrkdwn<0.3",
+  "markdown-to-mrkdwn<0.4",
   "munch<5",
   "opsgenie-sdk<3",
   "pueblo<1",
