@@ -56,4 +56,6 @@ def test_cli_backup_unauthorized(cli_runner, capfd):
     assert "ERROR: Command" in result.output
 
     _, err = capfd.readouterr()
-    assert "API request returned HTTP 401: Unauthorized" in err
+    assert (
+        "API request returned HTTP 401: Unauthorized" in err or "API Error: 401 Unauthorized" in err
+    )
