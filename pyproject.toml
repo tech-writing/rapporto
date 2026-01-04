@@ -191,8 +191,6 @@ lint.extend-ignore = [
   "B905",
   "C408",   # Unnecessary `dict()` call (rewrite as a literal)
   "ERA001", # Found commented-out code.
-  # df is a bad variable name. Be kinder to your future self.
-  "PD901",
   # Unnecessary variable assignment before `return` statement
   "RET504",
   # Unnecessary `elif` after `return` statement
