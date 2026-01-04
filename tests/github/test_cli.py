@@ -35,12 +35,12 @@ def test_cli_att(cli_runner):
     """
     result = cli_runner.invoke(
         cli,
-        args="gh att --organization=tech-writing --when=2025W08",
+        args="gh att --organization=tech-writing --when=2025W09",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
-    assert "# Attention report 2025W08" in result.output
-    assert "sphinx-design-elements" in result.output
+    assert "# Attention report 2025W09" in result.output
+    assert "rapporto" in result.output
 
 
 def test_cli_backup_unauthorized(cli_runner, capfd):
