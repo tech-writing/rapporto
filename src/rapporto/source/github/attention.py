@@ -101,7 +101,7 @@ class GitHubAttentionReport:
             )
             link = f"[{title}]({item.html_url})"
             if is_closed:
-                line = f"- ~{link}~"
+                line = f"- ~~{link}~~"
             else:
                 line = f"- {link}"
             # line = f"- {link} {', '.join(labels)}"

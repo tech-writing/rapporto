@@ -1,6 +1,8 @@
 # Changelog
 
 ## In progress
+- Goof: Made Slack wrapper use double tildes `~~` to encode a ~~strikethrough~~,
+  see also [Markdown, Strikethrough, and Slack].
 
 ## v0.6.1, 2025-04-01
 - Shell/Notify: Added reference about caveats page to weekly report's preamble
@@ -106,3 +108,6 @@
   ```shell
   rapporto github activity --organization=python --author=AA-Turner --when="2025-01-01..2025-01-31"
   ```
+
+
+[Markdown, Strikethrough, and Slack]: https://daringfireball.net/linked/2015/11/05/markdown-strikethrough-slack
