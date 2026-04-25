@@ -116,6 +116,9 @@ goof slack send \
   --reply-to="https://acme.slack.com/archives/C08EF2NGZGB/p1740421792358899" \
   --message="hello"
 ```
+The message ID for this message URL is `1740421792.358899`: Just take the last
+URL path fragment, strip the leading `p`, and insert a dot before the last six
+digits (the microsecond portion).
 
 ### Delete
 
