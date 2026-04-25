@@ -1,6 +1,8 @@
 # Changelog
 
 ## In progress
+
+## v0.6.2, 2026-04-25
 - Goof: Made Slack wrapper use double tildes `~~` to encode a ~~strikethrough~~,
   see also [Markdown, Strikethrough, and Slack].
 
