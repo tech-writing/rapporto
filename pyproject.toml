@@ -101,7 +101,7 @@ dependencies = [
   "aika>=0.3.0,<0.4",
   "attrs<27",
   "click<9",
-  "click-aliases<2",
+  "click-aliases!=1.0.6,<2",
   "dataclasses-json<1",
   "furl<3",
   "github-backup<1",
