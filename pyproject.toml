@@ -110,7 +110,7 @@ dependencies = [
   "munch<5",
   "opsgenie-sdk<3",
   "pueblo<1",
-  "python-dateutil<3",
+  "python-dateutil<4",
   "pyyaml<7",
   "requests<3",
   "requests-cache<2",
